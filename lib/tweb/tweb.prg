@@ -24,8 +24,7 @@ function LoadTWeb( cPathPluggin )
 	
 	DEFAULT cPathPluggin TO TWEB_PATH
 	
-	cHtml := TWebLibs( cPathPluggin )
-	cHtml += TWebCss( cPathPluggin )
+	cHtml := TWebLibs( cPathPluggin )	
 	
 retu cHtml
 
@@ -36,8 +35,7 @@ function LoadTWebTables( cPathPluggin )
 	DEFAULT cPathPluggin TO TWEB_PATH
 	
 	cHtml := TWebLibs( cPathPluggin )
-	cHtml += TWebLibsTables( cPathPluggin )
-	//cHtml += TWebCss( cPathPluggin )
+	cHtml += TWebLibsTables( cPathPluggin )	
 	
 retu cHtml
 
@@ -60,7 +58,7 @@ return '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.m
 		
 function TWebLibsTables( cPathPluggin ) 	
 
-return 	'<link href="https://unpkg.com/bootstrap-table@1.15.5/dist/bootstrap-table.min.css" rel="stylesheet">' + ;
+return '<link href="https://unpkg.com/bootstrap-table@1.15.5/dist/bootstrap-table.min.css" rel="stylesheet">' + ;
 		'<script src="https://unpkg.com/bootstrap-table@1.15.5/dist/bootstrap-table.js"></script>' + ;
 		'<script src="https://unpkg.com/bootstrap-table@1.15.5/dist/extensions/print/bootstrap-table-print.min.js"></script>' + ;
 		'<script src="https://unpkg.com/tableexport.jquery.plugin/tableExport.min.js"></script>' + ;
@@ -72,9 +70,8 @@ function TWebCss( cPathPluggin )
 
 	LOCAL cHtml := '<style>'
 	
-	DEFAULT cPathPluggin TO TWEB_PATH
-	
-    //cHtml += Include( cPathPluggin + 'tweb.css' )
+	DEFAULT cPathPluggin TO TWEB_PATH	
+    
     cHtml += Memoread( AP_GetEnv( "PRGPATH" )  + cPathPluggin +  'tweb.css' )
        
     cHtml += '</style>'
