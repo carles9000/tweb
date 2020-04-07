@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+	<link rel="icon" href="images/tweb.png" type="image/x-icon" >
+	<link rel="shortcut icon" href="images/tweb.png" type="image/x-icon">	
+    <title>TWeb for mod_harbour</title>
+    <!-- jQyery Bootstrap core -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+	<style>
+		#mytable tr:hover {background-color: #ddd;}
+		#mytable tr:nth-child(even){background-color: #e0e6ff;}
+		#mytable { font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;border-collapse: collapse; width: 100%; }
+		#mytable thead { background-color: #007bff;color: white;}
+		
+		#mylogo {
+			vertical-align: middle;
+			margin-bottom: 8px;
+			margin-right: 10px;		
+		}
+	</style>	
+	
+  </head>
+  <body>
+    <div class="container">
+
+  <h1><img id="mylogo" src="images/tweb.png">TWEB for mod_harbour</h1>
+  <p class="lead">La manera mas fácil de diseñar pantallas para <span><a target="_blank_" href="https://github.com/FiveTechSoft/mod_harbour">mod Harbour</a></span> en la Web</p>
+  <hr>
+
+  <div class="panel-group" id="accordion">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Descripción</a>
+        </h4>
+      </div>
+      <div id="collapse1" class="panel-collapse collapse show">
+        <div class="panel-body">
+          <p><a target="_blank_" href="https://github.com/carles9000/tweb"><em>TWeb</em></a></span> fue portado para el entorno Génesis Profesional, pero se ha decido extraer toda la libreria para poderla usar independientemente.
+		  Las ventajas principales son:
+          <ul>
+            <li>Creación de pantallas facilmente usando sintaxis xBase</li>
+            <li>La base es  <span><a target="_blank_" href="https://getbootstrap.com/">Bootstrap</a></span>, ya que es uno de los frameworks mas populares usados en la web</li>
+            <li>Podeis usar numeros ejemplos que hay en la red por ejemplo en <span><a target="_blank_" href="https://www.w3schools.com/bootstrap4/">W3schools</a></span></li>
+            <li>Todos los fuentes estan disponibles, permitiendo modificar y recompilar en un HRB los cambios y usarlo al momento</li>
+            <li>Posibilidad de usar otros frameworks usando la misma metodologia</li>
+          </ul>
+          <h5>Nuestros comandos de siempre xBase (GET,SAY,COMBOBOX,CHECKBOX,...) disponibles ya para nuestros PRG en la Web !</h5>
+          <hr>
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Ejemplos</a>
+        </h4>
+      </div>
+      <div id="collapse2" class="panel-collapse collapse">
+        <div class="panel-body">
+          <table id="mytable" >
+            <thead>
+               <tr>
+                   <th width="200px">Prg</th>
+                   <th>Descripcion</th>                  
+               </tr>
+				<tbody>
+				
+					<tr>
+						<td><a target="_blank_" href="tutor.prg">Tutor.prg</a></td>
+						<td>Configuración básica para cargar el pluggin TWeb</td>						
+					</tr>
+					
+					<tr>
+						<td><a target="_blank_" href="tutor1.prg">Tutor1.prg</a></td>
+						<td>Nuestro primer GET !</td>						
+					</tr>
+					
+					<tr>
+						<td><a target="_blank_" href="tutor2.prg">Tutor2.prg</a></td>
+						<td>Como crear un grupo de controles en un formulario</td>						
+					</tr>	
+
+					<tr>
+						<td><a target="_blank_" href="tutor3.prg">Tutor3.prg</a></td>
+						<td>Formulario con múltiples controles activando modo diseño</td>						
+					</tr>	
+					
+					<tr>
+						<td><a target="_blank_" href="tutor4.prg">Tutor4.prg</a></td>
+						<td>Ejemplo Browse</td>						
+					</tr>	
+					
+					<tr>
+						<td><a target="_blank_" href="tutor5.prg">Tutor5.prg</a></td>
+						<td>Test Radio/Checkbox</td>						
+					</tr>	
+					
+					<tr>
+						<td><a target="_blank_" href="tutor6.prg">Tutor6.prg</a></td>
+						<td>Test Combobox</td>						
+					</tr>	
+					
+					<tr>
+						<td><a target="_blank_" href="tutor7.prg">Tutor7.prg</a></td>
+						<td>Manipulación de columnas. Experimentando responsive...</td>						
+					</tr>
+					
+					<tr>
+						<td><a target="_blank_" href="tutor8.prg">Tutor8.prg</a></td>
+						<td>Ejemplo Memo. Chequeando responsive</td>
+					</tr>					
+					
+				</tbody>				   
+            </thead>
+          </table>      
+        </div>
+      </div>
+    </div>
+  </div> 
+</div> <!-- /container -->
+
+</body></html>
