@@ -69,6 +69,7 @@
             <thead>
                <tr>
                    <th width="200px">Prg</th>
+                   <th width="50px">Code</th>
                    <th>Descripcion</th>                  
                </tr>
             </thead>
@@ -76,51 +77,61 @@
 			
 				<tr>
 					<td><a target="_blank_" href="tutor.prg">Tutor.prg</a></td>
+					<td><img src="images/tweb.png" onclick="View('tutor.prg')"></td>
 					<td>Configuración básica para cargar el pluggin TWeb</td>						
 				</tr>
 				
 				<tr>
 					<td><a target="_blank_" href="tutor1.prg">Tutor1.prg</a></td>
+					<td><img src="images/tweb.png" onclick="View('tutor1.prg')"></td>
 					<td>Nuestro primer GET !</td>						
 				</tr>
 				
 				<tr>
 					<td><a target="_blank_" href="tutor2.prg">Tutor2.prg</a></td>
+					<td><img src="images/tweb.png" onclick="View('tutor2.prg')"></td>
 					<td>Como crear un grupo de controles en un formulario</td>						
 				</tr>	
 
 				<tr>
 					<td><a target="_blank_" href="tutor3.prg">Tutor3.prg</a></td>
+					<td><img src="images/tweb.png" onclick="View('tutor3.prg')"></td>
 					<td>Formulario con múltiples controles activando modo diseño</td>						
 				</tr>	
 				
 				<tr>
-					<td><a target="_blank_" href="tutor4.prg">Tutor4.prg</a></td>
-					<td>Ejemplo Browse</td>						
+					<td><a target="_blank_" href="#">Tutor4.prg</a></td>
+					<td><img src="images/tweb.png" onclick="View('tutor4.prg')"></td>
+					<td>Ejemplo Browse (Not yet!)</td>						
 				</tr>	
 				
 				<tr>
 					<td><a target="_blank_" href="tutor5.prg">Tutor5.prg</a></td>
+					<td><img src="images/tweb.png" onclick="View('tutor5.prg')"></td>
 					<td>Test Radio/Checkbox</td>						
 				</tr>	
 				
 				<tr>
 					<td><a target="_blank_" href="tutor6.prg">Tutor6.prg</a></td>
+					<td><img src="images/tweb.png" onclick="View('tutor6.prg')"></td>
 					<td>Test Combobox</td>						
 				</tr>	
 				
 				<tr>
 					<td><a target="_blank_" href="tutor7.prg">Tutor7.prg</a></td>
+					<td><img src="images/tweb.png" onclick="View('tutor7.prg')"></td>
 					<td>Manipulación de columnas. Experimentando responsive...</td>						
 				</tr>
 				
 				<tr>
 					<td><a target="_blank_" href="tutor8.prg">Tutor8.prg</a></td>
+					<td><img src="images/tweb.png" onclick="View('tutor8.prg')"></td>
 					<td>Ejemplo Memo. Chequeando responsive</td>
 				</tr>	
 
 				<tr>
 					<td><a target="_blank_" href="tutor9.prg">Tutor9.prg</a></td>
+					<td><img src="images/tweb.png" onclick="View('tutor9.prg')"></td>
 					<td>Manejo de Folder</td>
 				</tr>						
 				
@@ -129,7 +140,62 @@
         </div>
       </div>
     </div>
+	
+	
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+          <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Source</a>
+        </h4>
+      </div>
+      <div id="collapse3" class="panel-collapse collapse">
+        <div class="panel-body">
+			Ep...
+		</div>
+	  </div>	
+	</div>
   </div> 
 </div> <!-- /container -->
+
+<div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Modal Heading</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div id="mySource" class="modal-body">
+        Modal body..
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+
+	function View( cFile ) {	
+		//var cFile = SON.stringify( { file: cFile } )
+		$.get( 'read.prg', cFile, function(data, status){
+			$('#mySource').html( data )
+			$('#myModal').modal('show');
+		})
+	}
+	
+
+
+</script>
+
+
+
 
 </body></html>
