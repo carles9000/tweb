@@ -25,8 +25,8 @@ METHOD New( oParent, cId, aItems, aValues, nGrid, cAction, cLabel  ) CLASS TWebS
 
 	::oParent 		:= oParent	
 	::cId			:= cId
-	::aItems 		:= aItems	//IF( valtype( aItems ) == 'A', aItems, {} )
-	::aValues		:= aValues	//IF( valtype( aValues ) == 'A' .AND. len( aValues ) == len( aItems ), aValues, aItems )
+	::aItems 		:= IF( valtype( aItems ) == 'A', aItems, {} )
+	::aValues		:= IF( valtype( aValues ) == 'A' .AND. len( aValues ) == len( aItems ), aValues, aItems )
 	::nGrid			:= nGrid
 	::cAction		:= cAction
 	::cLabel		:= cLabel

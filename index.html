@@ -77,63 +77,81 @@
 			
 				<tr>
 					<td><a target="_blank_" href="tutor.prg">Tutor.prg</a></td>
-					<td><img src="images/tweb.png" onclick="View('tutor.prg')"></td>
+					<td><img src="images/code.png" onclick="View('tutor.prg')"></td>
 					<td>Configuración básica para cargar el pluggin TWeb</td>						
 				</tr>
 				
 				<tr>
 					<td><a target="_blank_" href="tutor1.prg">Tutor1.prg</a></td>
-					<td><img src="images/tweb.png" onclick="View('tutor1.prg')"></td>
+					<td><img src="images/code.png" onclick="View('tutor1.prg')"></td>
 					<td>Nuestro primer GET !</td>						
 				</tr>
 				
 				<tr>
 					<td><a target="_blank_" href="tutor2.prg">Tutor2.prg</a></td>
-					<td><img src="images/tweb.png" onclick="View('tutor2.prg')"></td>
+					<td><img src="images/code.png" onclick="View('tutor2.prg')"></td>
 					<td>Como crear un grupo de controles en un formulario</td>						
 				</tr>	
 
 				<tr>
 					<td><a target="_blank_" href="tutor3.prg">Tutor3.prg</a></td>
-					<td><img src="images/tweb.png" onclick="View('tutor3.prg')"></td>
+					<td><img src="images/code.png" onclick="View('tutor3.prg')"></td>
 					<td>Formulario con múltiples controles activando modo diseño</td>						
 				</tr>	
 				
 				<tr>
-					<td><a target="_blank_" href="#">Tutor4.prg</a></td>
-					<td><img src="images/tweb.png" onclick="View('tutor4.prg')"></td>
-					<td>Ejemplo Browse (Not yet!)</td>						
-				</tr>	
+					<td><a target="_blank_" href="tutor4.prg">Tutor4.prg</a></td>
+					<td><img src="images/code.png" onclick="View('tutor4.prg')"></td>
+					<td>Ejemplo Browse</td>						
+				</tr>
+
+				<tr>
+					<td><a target="_blank_" href="tutor4b.prg">Tutor4b.prg</a></td>
+					<td><img src="images/code.png" onclick="View('tutor4b.prg')"></td>
+					<td>Ejemplo Browse, ampliado. Formateador de columnas, ancho, ordenacion</td>						
+				</tr>				
 				
 				<tr>
 					<td><a target="_blank_" href="tutor5.prg">Tutor5.prg</a></td>
-					<td><img src="images/tweb.png" onclick="View('tutor5.prg')"></td>
+					<td><img src="images/code.png" onclick="View('tutor5.prg')"></td>
 					<td>Test Radio/Checkbox</td>						
 				</tr>	
 				
 				<tr>
 					<td><a target="_blank_" href="tutor6.prg">Tutor6.prg</a></td>
-					<td><img src="images/tweb.png" onclick="View('tutor6.prg')"></td>
+					<td><img src="images/code.png" onclick="View('tutor6.prg')"></td>
 					<td>Test Combobox</td>						
 				</tr>	
 				
 				<tr>
 					<td><a target="_blank_" href="tutor7.prg">Tutor7.prg</a></td>
-					<td><img src="images/tweb.png" onclick="View('tutor7.prg')"></td>
+					<td><img src="images/code.png" onclick="View('tutor7.prg')"></td>
 					<td>Manipulación de columnas. Experimentando responsive...</td>						
 				</tr>
 				
 				<tr>
 					<td><a target="_blank_" href="tutor8.prg">Tutor8.prg</a></td>
-					<td><img src="images/tweb.png" onclick="View('tutor8.prg')"></td>
+					<td><img src="images/code.png" onclick="View('tutor8.prg')"></td>
 					<td>Ejemplo Memo. Chequeando responsive</td>
 				</tr>	
 
 				<tr>
 					<td><a target="_blank_" href="tutor9.prg">Tutor9.prg</a></td>
-					<td><img src="images/tweb.png" onclick="View('tutor9.prg')"></td>
+					<td><img src="images/code.png" onclick="View('tutor9.prg')"></td>
 					<td>Manejo de Folder</td>
 				</tr>						
+				
+				<tr>
+					<td><a target="_blank_" href="tutor10.prg">Tutor10.prg</a></td>
+					<td><img src="images/code.png" onclick="View('tutor10.prg')"></td>
+					<td>MsgServer(). Como crear una peticion al servidor pasando parámetros</td>
+				</tr>
+				
+				<tr>
+					<td><a target="_blank_" href="tutor10b.prg">Tutor10b.prg</a></td>
+					<td><img src="images/code.png" onclick="View('tutor10b.prg')"></td>
+					<td>MsgServer(). Recuperar valores de un registro del servidor</td>
+				</tr>				
 				
 			</tbody>				   
           </table>      
@@ -141,7 +159,7 @@
       </div>
     </div>
 	
-	
+	<!--
     <div class="panel panel-default">
       <div class="panel-heading">
         <h4 class="panel-title">
@@ -154,6 +172,7 @@
 		</div>
 	  </div>	
 	</div>
+	-->
   </div> 
 </div> <!-- /container -->
 
@@ -184,14 +203,13 @@
 <script>
 
 	function View( cFile ) {	
+		return null
 		//var cFile = SON.stringify( { file: cFile } )
 		$.get( 'read.prg', cFile, function(data, status){
 			$('#mySource').html( data )
 			$('#myModal').modal('show');
 		})
-	}
-	
-
+	}	
 
 </script>
 

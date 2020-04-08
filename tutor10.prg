@@ -9,9 +9,8 @@ function main()
 	LOAD TWEB
 
     DEFINE FORM o ID 'demo'	
-		o:lDessign := .F.
 		
-        HTML o INLINE '<h3>MyTitle</h3><hr>'
+        HTML o INLINE '<h3>Test MsgServer()</h3><hr>'
 
     INIT FORM o  		
        

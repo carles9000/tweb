@@ -10,7 +10,7 @@ function main()
 	
 	DEFINE FORM o ID 'demo'
 
-		HTML o INLINE '<h3>Test Browse</h3><hr>'
+		HTML o INLINE '<h3>Test Browse II</h3><hr>'
 		
 	INIT FORM o  			
 		
@@ -26,10 +26,10 @@ function main()
 			
 			DEFINE BROWSE oBrw ID 'ringo' HEIGHT 400 OF o
 			
-				ADD oCol TO oBrw ID 'last' 		HEADER 'Last'   
-				ADD oCol TO oBrw ID 'first'		HEADER 'First'  
-				ADD oCol TO oBrw ID 'street' 		HEADER 'Street' 
-				ADD oCol TO oBrw ID 'age' 	    HEADER 'Age'    
+                    ADD oCol TO oBrw ID 'last' 		HEADER 'Last'   ALIGN 'right'
+            		ADD oCol TO oBrw ID 'first'		HEADER 'First'  SORT
+            		ADD oCol TO oBrw ID 'street' 		HEADER 'Street' SORT
+            		ADD oCol TO oBrw ID 'age' 	    HEADER 'Age'    WIDTH 70 ALIGN 'center' FORMATTER 'ageFormatter'	   
 		END o
 		
 		HTML o
@@ -53,6 +53,14 @@ function main()
 					
 					oBrw.SetData( dat.rows ) 			
 				}
+				
+				function ageFormatter(value, row) {
+						
+					if ( row.age > 50 )
+						return '<i class="fa fa-star"></i> ' + value
+					else
+						return '<img src="images/ball_green.png"> ' + value									
+				}				
 
 				$(document).ready(function () {				
 					oBrw.Init()					
