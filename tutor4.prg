@@ -6,7 +6,9 @@ function main()
 
     LOCAL o, oCol, oBrw
 
-	LOAD TWEB TABLES
+	DEFINE WEB oWeb TITLE 'Test Browse' 
+		oWeb:lTables := .T.
+	INIT WEB oWeb
 	
 	DEFINE FORM o ID 'demo'
 

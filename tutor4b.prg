@@ -5,11 +5,17 @@
 function main()
 
     LOCAL o, oCol, oBrw
-
-	LOAD TWEB TABLES
+	LOCAL cHtml := ''
+	LOcAL oWeb
+	
+	
+	DEFINE WEB oWeb TITLE 'Test Browse'
+		oWeb:lTables := .T.
+	INIT WEB oWeb
 	
 	DEFINE FORM o ID 'demo'
 
+		HTML o INLINE cHtml
 		HTML o INLINE '<h3>Test Browse II</h3><hr>'
 		
 	INIT FORM o  			

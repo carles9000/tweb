@@ -3,6 +3,9 @@
 #xcommand LOAD TWEB => ?? LoadTWeb()
 #xcommand LOAD TWEB TABLES => ?? LoadTWebTables()
 
+#xcommand DEFINE WEB <oWeb> [ TITLE <cTitle>] [ ICON <cIcon>] [<init: INIT>] => <oWeb> := TWeb():New( [<cTitle>], [<cIcon>], [<.init.>] )
+#xcommand INIT WEB <oWeb> => <oWeb>:Activate()
+
 #xcommand DEFINE FORM <oForm> [ID <cId> ]=> <oForm> := TWebForm():New([<cId>])
 #xcommand INIT FORM <oForm> => <oForm>:InitForm()
 #xcommand END FORM <oForm> => ?? <oForm>:Activate()

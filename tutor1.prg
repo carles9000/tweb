@@ -5,8 +5,8 @@
 function main()
 
     LOCAL o
-
-	LOAD TWEB
+	
+	DEFINE WEB oWeb TITLE 'Tutor1' INIT
 
     DEFINE FORM o ID 'demo'	
 

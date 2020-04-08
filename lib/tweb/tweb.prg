@@ -1,6 +1,8 @@
 #define TWEB_VERSION 			'TWeb 0.7'
 #define TWEB_PATH 				'lib/tweb/'
 
+#xcommand ?? <cText> => AP_RPuts( <cText> )
+
 #include 'hbclass.ch'
 #include 'common.ch'
 
@@ -83,3 +85,62 @@ function TWebInclude( cPathPluggin )
 	DEFAULT cPathPluggin TO TWEB_PATH
 
 RETU '"' + HB_GetEnv( "PRGPATH" ) + '/' + cPathPluggin + 'tweb.ch' + '"'
+
+
+CLASS TWeb
+
+	DATA lTables					INIT .F.
+	DATA cTitle		 			
+	DATA cIcon 						
+	DATA cCharset					INIT ''
+	DATA lActivated				INIT .F.
+
+	METHOD New() 					CONSTRUCTOR
+	METHOD Activate()
+
+ENDCLASS 
+
+METHOD New( cTitle, cIcon, lInit ) CLASS TWeb
+
+	DEFAULT cTitle 	TO 'TWeb'
+	DEFAULT cIcon 		TO 'images/tweb.png'
+	DEFAULT lInit 		TO .F.
+	
+	::cTitle 	:= cTitle
+	::cIcon 	:= cIcon	
+	
+	IF lInit
+		::Activate()		
+	ENDIF
+
+RETU SELF
+
+METHOD Activate() CLASS TWeb
+
+	local cHtml := ''
+	
+	IF ::lActivated
+		retu nil
+	ENDIF
+
+
+	cHtml  := '<!DOCTYPE html>'
+	cHtml 	+= '<html>'
+	cHtml 	+= '<head>'
+	cHtml 	+= '<title>' + ::cTitle + '</title>'
+	cHtml	+= '<meta charset="' + ::cCharset + '">'			
+	cHtml 	+= '<meta http-equiv="X-UA-Compatible" content="IE=edge">'
+	cHtml 	+= '<meta name="viewport" content="width=device-width, initial-scale=1">'
+	cHtml 	+= '<link rel="shortcut icon" type="image/png" href="' + ::cIcon + '"/>'
+	
+	?? cHtml
+	
+	IF ::lTables
+		?? LoadTWebTables()
+	ELSE
+		?? LoadTWeb()	
+	ENDIF	
+	
+	::lActivated := .T.
+
+RETU NIL
