@@ -1,4 +1,12 @@
-#define TWEB_VERSION 			'TWeb 0.7'
+/*
+**  tweb.prg -- TWeb library form mod harbour
+**
+** (c) Carles Aubia, 2019-2020
+** Developed by Carles Aubia Floresvi carles9000@gmail.com
+** MIT license https://github.com/carles9000/tweb/blob/master/LICENSE
+*/
+
+#define TWEB_VERSION 			'TWeb 0.7a'
 #define TWEB_PATH 				'lib/tweb/'
 
 #xcommand ?? <cText> => AP_RPuts( <cText> )
@@ -53,9 +61,9 @@ return '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.m
 		'<link href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.0/animate.min.css" rel="stylesheet">' + ;		
 		'<script src="' + 'lib/notify/bootstrap-notify.min.js' + '"></script>' + ;
 		'<script src="' + 'lib/bootbox/bootbox.all.min.js"></script>' + ;
-		'<link href="' +  'lib/tweb/modgui.css' + '" rel="stylesheet">' + ;		
+		'<link href="'  + 'lib/tweb/modgui.css' + '" rel="stylesheet">' + ;		
 		'<script src="' + 'lib/tweb/modgui.js"></script>' + ;
-		'<link href="' +  'lib/tweb/tweb.css' + '" rel="stylesheet">' + ;		
+		'<link href="'  + 'lib/tweb/tweb.css' + '" rel="stylesheet">' + ;		
 		'<script src="' + 'lib/tweb/tweb.js' + '"></script>'
 		
 function TWebLibsTables( cPathPluggin ) 	
@@ -92,7 +100,7 @@ CLASS TWeb
 	DATA lTables					INIT .F.
 	DATA cTitle		 			
 	DATA cIcon 						
-	DATA cCharset					INIT ''
+	DATA cCharset					INIT 'utf-8'
 	DATA lActivated				INIT .F.
 
 	METHOD New() 					CONSTRUCTOR

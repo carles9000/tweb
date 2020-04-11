@@ -58,7 +58,7 @@ METHOD New( oParent, cId, nHeight, lSingleSelect, lMultiSelect, lClickSelect, lP
 	::lPrint 		:= lPrint
 	::lExport 		:= lExport
 	::lSearch 		:= lSearch
-	::lTools 		:= lTools			
+	::lTools 		:= lTools		
 
 	IF Valtype( oParent ) == 'O'	
 		oParent:AddControl( SELF )	
@@ -109,9 +109,11 @@ RETU NIL
 
 METHOD Activate() CLASS TWebBrowse
 
-	local oThis		:= SELF
-	local cHtml 	:= ''	
-	local cClass 	:= ''
+	local oThis			:= SELF
+	local cHtml 			:= ''	
+	local cClass 			:= ''
+	local nWidth  			:= 0	
+	local n, cField, hDef, aField
 	
 	if ::lSmall
 		cClass += 'table-sm '
@@ -123,8 +125,7 @@ METHOD Activate() CLASS TWebBrowse
 	
 	IF !empty(::cClass)
 		cClass += ' ' + ::cClass
-	ENDIF
-	
+	ENDIF	
 	
 	BLOCKS ADDITIVE cHtml PARAMS oThis, cClass
 	
@@ -145,33 +146,25 @@ METHOD Activate() CLASS TWebBrowse
 					data-show-print="{{ IF( oThis:lPrint, 'true',  'false') }}"
 					data-show-export="{{ IF( oThis:lExport, 'true',  'false') }}"
 					>
+
 					<thead  class="thead-dark">
 						<tr>
 							
 							<!--<th data-field="_keyno" data-width="70" data-align="center">Id</th>-->
-						
-							<?prg
-								local cHtml 	:= ''
-								//local nBtn 	:= {{ len(oThis:aBtn) }}
-								//local lEdit 	:= {{ oThis:lEdit }} 
-								local lMultiSelect	:= {{ oThis:lMultiSelect }} 
-								local lSingleSelect	:= {{ oThis:lSingleSelect }} 
-								local hCols 	:= {{ oThis:hCols }} 										
-								local nWidth  	:= 0	
-								local n, cField, hDef
-								
-								IF lMultiSelect .OR. lSingleSelect
+							
+	ENDTEXT														
+							
+								IF ::lMultiSelect .OR. ::lSingleSelect
 								
 									cHtml += '<th data-field="st" data-checkbox="true"></th>'
 								
-								ENDIF
-
+								ENDIF							
+							
+								FOR n := 1 TO Len( ::hCols )
 								
-								FOR n := 1 TO Len(hCols)
-								
-									aField 	:= HB_HPairAt( hCols, n )
-									cField	:= aField[1]
-									hDef 	:= aField[2]													
+									aField 	:= HB_HPairAt( ::hCols, n )
+									cField		:= aField[1]
+									hDef 		:= aField[2]													
 									
 									cHtml += '<th data-field="' + cField + '" '
 									cHtml += 'data-width="' + valtochar(hDef[ 'width' ]) + '" '
@@ -180,35 +173,18 @@ METHOD Activate() CLASS TWebBrowse
 									cHtml += 'data-formatter="' + hDef[ 'formatter' ] + '" '
 									cHtml += '>' + hDef[ 'head' ] + '</th>'							
 									
-								NEXT						
-								/*
-								IF lEdit .or. nBtn > 0
-							
-									IF lEdit 
-										nWidth := 100
-									ENDIF
-									
-									IF nBtn > 0							
-										nWidth += ( nBtn * 30 )														
-									ENDIF																				
-						
-									cHtml += '<th data-field="operate" data-formatter="Col_Actions" data-align="center" data-width="' + ltrim(str(nWidth)) + '" >Action</th>'
-								ENDIF
-								*/
+								NEXT																																			
 
-								retu cHtml												
-							?>
-
-							
+	BLOCKS ADDITIVE cHtml
+	
 						</tr>
 						
 					</thead>
 					
-				</table>
+				</table>										
+					
+			</div>					
 
-			</div>
-				
-	
 	ENDTEXT 
 	
 	IF !Empty( ::cData )
@@ -222,7 +198,6 @@ METHOD Activate() CLASS TWebBrowse
 		cHtml += "  console.log( 'FINAL', '===========================' );"
 		cHtml += '</script>'
 	
-	ENDIF	
-
+	ENDIF					
 
 RETU cHtml
