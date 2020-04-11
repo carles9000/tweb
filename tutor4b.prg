@@ -65,7 +65,7 @@ function main()
 					if ( row.age > 50 )
 						return '<i class="fa fa-star"></i> ' + value
 					else
-						return '<img src="images/ball_green.png"> ' + value									
+						return '<img src="images/ball_green.png">Â ' + value									
 				}				
 
 				$(document).ready(function () {				
