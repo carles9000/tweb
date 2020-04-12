@@ -1,14 +1,14 @@
 ﻿Charset (I Parte)
 =================
 Es muy importante en la web codificar en la web acorde al mapa de caracteres que vamos a utilizar.
-Básicamnte usaremos 2: Latin-1 y UTF-8, aunque ultimament la tendencia es usar siempre Utf-8
+Básicamente usaremos 2: Latin-1 y UTF-8, aunque ultimamente la tendencia es usar siempre Utf-8
 
 En resumen podriamos definir que Latin-1 cubre la mayoría de  lenguajes  de  Europa  Occidental  
 como  el  albanés, catalán,  danés,  neerlandés,  inglés, feroés,  finés,  francés,  alemán, gallego, 
 gaélico, islandés, italiano, noruego, portugués, español y sueco.
 
 Si no vamos a usar ningún caracter/simbolo que se salga de este "mapa de caracteres" podriamos trabajar
-perfetcamente en Latin-1. Pero q pasa si queremos usar otros caracteres ? 
+perfectamente en Latin-1. Pero q pasa si queremos usar otros caracteres ? 
 
 Este documento de texto esta codificado en utf-8 por lo que me permite poner los siguientes caracteres:
 
@@ -69,7 +69,7 @@ aparecetia esto:
 	?????? (India)
 	?????? (India)	
 	
-Como podemos observar, los primero los acepta correctamente pero los otros no porque no los sabe 
+Como podemos observar, los primero los acepta correctamente pero los otros no, porque no los sabe 
 codificar. Imaginemos ahora que en nuestra pagina codificada en ANSI nos quedamos con los primeros 
 
 	Special characters ÄäÕõüÜ Barça caña àáèéíòóú ü î	
