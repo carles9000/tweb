@@ -28,11 +28,27 @@ Este documento de texto esta codificado en utf-8 por lo que me permite poner los
 	മലയാളം (India)
 	తెలుగు (India)		
 
-
 Si esta fuera mi pagina web estaria codificada en utf-8 por lo que la página hemos de especificar que
 usaremos utf-8. Si la página no se especificara utf-8 estos caracteres especiales los intentaria 
 traducir y se verian mal. Aqui ya podemos deducir pues que si codificamos en utf-8 la pagina debe 
 estar en charset="utf-8"
+
+Podeis probar el ejemplo tutor15.prg codificado en utf8 y con charset="utf8" 
+
+https://54.37.60.33/htweb/tutor15.prg 
+
+Por defecto TWeb está definido para uso con charset='utf8', pero podeis canviar els charset con la 
+data cCharset y cambiarla a Latin-1 para ver el efecto del programa codificado en utf8 pero que el 
+html lo tartará como Latin-1
+
+	DEFINE WEB oWeb TITLE 'Test CharSet - UTF8' 
+		oWeb:cCharset := 'utf-8'	//	Latin-1			
+	INIT WEB oWeb
+	
+Como por defecto TWeb tiene charset = 'utf-8' podemos inicializar la pagina con una soloa linea en este
+caso añadiendo INIT al final 
+
+	DEFINE WEB oWeb TITLE 'Test CharSet - UTF8' INIT
 
 Si probaramos de hacer copy/paste de estos symbolos de mas arriba a una pagina codificada en ANSI nos
 aparecetia esto:
@@ -61,6 +77,18 @@ codificar. Imaginemos ahora que en nuestra pagina codificada en ANSI nos quedamo
 Si nosotros creamos la web con este fichero en ANSI y la pagina no especificaramos nada, la pagina
 nos la mostraria correctamente. Pero en cambio si la página especificaramos que use un charset='utf-8'
 intentaria traducir los caracteres codificados en ANSI a UTF-8 y se verian mal !!!
+
+Podeis probar el ejemplo tutor15b.prg codificado en ANSI y definimos charset="Latin-1" 
+
+https://54.37.60.33/htweb/tutor15b.prg 
+
+Por defecto TWeb está definido para uso con charset='utf8', pero podeis canviar els charset con la 
+data cCharset.
+
+	DEFINE WEB oWeb TITLE 'Test CharSet - Latin-1' 
+		oWeb:cCharset := 'Latin-1'		//	'utf-8'
+	INIT WEB oWeb
+
 
 Resumen:
 	Si codificamos en ANSI -> página en Latin-1
