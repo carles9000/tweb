@@ -4,7 +4,7 @@
 
 function main()
 
-    LOCAL o, oCol, oBrw
+    LOCAL o, oWeb
 
 	DEFINE WEB oWeb TITLE 'Test CharSet - UTF8' 
 		oWeb:cCharset := 'utf-8'	//	Latin-1			
