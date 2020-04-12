@@ -1,5 +1,5 @@
-Charset
-=======
+﻿Charset (I Parte)
+=================
 Es muy importante en la web codificar en la web acorde al mapa de caracteres que vamos a utilizar.
 Básicamnte usaremos 2: Latin-1 y UTF-8, aunque ultimament la tendencia es usar siempre Utf-8
 
