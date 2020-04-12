@@ -1,0 +1,83 @@
+Charset
+=======
+Es muy importante en la web codificar en la web acorde al mapa de caracteres que vamos a utilizar.
+Básicamnte usaremos 2: Latin-1 y UTF-8, aunque ultimament la tendencia es usar siempre Utf-8
+
+En resumen podriamos definir que Latin-1 cubre la mayoría de  lenguajes  de  Europa  Occidental  
+como  el  albanés, catalán,  danés,  neerlandés,  inglés, feroés,  finés,  francés,  alemán, gallego, 
+gaélico, islandés, italiano, noruego, portugués, español y sueco.
+
+Si no vamos a usar ningún caracter/simbolo que se salga de este "mapa de caracteres" podriamos trabajar
+perfetcamente en Latin-1. Pero q pasa si queremos usar otros caracteres ? 
+
+Este documento de texto esta codificado en utf-8 por lo que me permite poner los siguientes caracteres:
+
+	Special characters ÄäÕõüÜ Barça caña àáèéíòóú ü î	
+	
+	中国版 (China)
+	香港版 (Hong Kong)
+	日本 (Japan)
+	한국 (Korea)
+	台灣版 (Taiwan)
+	ישראל (Israel)
+	Ελλάδα (Greece)
+	العالم العربي (Arabic)
+	Россия (Russia)
+	हिन्दी (India)
+	தமிழ் (India)
+	മലയാളം (India)
+	తెలుగు (India)		
+
+
+Si esta fuera mi pagina web estaria codificada en utf-8 por lo que la página hemos de especificar que
+usaremos utf-8. Si la página no se especificara utf-8 estos caracteres especiales los intentaria 
+traducir y se verian mal. Aqui ya podemos deducir pues que si codificamos en utf-8 la pagina debe 
+estar en charset="utf-8"
+
+Si probaramos de hacer copy/paste de estos symbolos de mas arriba a una pagina codificada en ANSI nos
+aparecetia esto:
+
+	Special characters ÄäÕõüÜ Barça caña àáèéíòóú ü î	
+	
+	??? (China)
+	??? (Hong Kong)
+	?? (Japan)
+	?? (Korea)
+	??? (Taiwan)
+	????? (Israel)
+	????da (Greece)
+	?????? ?????? (Arabic)
+	?????? (Russia)
+	?????? (India)
+	????? (India)
+	?????? (India)
+	?????? (India)	
+	
+Como podemos observar, los primero los acepta correctamente pero los otros no porque no los sabe 
+codificar. Imaginemos ahora que en nuestra pagina codificada en ANSI nos quedamos con los primeros 
+
+	Special characters ÄäÕõüÜ Barça caña àáèéíòóú ü î	
+	
+Si nosotros creamos la web con este fichero en ANSI y la pagina no especificaramos nada, la pagina
+nos la mostraria correctamente. Pero en cambio si la página especificaramos que use un charset='utf-8'
+intentaria traducir los caracteres codificados en ANSI a UTF-8 y se verian mal !!!
+
+Resumen:
+	Si codificamos en ANSI -> página en Latin-1
+	Si codificamos en UTF8 -> página en utf-8
+	
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+

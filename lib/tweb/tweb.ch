@@ -13,6 +13,9 @@
 #xcommand ROW <oForm> => <oForm>:Row()
 #xcommand HTML <oForm> => #pragma __cstream| <oForm>:Html( %s )
 #xcommand HTML <oForm> INLINE <cHtml> => <oForm>:Html( <cHtml> )
+#xcommand HTML <oForm> [ PARAMS [<v1>] [,<vn>] ] ;
+=> ;
+	#pragma __cstream |<oForm>:Html( InlinePrg( ReplaceBlocks( %s, '<$', "$>" [,<(v1)>][+","+<(vn)>] [, @<v1>][, @<vn>] ) ) )
 #xcommand CAPTION <oForm> LABEL <cLabel> [ GRID <nGrid> ] => <oForm>:Caption( <cLabel>, <nGrid> )
 #xcommand SEPARATOR <oForm> LABEL <cLabel> => <oForm>:Separator( <cLabel> )
 #xcommand SMALL <oForm> [ ID <cId> ] [ LABEL <cLabel> ] [ GRID <nGrid> ] => <oForm>:Small( <cId>, <cLabel>, <nGrid> )
