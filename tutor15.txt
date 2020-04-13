@@ -37,6 +37,11 @@ Podeis probar el ejemplo tutor15.prg codificado en utf8 y con charset="utf8"
 
 https://54.37.60.33/htweb/tutor15.prg 
 
+En este otro ejemplo se puede ver como la página la hemos coidificado en 'utf-8' pero en el código
+hemos especificado que use Latin-1. Mostrará la página mal codificada
+
+https://54.37.60.33/htweb/tutor15-ko.prg 
+
 Por defecto TWeb está definido para uso con charset='utf8', pero podeis canviar els charset con la 
 data cCharset y cambiarla a Latin-1 para ver el efecto del programa codificado en utf8 pero que el 
 html lo tartará como Latin-1
@@ -82,6 +87,11 @@ Podeis probar el ejemplo tutor15b.prg codificado en ANSI y definimos charset="La
 
 https://54.37.60.33/htweb/tutor15b.prg 
 
+Tambien podeis ver un tipico error de codificar nuestro código en ANSI y utlizar un charset='utf-8'
+
+https://54.37.60.33/htweb/tutor15b-ko.prg 
+
+
 Por defecto TWeb está definido para uso con charset='utf8', pero podeis canviar els charset con la 
 data cCharset.
 
@@ -93,19 +103,3 @@ data cCharset.
 Resumen:
 	Si codificamos en ANSI -> página en Latin-1
 	Si codificamos en UTF8 -> página en utf-8
-	
-
-
-	
-
-
-
-
-
-
-
-
-
-
-
-

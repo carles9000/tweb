@@ -8,8 +8,8 @@ function main()
 
     LOCAL o, oWeb
 
-	DEFINE WEB oWeb TITLE 'Test CharSet - UTF8 / Dbf' 
-		oWeb:cCharset := 'utf-8'		//	Latin-1				
+	DEFINE WEB oWeb TITLE 'Test CharSet - ANSI / Dbf' 	
+		oWeb:cCharset := 'utf-8'
 	INIT WEB oWeb
 	
 	DEFINE FORM o ID 'demo'
@@ -21,7 +21,7 @@ function main()
 			
 			<h3>
 				Demo: Uso de dbf </br>
-				Source Format: UTF-8 w/o BOM </br>
+				Source Format: ANSI </br>
 				Charset: <$ oWeb:cCharset $>
 			</h3><hr>	
 			
@@ -29,14 +29,14 @@ function main()
 	
 	END FORM o
 	
-	USE ( PATH_DATA + 'utf8.dbf' ) SHARED NEW VIA 'DBFCDX'
+	USE ( PATH_DATA + 'ansi.dbf' ) SHARED NEW VIA 'DBFCDX'
 	
-	for nI := 1 TO 5
+	while ( !eof() )
 	
-		? FIELD->english  + ' ' + FIELD->hindi + ' ' + FIELD->telugu
+		? FIELD->text 
 		
 		dbskip() 
-	next					
+	end	
 	
 retu nil
 
