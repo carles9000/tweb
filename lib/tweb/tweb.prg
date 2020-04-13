@@ -25,6 +25,7 @@
 #include 'TWebCheckbox.prg'
 #include 'TWebRadio.prg'
 #include 'TWebSelect.prg'
+#include 'TWebCommon.prg'
 
 function TWebVersion() ; RETU TWEB_VERSION
 
@@ -108,14 +109,16 @@ CLASS TWeb
 
 ENDCLASS 
 
-METHOD New( cTitle, cIcon, lInit ) CLASS TWeb
+METHOD New( cTitle, cIcon, lTables, lInit ) CLASS TWeb
 
 	DEFAULT cTitle 	TO 'TWeb'
 	DEFAULT cIcon 		TO 'images/tweb.png'
+	DEFAULT lTables		TO .F.
 	DEFAULT lInit 		TO .F.
 	
 	::cTitle 	:= cTitle
 	::cIcon 	:= cIcon	
+	::lTables	:= lTables
 	
 	IF lInit
 		::Activate()		
@@ -132,7 +135,7 @@ METHOD Activate() CLASS TWeb
 	ENDIF
 
 
-	cHtml  := '<!DOCTYPE html>'
+	cHtml   := '<!DOCTYPE html>'
 	cHtml 	+= '<html>'
 	cHtml 	+= '<head>'
 	cHtml 	+= '<title>' + ::cTitle + '</title>'

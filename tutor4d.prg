@@ -6,26 +6,24 @@
 
 function main()
 
-    local o, oCol, oBrw, cAlias
+    local o, oCol, oBrw, cAlias, nI
 	local hRow 	:= {=>}
 	local aRows := {}
 	
-	USE ( PATH_DATA + 'utf8.dbf' ) SHARED NEW VIA 'DBFCDX'
+	USE ( PATH_DATA + 'test.dbf' ) SHARED NEW VIA 'DBFCDX'
 	
 	cAlias := Alias()
 	
-	while (cAlias)->( !Eof() )
+	for nI := 1 to 100
 	
-		Aadd( aRows,  { 'english' 	=> (cAlias)->english 	,;
-						'hindi' 	=> (cAlias)->hindi 		,;
-						'telugu' 	=> (cAlias)->telugu 	})
+		Aadd( aRows,  { 'first' 	=> UHtmlEncode( (cAlias)->first  )	,;
+						'last' 		=> UHtmlEncode( (cAlias)->last 	 )	,;						
+						'age' 		=> (cAlias)->age 		})
 		
 		(cAlias)->( dbskip() )
-	end	
+	next
 
-	DEFINE WEB oWeb TITLE 'Test Browse UTF8' ICON 'images/favicon.ico'
-		oWeb:lTables := .T.		
-	INIT WEB oWeb
+	DEFINE WEB oWeb TITLE 'Test Browse UTF8' ICON 'images/favicon.ico' TABLES INIT
 	
 	DEFINE FORM o ID 'demo'
 
@@ -35,24 +33,23 @@ function main()
 
 		DEFINE BROWSE oBrw ID 'ringo' HEIGHT 400 OF o
 
-			ADD oCol TO oBrw ID 'english' 	HEADER 'English' FORMATTER 'MyFormatter'
-			ADD oCol TO oBrw ID 'hindi'		HEADER 'Hindi'  
-			ADD oCol TO oBrw ID 'telugu'	HEADER 'Telugu' 			
+			ADD oCol TO oBrw ID 'first' 	HEADER 'First' 	ALIGN 'right'
+			ADD oCol TO oBrw ID 'last'		HEADER 'Last'  	SORT			
+			ADD oCol TO oBrw ID 'age'		HEADER 'Age' 	WIDTH 70 ALIGN 'center' FORMATTER 'ageFormatter'	
 
 		INIT BROWSE oBrw DATA aRows			
 
 		HTML o 
 		
-			<script>
+			<script>				
 				
-				function MyFormatter( value ) {
-				console.log( value)
-				
-					if ( value.trim() == 'Cristobal Navarro' )
-						return '<small style="color:red;" >' + value  + '</span>'
+				function ageFormatter(value, row) {
+						
+					if ( row.age > 50 )
+						return '<i class="fa fa-star"></i> ' + value
 					else
-						return '<b><i>' + value  + '</i></b>'
-				}			
+						return '<img src="images/ball_green.png"> ' + value									
+				}						
 				
 			</script>
 			
