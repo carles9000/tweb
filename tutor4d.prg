@@ -23,7 +23,7 @@ function main()
 		(cAlias)->( dbskip() )
 	next
 
-	DEFINE WEB oWeb TITLE 'Test Browse UTF8' ICON 'images/favicon.ico' TABLES INIT
+	DEFINE WEB oWeb TITLE 'Test Browse' ICON 'images/favicon.ico' TABLES INIT
 	
 	DEFINE FORM o ID 'demo'
 
