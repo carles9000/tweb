@@ -108,6 +108,11 @@
 	=> ;		
 		<oCol> := <oBrw>:AddCol( <cId>, nil, [<cHeader>], [<nWidth>], [<.lSort.>], [<cAlign>], [<cFormatter>] )
 
+#xcommand INIT BROWSE <oBrw> [ JAVASCRIPT <cVar> ] [ DATA <aRows> ] ;
+	=> ;
+		<oBrw>:Init( [<cVar>], [<aRows>] )
+		
+		
 //#xcommand END BROWSE <oBrw> => <oBrw>:Activate()
 
 

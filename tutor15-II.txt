@@ -1,6 +1,6 @@
 ﻿Charset (II Parte)
 ==================
-Una vez vist la primera parte podemos pensar de varias maneras acorde a nuestras necesidades. Unos 
+Una vez vista la primera parte podemos pensar de varias maneras acorde a nuestras necesidades. Unos 
 pueden pensar que todo en utf8 y asi no habrán problemas, otros prefiriendo el Latin-1 porque para
 usar su idioma ya tiene suficiente...
 

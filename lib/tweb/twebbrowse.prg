@@ -1,6 +1,7 @@
 #include 'hbclass.ch'
 #include 'common.ch'
 
+#define CRLF Chr(13)+Chr(10)
 #xcommand BLOCKS ADDITIVE <v>[ PARAMS [<v1>] [,<vn>] ] => ;
 	#pragma __cstream |<v>+= InlinePrg( ReplaceBlocks( %s, "{{", "}}" [,<(v1)>][+","+<(vn)>] [, @<v1>][, @<vn>] ) )
 
@@ -27,12 +28,14 @@ CLASS TWebBrowse FROM TWebControl
 	DATA nHeight					INIT 400
 	DATA cLocale					INIT "en-EN"
 	DATA cData						INIT ''
+	DATA cInit						INIT ''
 
 	METHOD New() 					CONSTRUCTOR
 	METHOD SetData( aData )
 	METHOD AddCol()
 	
 	
+	METHOD Init( cVarJS )
 	METHOD Activate()
 
 
@@ -198,6 +201,37 @@ METHOD Activate() CLASS TWebBrowse
 		cHtml += "  console.log( 'FINAL', '===========================' );"
 		cHtml += '</script>'
 	
-	ENDIF					
+	ENDIF			
+
+	cHtml += ::cInit
+	
 
 RETU cHtml
+
+
+METHOD Init( cVarJS, aRows ) CLASS TWebBrowse
+
+	local cVar		:= '_' + ::cId
+	local cRows
+
+	IF cVarJS == NIL
+		cVarJS	:= '_' + ::cId
+	ENDIF
+	
+
+	::cInit += '<script>'													+ CRLF
+
+	::cInit += 'var ' + cVarJS + ' = new TWebBrowse( "' + ::cId + '" );'	+ CRLF
+	::cInit += '$(document).ready(function () {	'							+ CRLF
+	::cInit += '    ' + cVarJS + '.Init();'									+ CRLF
+
+	IF Valtype( aRows ) == 'A'
+		cRows 	:=  hb_jsonencode(aRows)
+		::cInit += "	var aRows = JSON.parse( '" + cRows + "' );	"		+ CRLF
+		::cInit += "	" + cVarJS + '.SetData( aRows ); 	'				+ CRLF
+	ENDIF
+	
+	::cInit += '})'															+ CRLF
+	::cInit += '</script>'													+ CRLF
+
+RETU NIL 

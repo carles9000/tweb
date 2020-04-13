@@ -31,12 +31,12 @@ function main()
 	
 	USE ( PATH_DATA + 'utf8.dbf' ) SHARED NEW VIA 'DBFCDX'
 	
-	for nI := 1 TO 5
+	while !Eof()
 	
 		? FIELD->english  + ' ' + FIELD->hindi + ' ' + FIELD->telugu
 		
 		dbskip() 
-	next					
+	end			
 	
 retu nil
 
