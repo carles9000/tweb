@@ -6,6 +6,7 @@ CLASS TWebButton FROM TWebControl
 	DATA cType		 				INIT 'text'
 	DATA cPlaceHolder 				INIT ''
 	DATA lOutline 					INIT .T.
+	DATA lSubmit					INIT .F.
 
 	METHOD New() 					CONSTRUCTOR
 	METHOD Activate()
@@ -13,7 +14,7 @@ CLASS TWebButton FROM TWebControl
 
 ENDCLASS 
 
-METHOD New( oParent, cId, cLabel, cAction , nGrid, cIcon, cClass, lDisabled  ) CLASS TWebButton
+METHOD New( oParent, cId, cLabel, cAction , nGrid, cIcon, cClass, lDisabled, lSubmit  ) CLASS TWebButton
 
 	DEFAULT cId TO ''
 	DEFAULT cLabel TO 'Submit'
@@ -22,6 +23,7 @@ METHOD New( oParent, cId, cLabel, cAction , nGrid, cIcon, cClass, lDisabled  ) C
 	DEFAULT cIcon TO ''		// '<i class="fas fa-check"></i>'
 	DEFAULT cClass TO 'btn-primary'				
 	DEFAULT lDisabled TO .F.				
+	DEFAULT lSubmit TO .F.				
 	
 	if empty( cClass ) 
 		cClass := if( ::lOutline, 'btn-outline-primary' , 'btn-primary')	
@@ -35,7 +37,8 @@ METHOD New( oParent, cId, cLabel, cAction , nGrid, cIcon, cClass, lDisabled  ) C
 	::cAction		:= cAction	
 	::cClass		:= cClass
 	::cIcon			:= cIcon
-	::lDisabled	:= lDisabled
+	::lDisabled		:= lDisabled
+	::lSubmit		:= lSubmit
 
 	IF Valtype( oParent ) == 'O'	
 		oParent:AddControl( SELF )		
@@ -47,16 +50,21 @@ METHOD Activate() CLASS TWebButton
 
 	LOCAL cHtml := ''
 	LOCAL cSize := ''
+	LOCAL cType := 'button'
 	
 	DO CASE
 		CASE upper(::oParent:cSizing) == 'SM' ; cSize := 'btn-sm'
 		CASE upper(::oParent:cSizing) == 'LG' ; cSize := 'btn-lg'
 	ENDCASE
 	
+	IF ::lSubmit
+		cType := 'submit'
+	ENDIF
+	
 	
 
 	cHtml += '<div class="col-' + ltrim(str(::nGrid)) + IF( ::oParent:lDessign, ' tweb_dessign', '')  + '" ' + IF( ::oParent:lDessign, 'style="border:1px solid blue;"', '' ) + '>'
-	cHtml += '<button type="button" class="btn ' + ::cClass + ' ' + cSize + ' " onclick="' + ::cAction + '" id="' + ::cId + '" ' + IF( ::lDisabled, 'disabled', '' ) + ' >' 
+	cHtml += '<button type="' + cType + '" class="btn ' + ::cClass + ' ' + cSize + ' " onclick="' + ::cAction + '" id="' + ::cId + '" ' + IF( ::lDisabled, 'disabled', '' ) + ' >' 
 	cHtml += ::cIcon + ::cLabel
 	cHtml += '</button>'
 	cHtml += '</div>'	

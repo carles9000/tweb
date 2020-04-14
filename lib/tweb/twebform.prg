@@ -20,6 +20,7 @@ CLASS TWebForm FROM TWebControl
 
 
 	DATA aControls					INIT {}
+	DATA cAction					INIT ''		
 	DATA cType						INIT ''		//	sm, md, lg, xl, xs
 	DATA cSizing					INIT ''		//	sm, lg
 	DATA lFluid						INIT .F. 
@@ -43,7 +44,12 @@ CLASS TWebForm FROM TWebControl
 	
 ENDCLASS 
 
-METHOD New( ) CLASS TWebForm		
+METHOD New( cId, cAction ) CLASS TWebForm		
+
+	DEFAULT cId 	TO ''
+	DEFAULT cAction TO ''
+	
+	::cAction := cAction
 
 
 RETU SELF
@@ -53,6 +59,14 @@ METHOD InitForm() CLASS TWebForm
 	LOCAL cClass := IF( ::lFluid, 'container-fluid', 'container' )
 
 	::Html( '<div class="' + cClass + '" ' + IF( ::lDessign, 'style="border:2px solid green;"', '' ) + '>'  )
+	
+	IF !empty( ::cAction )
+	
+		::Html( '<form action="' + ::cAction + '" method="POST">'  )
+	
+	ENDIF
+	
+	
 	
 RETU NIL
 
@@ -95,6 +109,12 @@ METHOD Activate() CLASS TWebForm
 
 	LOCAL cHtml := ''
 	LOCAL nI
+	
+	IF !empty( ::cAction )
+	
+		::Html( '</form>' )
+	
+	ENDIF	
 	
 	::Html( '</div>' )
 

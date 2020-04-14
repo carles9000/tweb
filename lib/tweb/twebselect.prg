@@ -13,7 +13,7 @@ CLASS TWebSelect FROM TWebControl
 
 ENDCLASS 
 
-METHOD New( oParent, cId, aItems, aValues, nGrid, cAction, cLabel  ) CLASS TWebSelect
+METHOD New( oParent, cId, uValue, aItems, aValues, nGrid, cAction, cLabel  ) CLASS TWebSelect
 
 	DEFAULT cId TO ''
 	DEFAULT aItems TO {}
@@ -21,6 +21,7 @@ METHOD New( oParent, cId, aItems, aValues, nGrid, cAction, cLabel  ) CLASS TWebS
 	DEFAULT nGrid TO 4
 	DEFAULT cAction TO ''
 	DEFAULT cLabel TO ''
+	DEFAULT uValue TO ''
 	
 
 	::oParent 		:= oParent	
@@ -30,6 +31,7 @@ METHOD New( oParent, cId, aItems, aValues, nGrid, cAction, cLabel  ) CLASS TWebS
 	::nGrid			:= nGrid
 	::cAction		:= cAction
 	::cLabel		:= cLabel
+	::uValue		:= uValue 
 	
 
 	IF Valtype( oParent ) == 'O'	
@@ -62,11 +64,19 @@ METHOD Activate() CLASS TWebSelect
 	cHtml += '<div class="input-group">'	
 	
 	//cHtml += '<select class="col-' + ltrim(str(::nGrid)) + ' custom-select form-control ' + cSize + '" id="' + ::cId + '" onchange="' + ::cAction + '" >'
-	cHtml += '<select class="col-' + ltrim(str(::nGrid)) + ' form-control ' + cSize + IF( ::oParent:lDessign, ' tweb_dessign', '')  + '" ' + IF( ::oParent:lDessign, 'style="border:1px solid blue;"', '' ) + ' id="' + ::cId + '" onchange="' + ::cAction + '" >'
+	//cHtml += '<select class="col-' + ltrim(str(::nGrid)) + ' form-control ' + cSize + IF( ::oParent:lDessign, ' tweb_dessign', '')  + '" ' + IF( ::oParent:lDessign, 'style="border:1px solid blue;"', '' ) + ' id="' + ::cId + '" onchange="' + ::cAction + '" >'
+	cHtml += '<select class="col-12 form-control ' + cSize + IF( ::oParent:lDessign, ' tweb_dessign', '')  + '" ' + IF( ::oParent:lDessign, 'style="border:1px solid blue;"', '' ) + ' id="' + ::cId + '" name="' + ::cId + '" onchange="' + ::cAction + '" >'
 	
 	FOR nI := 1 TO len( ::aItems )
 	
-		cHtml += '<option value="' + ::aValues[nI] + '">' + ::aItems[nI] + '</option>'			
+		cHtml += '<option value="' + ::aValues[nI] + '" ' 			
+		
+		IF ::uValue == ::aValues[nI] 
+			cHtml += ' selected '					
+		ENDIF
+		
+		cHtml += '>' + ::aItems[nI] 		
+		cHtml += '</option>'			
 		
 	NEXT	
 

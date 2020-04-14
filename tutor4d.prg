@@ -7,7 +7,6 @@
 function main()
 
     local o, oCol, oBrw, cAlias, nI
-	local hRow 	:= {=>}
 	local aRows := {}
 	
 	USE ( PATH_DATA + 'test.dbf' ) SHARED NEW VIA 'DBFCDX'

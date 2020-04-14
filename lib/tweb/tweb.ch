@@ -1,4 +1,7 @@
-#xcommand TEXT TO <var> => #pragma __stream|<var>:=%s
+#xcommand TEXT TO <var> => #pragma __stream|<var> += %s
+#xcommand TEXT TO <var> [ PARAMS [<v1>] [,<vn>] ] ;
+=> ;
+	#pragma __cstream |<var> += InlinePrg( ReplaceBlocks( %s, '<$', "$>" [,<(v1)>][+","+<(vn)>] [, @<v1>][, @<vn>] ) ) 
 
 #xcommand LOAD TWEB => ?? LoadTWeb()
 #xcommand LOAD TWEB TABLES => ?? LoadTWebTables()
@@ -9,7 +12,7 @@
 		
 #xcommand INIT WEB <oWeb> => <oWeb>:Activate()
 
-#xcommand DEFINE FORM <oForm> [ID <cId> ]=> <oForm> := TWebForm():New([<cId>])
+#xcommand DEFINE FORM <oForm> [ID <cId> ] [ACTION <cAction>] => <oForm> := TWebForm():New([<cId>], [<cAction>])
 #xcommand INIT FORM <oForm> => <oForm>:InitForm()
 #xcommand END FORM <oForm> => ?? <oForm>:Activate()
 #xcommand COL <oForm> [GRID <nGrid>] [TYPE <cType>] => <oForm>:Col( [<nGrid>], [<cType>] )
@@ -31,10 +34,10 @@
 
 #xcommand GET [<oGet>] [ ID <cId> ] [ VALUE <uValue> ] [ LABEL <cLabel> ] [ ALIGN <cAlign> ] [GRID <nGrid>] ;
 	[ <ro: READONLY> ] [TYPE <cType>] [ PLACEHOLDER <cPlaceHolder>] ;
-	[ BUTTON <cBtnLabel> [ ACTION  <cAction> ]] ;
+	[ BUTTON <cBtnLabel> [ ACTION  <cAction> ]] [ <rq: REQUIRED> ];
 	OF <oForm> ;
 => ;
-	[<oGet> := ] TWebGet():New( <oForm>, [<cId>], [<uValue>], [<nGrid>], [<cLabel>], [<cAlign>], [<.ro.>], [<cType>], [<cPlaceHolder>], [<cBtnLabel>], [<cAction>] )
+	[<oGet> := ] TWebGet():New( <oForm>, [<cId>], [<uValue>], [<nGrid>], [<cLabel>], [<cAlign>], [<.ro.>], [<cType>], [<cPlaceHolder>], [<cBtnLabel>], [<cAction>], [<.rq.>] )
 	
 #xcommand GET [<oGetMemo>] MEMO [ ID <cId> ] [ VALUE <uValue> ] [ LABEL <cLabel> ] [ ALIGN <cAlign> ] [GRID <nGrid>] ;
 	[ <ro: READONLY> ] [ ROWS <nRows> ] ;	
@@ -43,14 +46,16 @@
 	[<oGetMemo> := ] TWebGetMemo():New( <oForm>, [<cId>], [<uValue>], [<nGrid>], [<cLabel>], [<cAlign>], [<.ro.>], [<nRows>] )
 	
 	
-#xcommand BUTTON [<oBtn>] [ ID <cId> ] [ LABEL <cLabel> ] [ ACTION <cAction> ] [ GRID <nGrid> ] [ ICON <cIcon> ] [ CLASS <cClass> ] [ <ds: DISABLED> ] OF <oForm> ;
+#xcommand BUTTON [<oBtn>] [ ID <cId> ] [ LABEL <cLabel> ] [ ACTION <cAction> ] [ GRID <nGrid> ] [ ICON <cIcon> ] ;
+	[ CLASS <cClass> ] [ <ds: DISABLED> ] [ <sb: SUBMIT> ];
+	OF <oForm> ;
 => ;
-	[ <oBtn> := ] TWebButton():New( <oForm>, [<cId>], <cLabel>, <cAction>, <nGrid>, <cIcon>, <cClass>, [<.ds.>] )	
+	[ <oBtn> := ] TWebButton():New( <oForm>, [<cId>], <cLabel>, <cAction>, <nGrid>, <cIcon>, <cClass>, [<.ds.>], [<.sb.>] )	
 	
 	
-#xcommand SWITCH [<oSwitch>] [ ID <cId> ] [ <lValue: ON> ] [ LABEL <cLabel> ] [GRID <nGrid>] [ <act:ACTION,ONCHANGE> <cAction> ] OF <oForm> ;
+#xcommand SWITCH [<oSwitch>] [ ID <cId> ] [ <lValue: ON> ] [ VALUE <lValue> ] [ LABEL <cLabel> ] [GRID <nGrid>] [ <act:ACTION,ONCHANGE> <cAction> ] OF <oForm> ;
 => ;
-	[ <oSwitch> := ] TWebSwitch():New( <oForm>, [<cId>], [<.lValue.>], [<cLabel>], [<nGrid>], [<cAction>] ) 	
+	[ <oSwitch> := ] TWebSwitch():New( <oForm>, [<cId>], [<lValue>], [<cLabel>], [<nGrid>], [<cAction>] ) 	
 	
 
 #xcommand CHECKBOX [<oCheckbox>] [ ID <cId> ] [ <lValue: ON> ] [ LABEL <cLabel> ] [GRID <nGrid>] [ ACTION  <cAction> ] OF <oForm> ;
@@ -69,14 +74,14 @@
 	[ <oRadio> := ] TWebRadio():New( <oForm>, [<cId>], [\{<cPrompt>\}], [\{<cValue>\}], [<nGrid>], [<cAction>], [<.inline.>] )
 		 
 		 
-#xcommand SELECT [<oSelect>] [ ID <cId> ]  [ LABEL <cLabel> ]  ;
+#xcommand SELECT [<oSelect>] [ ID <cId> ] [ VALUE <uValue> ] [ LABEL <cLabel> ]  ;
 		[ <prm: PROMPT, PROMPTS, ITEMS> <cPrompt,...> ] ;
 		[ <tabs: VALUES> <cValue,...> ] ;		
 		[ GRID <nGrid> ] ;
 		[ ONCHANGE  <cAction> ] ;			
 		OF <oForm> ;
 => ;
-	[ <oSelect> := ] TWebSelect():New( <oForm>, [<cId>], [\{<cPrompt>\}], [\{<cValue>\}], [<nGrid>], [<cAction>], [<cLabel>] )
+	[ <oSelect> := ] TWebSelect():New( <oForm>, [<cId>], [<uValue>], [\{<cPrompt>\}], [\{<cValue>\}], [<nGrid>], [<cAction>], [<cLabel>] )
 	
 
 

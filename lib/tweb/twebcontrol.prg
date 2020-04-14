@@ -14,6 +14,7 @@ CLASS TWebControl
 	DATA nGrid						INIT 4
 	DATA lReadOnly					INIT .F.
 	DATA lDisabled					INIT .F.
+	DATA lRequired					INIT .F.
 	DATA cAlign						INIT 'left'
 	DATA cAction					INIT ''
 	DATA cClass						INIT ''	
