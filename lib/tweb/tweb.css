@@ -21,3 +21,9 @@
 .tweb_folder {
 	padding:0px;
 }
+
+/*	Gif loading en autocomplete ui */
+
+.ui-autocomplete-loading {
+		background: white url("images/ui-anim_basic_16x16.gif") right center no-repeat;
+}

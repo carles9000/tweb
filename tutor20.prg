@@ -127,7 +127,7 @@ function Banner()
 
 	LOCAL cHtml := ''
 
-	TEXT TO cHtml
+	TEXT TO cHtml ECHO
 	
 		<div class="jumbotron">
 			<div class="container">
@@ -136,9 +136,7 @@ function Banner()
 			</div>
 		</div>
 
-	ENDTEXT
-	
-	?? cHtml
+	ENDTEXT		
 
 retu nil
 
@@ -146,7 +144,7 @@ function MessageContactUs()
 
 	LOCAL cHtml := ''
 
-	TEXT TO cHtml
+	TEXT TO cHtml ECHO
 	
 		<div class="alert alert-dark" style="border-radius: 0px;" >
 			<h5 style="margin:0px;">
@@ -155,8 +153,6 @@ function MessageContactUs()
 			</h5>
 		</div>
 	ENDTEXT
-	
-	?? cHtml
 		
 RETU NIL
 
@@ -164,7 +160,7 @@ function MessageError( cError )
 
 	LOCAL cHtml := ''
 
-	TEXT TO cHtml PARAMS cError 
+	TEXT TO cHtml PARAMS cError ECHO
 	
 		<div class="alert alert-danger" style="border-radius: 0px;" >
 			<h5 style="margin:0px;">
@@ -173,8 +169,6 @@ function MessageError( cError )
 			</h5>
 		</div>
 	ENDTEXT
-	
-	?? cHtml
 		
 RETU NIL
 
@@ -182,7 +176,7 @@ function MessageSave()
 
 	LOCAL cHtml := ''
 
-	TEXT TO cHtml
+	TEXT TO cHtml ECHO 
 	
 		<div class="alert alert-success" style="border-radius: 0px;" >
 			<h5 style="margin:0px;">
@@ -191,8 +185,6 @@ function MessageSave()
 			</h5>
 		</div>
 	ENDTEXT
-	
-	?? cHtml
 		
 RETU NIL
 

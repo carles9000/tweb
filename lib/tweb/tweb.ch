@@ -1,7 +1,12 @@
+#xcommand TEXT TO <var> ECHO => #pragma __stream| AP_RPuts( <var> += %s )
 #xcommand TEXT TO <var> => #pragma __stream|<var> += %s
 #xcommand TEXT TO <var> [ PARAMS [<v1>] [,<vn>] ] ;
 => ;
 	#pragma __cstream |<var> += InlinePrg( ReplaceBlocks( %s, '<$', "$>" [,<(v1)>][+","+<(vn)>] [, @<v1>][, @<vn>] ) ) 
+	
+#xcommand TEXT TO <var> PARAMS [<v1>] [,<vn>] ECHO ;
+=> ;
+	#pragma __cstream | AP_RPuts( <var> += InlinePrg( ReplaceBlocks( %s, '<$', "$>" [,<(v1)>][+","+<(vn)>] [, @<v1>][, @<vn>] ) ) )
 
 #xcommand LOAD TWEB => ?? LoadTWeb()
 #xcommand LOAD TWEB TABLES => ?? LoadTWebTables()
@@ -34,10 +39,11 @@
 
 #xcommand GET [<oGet>] [ ID <cId> ] [ VALUE <uValue> ] [ LABEL <cLabel> ] [ ALIGN <cAlign> ] [GRID <nGrid>] ;
 	[ <ro: READONLY> ] [TYPE <cType>] [ PLACEHOLDER <cPlaceHolder>] ;
-	[ BUTTON <cBtnLabel> [ ACTION  <cAction> ]] [ <rq: REQUIRED> ];
+	[ BUTTON <cBtnLabel> [ ACTION  <cAction> ]] [ <rq: REQUIRED> ] ;
+	[ AUTOCOMPLETE <uSource> [ SELECT <cSelect>] ] ;
 	OF <oForm> ;
 => ;
-	[<oGet> := ] TWebGet():New( <oForm>, [<cId>], [<uValue>], [<nGrid>], [<cLabel>], [<cAlign>], [<.ro.>], [<cType>], [<cPlaceHolder>], [<cBtnLabel>], [<cAction>], [<.rq.>] )
+	[<oGet> := ] TWebGet():New( <oForm>, [<cId>], [<uValue>], [<nGrid>], [<cLabel>], [<cAlign>], [<.ro.>], [<cType>], [<cPlaceHolder>], [<cBtnLabel>], [<cAction>], [<.rq.>], [<uSource>], [<cSelect>] )
 	
 #xcommand GET [<oGetMemo>] MEMO [ ID <cId> ] [ VALUE <uValue> ] [ LABEL <cLabel> ] [ ALIGN <cAlign> ] [GRID <nGrid>] ;
 	[ <ro: READONLY> ] [ ROWS <nRows> ] ;	

@@ -7,6 +7,8 @@ CLASS TWebGet FROM TWebControl
 	DATA cPlaceHolder 				INIT ''
 	DATA cBtnLabel 					INIT ''
 	DATA cBtnAction 				INIT ''
+	DATA uSource 					INIT ''
+	DATA cSelect 					INIT ''
 
 
 	METHOD New() 					CONSTRUCTOR
@@ -15,7 +17,7 @@ CLASS TWebGet FROM TWebControl
 
 ENDCLASS 
 
-METHOD New( oParent, cId, uValue, nGrid, cLabel, cAlign, lReadOnly, cType, cPlaceHolder, cBtnLabel, cBtnAction, lRequired  ) CLASS TWebGet
+METHOD New( oParent, cId, uValue, nGrid, cLabel, cAlign, lReadOnly, cType, cPlaceHolder, cBtnLabel, cBtnAction, lRequired, uSource, cSelect ) CLASS TWebGet
 
 	DEFAULT cId TO ''
 	DEFAULT uValue TO ''
@@ -28,6 +30,8 @@ METHOD New( oParent, cId, uValue, nGrid, cLabel, cAlign, lReadOnly, cType, cPlac
 	DEFAULT cBtnLabel TO ''
 	DEFAULT cBtnAction TO '&nbsp;'	
 	DEFAULT lRequired TO .F.	
+	DEFAULT uSource TO ''
+	DEFAULT cSelect TO ''
 	
 	::oParent 		:= oParent
 	::cId			:= cId
@@ -41,6 +45,8 @@ METHOD New( oParent, cId, uValue, nGrid, cLabel, cAlign, lReadOnly, cType, cPlac
 	::cBtnLabel		:= cBtnLabel
 	::cBtnAction	:= cBtnAction	
 	::lRequired		:= lRequired
+	::uSource 		:= uSource
+	::cSelect 		:= cSelect
 
 	IF Valtype( oParent ) == 'O'	
 		oParent:AddControl( SELF )	
@@ -50,7 +56,7 @@ RETU SELF
 
 METHOD Activate() CLASS TWebGet
 
-	LOCAL cHtml
+	LOCAL cHtml, hSource
 	LOCAL cSize := ''
 	
 	DO CASE
@@ -106,6 +112,36 @@ METHOD Activate() CLASS TWebGet
 		CASE hCtrl[ 'align' ] == 'right'  ; cHtml += ' text-right '						
 	ENDCASE	
 */	
+
+	IF !Empty( ::uSource )
+	
+		cHtml += '<script>'
+		cHtml += "$(document).ready( function() {"
+	
+		DO CASE 
+		
+			CASE Valtype( ::uSource ) == 'A'	//	Tabla Array
+			
+				hSource := hb_jsonencode( ::uSource )	
+			
+				cHtml += "  var _uSource = JSON.parse( '" + hSource + "' );"						
+			
+			CASE Valtype( ::uSource ) == 'C'	//	Url
+			
+				cHtml += "  var _uSource = '" + ::uSource + "';"						
+				
+		ENDCASE
+		
+		IF empty( ::cSelect )
+			::cSelect := 'null'
+		ENDIF
+		
+		cHtml += "   TWebGetAutocomplete( '" + ::cId + "', _uSource, '" + ::cSelect + "' ); "	
+
+		cHtml += '})'
+		cHtml += '</script>'
+	
+	ENDIF	
 
 	
 	//Aadd( ::aHtml, cHtml )		

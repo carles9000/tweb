@@ -6,42 +6,43 @@
 
 function main()
 
-    local o, oCol, oWeb, oBrw, cAlias, nI
+    local o, oCol, oWeb, oBrw, cAlias
 	local aRows := {}
 	local cStyle := ''
 	
-
-	USE ( PATH_DATA + 'contacts.dbf' ) SHARED NEW VIA 'DBFCDX'
-	SET INDEX TO ( PATH_DATA + 'contacts.cdx' )	
+	//	Open dbf and data load
 	
-	cAlias := Alias()
-	
-	while !Eof() 
-	
-		Aadd( aRows,  { 'alias' 	=> UHtmlEncode( (cAlias)->alias  )	,;
-						 'name' 	=> UHtmlEncode( (cAlias)->name 	)	,;						
-						 'mail' 	=> UHtmlEncode( (cAlias)->mail 	)	,;						
-						 'date' 	=> DToC( (cAlias)->date 	)			,;						
-						 'type' 	=> UHtmlEncode( (cAlias)->type 	)	,;						
-						 'accept'	=> (cAlias)->accept 		})
+		USE ( PATH_DATA + 'contacts.dbf' ) SHARED NEW VIA 'DBFCDX'
+		SET INDEX TO ( PATH_DATA + 'contacts.cdx' )	
 		
-		(cAlias)->( dbskip() )
-	end
-
-	DEFINE WEB oWeb TITLE 'Form example' TABLES INIT
+		cAlias := Alias()
+		
+		while !Eof() 
+		
+			Aadd( aRows,  { 'alias' 	=> UHtmlEncode( (cAlias)->alias  )	,;
+							 'name' 	=> UHtmlEncode( (cAlias)->name 	)	,;						
+							 'mail' 	=> UHtmlEncode( (cAlias)->mail 	)	,;						
+							 'date' 	=> DToC( (cAlias)->date 	)			,;						
+							 'type' 	=> UHtmlEncode( (cAlias)->type 	)	,;						
+							 'accept'	=> (cAlias)->accept 		})
+			
+			(cAlias)->( dbskip() )
+		end
 	
-	TEXT TO cStyle 
-		<style>
-			.jumbotron{
-				background: url("images/bg-head-02.jpg") no-repeat center center; 
-				background-size: 100% 100%;
-			}
-		</style>	
-	ENDTEXT
-	
-	?? cStyle
+	//	Definie Web 
 
-	Banner()	
+		DEFINE WEB oWeb TITLE 'Form example' TABLES INIT
+		
+		TEXT TO cStyle ECHO
+			<style>
+				.jumbotron{
+					background: url("images/bg-head-02.jpg") no-repeat center center; 
+					background-size: 100% 100%;
+				}
+			</style>	
+		ENDTEXT
+
+		Banner()	
 
 	DEFINE FORM o ID 'demo'
 	
@@ -111,7 +112,7 @@ function Banner()
 
 	LOCAL cHtml := ''
 
-	TEXT TO cHtml
+	TEXT TO cHtml ECHO 
 	
 		<div class="jumbotron">
 			<div class="container">
@@ -121,7 +122,5 @@ function Banner()
 		</div>
 
 	ENDTEXT
-	
-	?? cHtml
 
 retu nil
