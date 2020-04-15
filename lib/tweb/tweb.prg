@@ -62,12 +62,12 @@ return '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.m
 		'<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>' + ;
 		'<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">' + ;
 		'<link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css" rel="stylesheet">' + ;		
-		'<script src="' + 'lib/tweb/notify/bootstrap-notify.min.js' + '"></script>' + ;
-		'<script src="' + 'lib/tweb/bootbox/bootbox.all.min.js"></script>' + ;
-		'<link href="'  + 'lib/tweb/modgui.css' + '" rel="stylesheet">' + ;		
-		'<script src="' + 'lib/tweb/modgui.js"></script>' + ;
-		'<link href="'  + 'lib/tweb/tweb.css' + '" rel="stylesheet">' + ;		
-		'<script src="' + 'lib/tweb/tweb.js' + '"></script>'
+		'<script src="' + cPathPluggin + 'notify/bootstrap-notify.min.js' + '"></script>' + ;
+		'<script src="' + cPathPluggin + 'bootbox/bootbox.all.min.js"></script>' + ;
+		'<link href="'  + cPathPluggin + 'modgui.css' + '" rel="stylesheet">' + ;		
+		'<script src="' + cPathPluggin + 'modgui.js"></script>' + ;
+		'<link href="'  + cPathPluggin + 'tweb.css' + '" rel="stylesheet">' + ;		
+		'<script src="' + cPathPluggin + 'tweb.js' + '"></script>'
 		
 function TWebLibsTables( cPathPluggin ) 	
 
