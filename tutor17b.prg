@@ -16,8 +16,7 @@ function main()
 		
         ROWGROUP o        
             
-            GET ID 'birds' VALUE '' GRID 6 LABEL 'Source: Server' ;
-				AUTOCOMPLETE 'tutor17-server.prg' SELECT 'MySelect' ;
+            GET ID 'birds' VALUE '' GRID 6 LABEL 'Source: Server' AUTOCOMPLETE 'tutor17-server.prg' ;
 				PLACEHOLDER 'ex: Charles, Chris, Irene,... ' OF o
         
         END o	
