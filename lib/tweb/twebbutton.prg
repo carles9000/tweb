@@ -7,6 +7,7 @@ CLASS TWebButton FROM TWebControl
 	DATA cPlaceHolder 				INIT ''
 	DATA lOutline 					INIT .T.
 	DATA lSubmit					INIT .F.
+	DATA cLink						INIT ''
 
 	METHOD New() 					CONSTRUCTOR
 	METHOD Activate()
@@ -14,7 +15,7 @@ CLASS TWebButton FROM TWebControl
 
 ENDCLASS 
 
-METHOD New( oParent, cId, cLabel, cAction , nGrid, cIcon, cClass, lDisabled, lSubmit  ) CLASS TWebButton
+METHOD New( oParent, cId, cLabel, cAction , nGrid, cIcon, cClass, lDisabled, lSubmit, cLink  ) CLASS TWebButton
 
 	DEFAULT cId TO ''
 	DEFAULT cLabel TO 'Submit'
@@ -24,6 +25,7 @@ METHOD New( oParent, cId, cLabel, cAction , nGrid, cIcon, cClass, lDisabled, lSu
 	DEFAULT cClass TO 'btn-primary'				
 	DEFAULT lDisabled TO .F.				
 	DEFAULT lSubmit TO .F.				
+	DEFAULT cLink TO ''
 	
 	if empty( cClass ) 
 		cClass := if( ::lOutline, 'btn-outline-primary' , 'btn-primary')	
@@ -39,6 +41,7 @@ METHOD New( oParent, cId, cLabel, cAction , nGrid, cIcon, cClass, lDisabled, lSu
 	::cIcon			:= cIcon
 	::lDisabled		:= lDisabled
 	::lSubmit		:= lSubmit
+	::cLink			:= cLink
 
 	IF Valtype( oParent ) == 'O'	
 		oParent:AddControl( SELF )		
@@ -59,8 +62,11 @@ METHOD Activate() CLASS TWebButton
 	
 	IF ::lSubmit
 		cType := 'submit'
+	ENDIF	
+
+	IF !empty( ::cLink )
+		::cAction := "location.href='" + ::cLink + "'"
 	ENDIF
-	
 	
 
 	cHtml += '<div class="col-' + ltrim(str(::nGrid)) + IF( ::oParent:lDessign, ' tweb_dessign', '')  + '" ' + IF( ::oParent:lDessign, 'style="border:1px solid blue;"', '' ) + '>'

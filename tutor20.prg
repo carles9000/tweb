@@ -27,8 +27,6 @@ function main()
 		hData[ 'class'  ] := HB_UrlDecode( HB_HGetDef( hParameters, 'class', '' ) )
 		hData[ 'accept' ] := IF( HB_HGetDef( hParameters, 'accept', '' )  == 'on', .T., .F. )
 
-	
-	
 
 	DEFINE WEB oWeb TITLE 'Form example' INIT
 	
@@ -105,7 +103,7 @@ function main()
         
         cLoren := "En la indústria editorial i en disseny gràfic, lorem ipsum és un text de farciment que s'usa habitualment per a mostrar els elements gràfics d'un document, com ara la tipografia o la composició."
 		
-        ROWGROUP o		
+        ROWGROUP o	
 			
 			SMALL o ID 'chofer_data' Label cLoren  GRID 6
             SWITCH ID 'accept' VALUE hData[ 'accept' ] LABEL 'Acepto condiciones' OF o
@@ -114,7 +112,9 @@ function main()
         
         ROWGROUP o
 
-            BUTTON ID 'btn' LABEL 'Enviar' GRID 6 ICON '<i class="far fa-paper-plane"></i> ' CLASS 'btn-outline-primary' SUBMIT OF o        
+            BUTTON ID 'btn'  LABEL 'Enviar' GRID 0 ICON '<i class="far fa-paper-plane"></i> ' 	CLASS 'btn-outline-primary' SUBMIT OF o
+            BUTTON ID 'btn2' LABEL 'List'   GRID 3 ICON '<i class="fas fa-th-list"></i> ' 		CLASS 'btn-outline-primary' LINK 'tutor20b.prg' OF o
+			
 
         END o           
 		
@@ -123,7 +123,7 @@ function main()
 	
 RETU NIL
 
-Function Banner()
+function Banner()
 
 	LOCAL cHtml := ''
 
@@ -249,7 +249,7 @@ function Save( hData, cError )
 
 		(cAlias)->( DbAppend() )
 		
-		(cAlias)->alias		:= hData[ 'alias'  ]
+		(cAlias)->alias	:= hData[ 'alias'  ]
 		(cAlias)->name		:= hData[ 'name'   ]
 		(cAlias)->mail		:= hData[ 'mail'   ]
 		(cAlias)->date		:= dDate

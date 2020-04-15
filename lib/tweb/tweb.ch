@@ -47,10 +47,10 @@
 	
 	
 #xcommand BUTTON [<oBtn>] [ ID <cId> ] [ LABEL <cLabel> ] [ ACTION <cAction> ] [ GRID <nGrid> ] [ ICON <cIcon> ] ;
-	[ CLASS <cClass> ] [ <ds: DISABLED> ] [ <sb: SUBMIT> ];
+	[ CLASS <cClass> ] [ <ds: DISABLED> ] [ <sb: SUBMIT> ] [ LINK <cLink> ] ;
 	OF <oForm> ;
 => ;
-	[ <oBtn> := ] TWebButton():New( <oForm>, [<cId>], <cLabel>, <cAction>, <nGrid>, <cIcon>, <cClass>, [<.ds.>], [<.sb.>] )	
+	[ <oBtn> := ] TWebButton():New( <oForm>, [<cId>], <cLabel>, <cAction>, <nGrid>, <cIcon>, <cClass>, [<.ds.>], [<.sb.>], [<cLink>] )	
 	
 	
 #xcommand SWITCH [<oSwitch>] [ ID <cId> ] [ <lValue: ON> ] [ VALUE <lValue> ] [ LABEL <cLabel> ] [GRID <nGrid>] [ <act:ACTION,ONCHANGE> <cAction> ] OF <oForm> ;
