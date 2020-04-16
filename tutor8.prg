@@ -5,6 +5,7 @@
 function main()
 
     LOCAL o
+	LOCAL cTxt := ''
 
 	DEFINE WEB oWeb TITLE 'Tutor8' INIT
 

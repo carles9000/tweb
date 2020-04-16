@@ -53,14 +53,14 @@ function main()
 
             BUTTON ID 'btn' LABEL ' Test Button' ACTION 'alert(123)' GRID 6 ICON '<i class="fas fa-clipboard-check"></i>' CLASS 'btn-primary btnticket' OF o
         
-            SWITCH ID 'onoff' ON LABEL 'Ready' OF o
+            SWITCH ID 'onoff' VALUE .T. LABEL 'Ready' OF o
 
         END o          
         
         
         ROWGROUP o
 
-            SWITCH ID 'onoff2' ON LABEL 'Ready.' ACTION  "alert('change')" OF o
+            SWITCH ID 'onoff2' VALUE .T. LABEL 'Ready.' ACTION  "alert('change')" OF o
 
         END o  
         
@@ -77,7 +77,7 @@ function main()
 
                     BUTTON ID 'btn' LABEL ' Test' ACTION 'alert(123)' GRID 6 ICON '<i class="fas fa-clipboard-check"></i>' CLASS 'btn-primary btnticket' OF o
         
-                    SWITCH ID 'onoff3' ON LABEL 'Ready' GRID 6 OF o
+                    SWITCH ID 'onoff3' VALUE .T. LABEL 'Ready' GRID 6 OF o
                 
                 END o
             
