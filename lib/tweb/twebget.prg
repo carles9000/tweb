@@ -64,11 +64,15 @@ METHOD Activate() CLASS TWebGet
 		CASE upper(::oParent:cSizing) == 'LG' ; cSize := 'form-control-lg'
 	ENDCASE	
 
-	cHtml := '<div class="col-' + ltrim(str(::nGrid)) + IF( ::oParent:lDessign, ' tweb_dessign', '') + '" ' + IF( ::oParent:lDessign, 'style="border:1px solid blue;"', '' )   + ' >'
+	cHtml := '<div class="col-' + ltrim(str(::nGrid)) 
+	//cHtml += ' col-form-label ' 
+	cHtml += IF( ::oParent:lDessign, ' tweb_dessign', '') + '" '
+	chtml += IF( ::oParent:lDessign, 'style="border:1px solid blue;"', '' ) 
+	cHtml += ' >'
 	
 	IF !empty( ::cLabel )
 	
-		cHtml += '<label for="' + ::cId + '">' + ::cLabel + '</label>'
+		cHtml += '<label class="col-form-label " for="' + ::cId + '">' + ::cLabel + '</label>'
 	
 	ENDIF
 	

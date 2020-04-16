@@ -41,17 +41,18 @@ CLASS TWebBrowse FROM TWebControl
 
 ENDCLASS 
 
-METHOD New( oParent, cId, nHeight, lSingleSelect, lMultiSelect, lClickSelect, lPrint, lExport, lSearch, lTools ) CLASS TWebBrowse
+METHOD New( oParent, cId, nHeight, lSingleSelect, lMultiSelect, lClickSelect, lPrint, lExport, lSearch, lTools, cAction ) CLASS TWebBrowse
 
 	DEFAULT cId 			TO cId
-	DEFAULT nHeight			TO 400
+	DEFAULT nHeight		TO 400
 	DEFAULT lSingleSelect	TO .F.
 	DEFAULT lMultiSelect	TO .F.
 	DEFAULT lClickSelect	TO .F.
 	DEFAULT lPrint			TO .T.
-	DEFAULT lExport			TO .F.
-	DEFAULT lSearch			TO .F.
+	DEFAULT lExport		TO .F.
+	DEFAULT lSearch		TO .F.
 	DEFAULT lTools			TO .F.
+	DEFAULT cAction		TO ''
 
 	::cId 			:= cId
 	::nHeight 		:= nHeight
@@ -62,6 +63,7 @@ METHOD New( oParent, cId, nHeight, lSingleSelect, lMultiSelect, lClickSelect, lP
 	::lExport 		:= lExport
 	::lSearch 		:= lSearch
 	::lTools 		:= lTools		
+	::cAction 		:= cAction
 
 	IF Valtype( oParent ) == 'O'	
 		oParent:AddControl( SELF )	
@@ -216,13 +218,17 @@ METHOD Init( cVarJS, aRows ) CLASS TWebBrowse
 
 	IF cVarJS == NIL
 		cVarJS	:= '_' + ::cId
-	ENDIF
-	
+	ENDIF	
 
 	::cInit += '<script>'													+ CRLF
 
-	::cInit += 'var ' + cVarJS + ' = new TWebBrowse( "' + ::cId + '" );'	+ CRLF
+	::cInit += 'var ' + cVarJS + ' = new TWebBrowse( "' + ::cId + '" );'	+ CRLF			
 	::cInit += '$(document).ready(function () {	'							+ CRLF
+	
+		IF !Empty( ::cAction ) 
+			::cInit += '   '  + cVarJS + '.bClick = ' + ::cAction + ' ' + CRLF
+		ENDIF
+		
 	::cInit += '    ' + cVarJS + '.Init();'									+ CRLF
 
 	IF Valtype( aRows ) == 'A'

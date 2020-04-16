@@ -38,7 +38,7 @@ METHOD Activate() CLASS TWebCheckbox
 		cChecked := 'checked="checked"'
 	ENDIF	
 
-	cHtml := '<div class="col-' + ltrim(str(::nGrid)) + ' custom-control custom-checkbox" ' + IF( ::lDessign, 'style="border:1px solid blue;"', '' )   + ' >'
+	cHtml := '<div class="col-' + ltrim(str(::nGrid)) + ' custom-control custom-checkbox tweb_checkbox" ' + IF( ::lDessign, 'style="border:1px solid blue;"', '' )   + ' >'
 	cHtml += '<input type="checkbox" class="custom-control-input tweb_pointer" id="' + ::cId + '" ' 
 	cHtml += ' onchange="' + ::cAction + '" '  + cChecked
 	cHtml += '> '
