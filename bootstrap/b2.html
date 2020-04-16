@@ -1,0 +1,284 @@
+	
+<html>
+    
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script> 
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    
+	<style>
+		body {
+			margin:0px;
+			padding:0px;
+		}
+		
+		.red { border:1px solid red; }
+		.green { border:1px solid green; }
+		.blue { border:1px solid blue; }
+		.yellow { border:1px solid yellow; }
+		.brown { border:1px solid brown; }
+		
+        body {
+            
+            /*background: #e0e0e0 url("{$ App():Url() + '/data/img/bg-masthead.jpg' $}") no-repeat fixed center;*/
+        }
+
+		.fixed-footer{
+            position:fixed;
+            bottom: 0;
+            background-color:black;
+            color:white;
+            width:100%;
+        }
+
+		.container {
+		
+			background-color: #f7f7f7;
+		
+		}
+		
+		.mini-title {
+			background-color: #6c757d;
+			color: white;
+			margin-bottom: 5px;
+			border-bottom: 1px solid black;
+			border-right: 1px solid black;
+		}
+
+
+	</style>
+
+
+<body>
+
+<div class= "container" >
+
+
+  <!--<div class="form-row red">-->
+  <div class="form-group  row red ">	<!-- no-gutters -->
+   
+    <div class="col-4 blue" >
+      <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
+    </div>
+	<div class="col-3 blue">
+		<button type="submit" class="btn btn-primary">Send</button>
+	</div>
+    <div class="col-5 blue">
+      <input type="text" id="Name" name="Name" class="form-control-plaintext" value="Texte pla y bla bla bla..." readonly />
+    </div>	
+  </div>
+  
+  <!-- 2 LINEA -->
+  
+   <!--<div class="form-row align-items-center row">-->
+   <div class="form-group row align-items-center red">
+    <div class="col-3">
+      <label class="sr-only" for="inlineFormInputName">Name</label>
+      <input type="text" class="form-control" id="inlineFormInputName" placeholder="Jane Doe">
+    </div>
+    <div class="col-3">
+      <label class="sr-only" for="inlineFormInputGroupUsername">Username</label>
+      <div class="input-group">
+        <input type="text" class="form-control" id="inlineFormInputGroupUsername" placeholder="Username">
+        <div class="input-group-prepend">
+          <div class="input-group-text">@</div>
+        </div>
+      </div>
+    </div>
+    <div class="col-3">
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="autoSizingCheck2">
+        <label class="form-check-label" for="autoSizingCheck2">
+          Accept
+        </label>
+      </div>
+    </div>
+    <div class="col-3">
+      <button type="submit" class="btn btn-secondary">Submit</button>
+    </div>
+  </div> 
+  
+   <!-- 3 LINEA -->
+  
+   <!--<div class="form-row align-items-center row">-->
+   <div class="form-group row align-items-center red">           
+
+		<div class="col-7">
+			<label for="a1">Original Amount</label>
+			<div class="input-group">
+			  <input type="text" id="a1" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
+			  <div class="input-group-append">
+				<button class="btn btn-outline-secondary" type="button"><i class="fas fa-search"></i></button>
+				<button class="btn btn-outline-secondary" type="button">Btn</button>
+			  </div>
+			</div>
+		</div>
+
+		<div class="col-5">
+			<label for="exampleInputEmail1">Amount</label>
+			<div class="input-group">
+			  <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
+			  <div class="input-group-append">
+				<button class="btn btn-outline-secondary" type="button"><i class="fas fa-search"></i></button>				
+			  </div>
+			</div>
+		</div>  		
+		
+   </div> 
+
+  <!-- 4 LINEA -->
+  
+  
+   <div class="row ">   
+		<div class="col-12 mini-title">
+			<!--<label for="exampleInputEmail1">Amount</label>-->
+			<small>Amount</small>
+		</div>
+   </div>    
+  
+ 
+   <div class="form-group row align-items-center ">
+   
+		<div class="col-6">
+		  <input type="text" class="form-control" id="inlineFormInputName" placeholder="Jane Doe">  
+		</div>
+		
+		<div class="col-6">
+			<small id="passwordHelpInline" class="text-muted">
+			  Must be 8-20 characters long.
+			</small>	  
+		</div>	
+   </div>    
+   
+   
+   
+   
+   
+   
+   
+   
+  <!-- 5 LINEA -->    
+  
+   <!--<div class="form-row align-items-center row">-->
+   <div class="form-group row align-items-center red">
+   
+		<div class="col-6">
+			<label for="exampleInputEmail1">Amount</label>
+		  <input type="text" class="form-control" id="inlineFormInputName" placeholder="Jane Doe">  
+		</div>
+		
+		<div class="col-6">			
+			<small id="passwordHelpInline" class="text-muted">Must be 8-20 characters long.</small>	  
+		</div>	
+   </div>  
+  
+
+  <!-- 6 LINEA -->
+  
+   <!--<div class="form-row align-items-center row">-->
+   <div class="form-group row align-items-center red">
+   
+		<div class="col-6">
+		  <input type="text" class="form-control" id="inlineFormInputName" placeholder="Jane Doe">  
+		</div>
+		
+		<div class="col-6 ">
+		  <input type="text" id="Name" name="Name" class="form-control-plaintext" value="Texte pla..." readonly />
+		</div>		
+   </div>  
+
+  <!-- 7 LINEA -->
+  
+   <div class="form-group row align-items-center red">
+   
+		<div class="col-6">
+		  <input type="text" class="form-control" id="inlineFormInputName" placeholder="Jane Doe">  
+		</div>
+		
+		<div class="col-6 ">
+			
+			 <small id="passwordHelpInline" class="text-muted">
+				Carles Aubia Floresvi.<br>Dpt. Informática
+			 </small>			 
+
+		</div>		
+   </div> 
+
+  <!-- 7 LINEA -->
+  
+	<div class="form-group row align-items-center red">
+
+		<div class="col-6">
+		  <select name="cars" class="custom-select">
+			<option selected>Small Custom Select Menu</option>
+			<option value="volvo">Volvo</option>
+			<option value="fiat">Fiat</option>
+			<option value="audi">Audi</option>
+		  </select>	
+		</div>
+		
+		  <div class="custom-control custom-switch">
+			<input type="checkbox" class="custom-control-input" id="switch1">
+			<label class="custom-control-label" for="switch1">Toggle me</label>
+		  </div>				
+	</div>  
+	
+  <!-- 8 LINEA -->
+  
+	<div class="form-group row align-items-center red">
+	
+		<div class="col-5">
+			
+			<div class="input-group">
+			  <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
+			  <div class="input-group-append">
+				<button class="btn btn-outline-secondary" type="button"><i class="fas fa-search"></i></button>				
+			  </div>
+			</div>
+		</div>  		
+		
+		
+		<div class="col-2 ">
+		  <div class="custom-control custom-radio custom-control-inline">
+			<input type="radio" class="custom-control-input" id="customRadio" name="example" value="customEx">
+			<label class="custom-control-label" for="customRadio">C1</label>
+		  </div>					
+		</div>
+		
+		<div class="col-2 ">
+		  <div class="custom-control custom-checkbox ">
+			<input type="checkbox" class="custom-control-input" id="customCheck" name="example1">
+			<label class="custom-control-label" for="customCheck">C2</label>
+		  </div>				
+		</div>								
+		
+		  <div class="col-3 custom-control custom-switch">
+			<input type="checkbox" class="custom-control-input" id="x1">
+			<label class="custom-control-label" for="x1">Run</label>
+		  </div>				
+	</div> 	
+	
+  <!-- 9 LINEA -->
+  
+	<div class="form-group row align-items-center red">
+	
+		<div class="col-12">
+			<label for="exampleInputEmail1">Original Amount</label>
+			<div class="input-group">
+			  <textarea class="form-control" id="exampleFormControlTextarea1" rows="3">...</textarea>
+			</div>
+		</div>	
+				
+	</div> 	
+
+
+</div>
+
+    <div class="fixed-footer">
+        <div >Copyright © 2016 ...</div>        
+    </div>
+
+</body>
+</html>
