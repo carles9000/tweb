@@ -7,6 +7,8 @@ CLASS TWebFolder FROM TWebForm
 	DATA aTabs	 					INIT {}
 	DATA aPrompts 					INIT {}
 	DATA aTabs 						INIT {=>}
+	DATA cInitTab 					INIT ''
+	DATA lAdjust 					INIT .F.
 
 	METHOD New() 					CONSTRUCTOR
 	METHOD Activate()
@@ -18,24 +20,29 @@ CLASS TWebFolder FROM TWebForm
 
 ENDCLASS 
 
-METHOD New( oParent, cId, aTabs, aPrompts, nGrid, cClass  ) CLASS TWebFolder
+METHOD New( oParent, cId, aTabs, aPrompts, nGrid, cInitTab, lAdjust  ) CLASS TWebFolder
 
-	DEFAULT cId TO ''
-	DEFAULT nGrid TO 12
-	DEFAULT aPrompts 	TO { { "One", "Two", "Three" } }
-	DEFAULT cClass 		TO ''
+	DEFAULT cId 			TO ''
+	DEFAULT nGrid 			TO 12
+	DEFAULT aPrompts 		TO { { "One", "Two", "Three" } }
+	//DEFAULT cClass 		TO ''
+	DEFAULT cInitTab 		TO ''
+	DEFAULT lAdjust 		TO .F.
 		
 	::oParent 		:= oParent
 	::cId			:= cId
 	::nGrid			:= nGrid
 	::aTabs 		:= aTabs
-	::aPrompts 		:= aPrompts
-	::cClass		:= cClass
+	::aPrompts 	:= aPrompts
+	//::cClass		:= cClass
+	::cInitTab 	:= cInitTab
+	::lAdjust		:= lAdjust
 
 	IF Valtype( oParent ) == 'O'	
 		oParent:AddControl( SELF )	
 		
 		::lDessign := oParent:lDessign
+		
 	ENDIF
 
 RETU SELF
@@ -46,6 +53,10 @@ METHOD AddTab( cId , lFocus ) CLASS TWebFolder
 
 	LOCAL cHtml := ''
 	LOCAL cClass := IF( ::oParent:lFluid, 'container-fluid', 'container' )
+	
+	IF ::lAdjust
+		cClass += ' tweb_folder '
+	ENDIF
 
 	DEFAULT lFocus TO .F.
 	

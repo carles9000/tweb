@@ -23,7 +23,7 @@ CLASS TWebForm FROM TWebControl
 	DATA cAction					INIT ''		
 	DATA cType						INIT ''		//	sm, md, lg, xl, xs
 	DATA cSizing					INIT ''		//	sm, lg
-	DATA lFluid						INIT .F. 
+	DATA lFluid					INIT .F. 
 
 	METHOD New() 					CONSTRUCTOR	
 

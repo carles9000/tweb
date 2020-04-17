@@ -11,52 +11,62 @@ function main()
 
 	DEFINE WEB oWeb TITLE 'Test Browse' ICON 'images/favicon.ico' TABLES INIT
 	
-	DEFINE FORM o ID 'demo'
+	DEFINE FORM o ID 'demo'		
 		
-		HTML o INLINE '<h3>Test Browse - onchange event</h3><hr>'
+		HTML o INLINE '<h3>View Customer</h3><small>Smartphone version</small><hr>'
 		
 	INIT FORM o 
-
-		ROW o
-		
-			COL o GRID 6
-
-				DEFINE BROWSE oBrw ID 'ringo' HEIGHT 400 ONCHANGE 'SelData' OF o
-
-					ADD oCol TO oBrw ID 'first' 	HEADER 'First' 	ALIGN 'right'
-					ADD oCol TO oBrw ID 'last'		HEADER 'Last'  	SORT			
-					ADD oCol TO oBrw ID 'age'		HEADER 'Age' 	WIDTH 70 
-
-				INIT BROWSE oBrw DATA aRows
-		
-			END o
+	
+		ROWGROUP o
+	
+			FOLDER oFld ID 'fld' TABS 'list', 'user' PROMPT '<i class="fas fa-th-list"></i> List', '<i class="far fa-user"></i> User' ADJUST OF o		
 			
-			COL o GRID 6
-			
-				ROWGROUP o
-					GET ID 'city' VALUE '' GRID 12  LABEL 'City' OF o
-				END o
+				DEFINE TAB 'list' OF oFld
 				
-				ROWGROUP o
-					GET ID 'st'   VALUE '' GRID 4 LABEL 'State' OF o
-					GET ID 'zip'  VALUE '' GRID 6 LABEL 'Zip'   OF o
-				END o
-				
-				ROWGROUP o
-					GET ID 'hiredate' VALUE '' GRID 6 LABEL 'Hiredate' OF o
-				END o  
-				
-				ROWGROUP o
-					CHECKBOX ID 'married' LABEL 'Married' GRID 6 OF o					
-				END o  					
+					DEFINE BROWSE oBrw ID 'ringo' HEIGHT 400 ONCHANGE 'SelData' OF oFld
+
+						ADD oCol TO oBrw ID 'first' 	HEADER 'First' 	ALIGN 'right'
+						ADD oCol TO oBrw ID 'last'		HEADER 'Last'  	SORT			
+						ADD oCol TO oBrw ID 'age'		HEADER 'Age' 	WIDTH 70 
+
+					INIT BROWSE oBrw DATA aRows		
 					
-				ROWGROUP o
-					GET ID 'notes' VALUE '' GRID 12 LABEL 'Notes' OF o
-				END o				
-
-			END o
-
-		END o
+				ENDTAB oFld
+				
+				DEFINE TAB 'user' OF oFld
+				
+				    HTML oFld
+						<div class="alert alert-dark form_title" role="alert">
+							<h5 id="name" style="margin:0px;"></h5>
+						</div>
+					ENDTEXT
+				
+					ROWGROUP o
+						GET ID 'city' VALUE '' GRID 12  LABEL 'City' OF oFld
+					END o
+					
+					ROWGROUP o
+						GET ID 'st'   VALUE '' GRID 4 LABEL 'State' OF oFld
+						GET ID 'zip'  VALUE '' GRID 6 LABEL 'Zip'   OF oFld
+					END o
+					
+					ROWGROUP o
+						GET ID 'hiredate' VALUE '' GRID 6 LABEL 'Hiredate' OF oFld
+					END o  
+					
+					ROWGROUP o
+						CHECKBOX ID 'married' LABEL 'Married' GRID 6 OF oFld
+					END o  					
+						
+					ROWGROUP o
+						GET ID 'notes' VALUE '' GRID 12 LABEL 'Notes' OF oFld
+					END o		
+				
+				ENDTAB oFld
+			
+			END oFld
+		
+		END o 
 
 		HTML o 
 		
@@ -70,6 +80,10 @@ function main()
 					$('#married').prop('checked', row.married );
 					$('#notes').val( row.notes )
 					$('#married').prop('checked', row.married );
+
+					$('#name').html( '<b><i>' + row.first + ' ' + row.last + '</i></b>' );
+					
+					$('.nav-tabs a[href="#user"]').tab('show');
 				}					
 				
 			</script>
@@ -108,4 +122,7 @@ function LoadData()
 	next
 
 retu aRows 
+
+
+
 

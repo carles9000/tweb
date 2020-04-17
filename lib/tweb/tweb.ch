@@ -96,10 +96,11 @@
 		[ <tabs: TABS> <cTab,...> ] ;		
 		[ <prm: PROMPT, PROMPTS, ITEMS> <cPrompt,...> ] ;		
 		[ GRID <nGrid> ] ;
-		[ OPTION <nOption> ] ;
+		[ OPTION <cOption> ] ;
+		[ <lAdjust: ADJUST> ] ;
 		OF <oForm> ;
 => ;
-	[ <oFolder> := ] TWebFolder():New( <oForm>, [<cId>], [\{<cTab>\}], [\{<cPrompt>\}], [<nGrid>], [<nOption>] ) 
+	[ <oFolder> := ] TWebFolder():New( <oForm>, [<cId>], [\{<cTab>\}], [\{<cPrompt>\}], [<nGrid>], [<cOption>], [<.lAdjust.>] ) 
 
 #xcommand DEFINE TAB <cId> [ <lFocus: FOCUS> ] OF <oFld> => <oFld>:AddTab( <cId>, [<.lFocus.>] )
 #xcommand ENDTAB <oFld> => <oFld>:End()
