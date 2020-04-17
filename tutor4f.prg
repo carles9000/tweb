@@ -11,7 +11,8 @@ function main()
 
 	DEFINE WEB oWeb TITLE 'Test Browse' ICON 'images/favicon.ico' TABLES INIT
 	
-	DEFINE FORM o ID 'demo'		
+	DEFINE FORM o ID 'demo'	
+		//o:lFluid := .t.
 		
 		HTML o INLINE '<h3>View Customer</h3><small>Smartphone version</small><hr>'
 		
@@ -41,26 +42,23 @@ function main()
 						</div>
 					ENDTEXT
 				
-					ROWGROUP o
-						GET ID 'city' VALUE '' GRID 12  LABEL 'City' OF oFld
-					END o
+					ROWGROUP oFld
+						GET ID 'city' VALUE '' GRID 9 LABEL 'City' OF oFld
+						GET ID 'st'   VALUE '' GRID 3 LABEL 'State' OF oFld
+					END oFld
 					
-					ROWGROUP o
-						GET ID 'st'   VALUE '' GRID 4 LABEL 'State' OF oFld
-						GET ID 'zip'  VALUE '' GRID 6 LABEL 'Zip'   OF oFld
-					END o
+					ROWGROUP oFld
+						GET ID 'zip'  		VALUE '' GRID 6 LABEL 'Zip'   OF oFld
+						GET ID 'hiredate' 	VALUE '' GRID 6 LABEL 'Hiredate' OF oFld
+					END oFld
 					
-					ROWGROUP o
-						GET ID 'hiredate' VALUE '' GRID 6 LABEL 'Hiredate' OF oFld
-					END o  
-					
-					ROWGROUP o
+					ROWGROUP oFld
 						CHECKBOX ID 'married' LABEL 'Married' GRID 6 OF oFld
-					END o  					
+					END oFld
 						
-					ROWGROUP o
+					ROWGROUP oFld
 						GET ID 'notes' VALUE '' GRID 12 LABEL 'Notes' OF oFld
-					END o		
+					END oFld
 				
 				ENDTAB oFld
 			
