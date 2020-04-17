@@ -41,7 +41,7 @@ CLASS TWebBrowse FROM TWebControl
 
 ENDCLASS 
 
-METHOD New( oParent, cId, nHeight, lSingleSelect, lMultiSelect, lClickSelect, lPrint, lExport, lSearch, lTools, cAction ) CLASS TWebBrowse
+METHOD New( oParent, cId, nHeight, lSingleSelect, lMultiSelect, lClickSelect, lPrint, lExport, lSearch, lTools, cAction, cDblClick ) CLASS TWebBrowse
 
 	DEFAULT cId 			TO cId
 	DEFAULT nHeight		TO 400
@@ -53,6 +53,7 @@ METHOD New( oParent, cId, nHeight, lSingleSelect, lMultiSelect, lClickSelect, lP
 	DEFAULT lSearch		TO .F.
 	DEFAULT lTools			TO .F.
 	DEFAULT cAction		TO ''
+	DEFAULT cDblClick		TO ''
 
 	::cId 			:= cId
 	::nHeight 		:= nHeight
@@ -64,6 +65,7 @@ METHOD New( oParent, cId, nHeight, lSingleSelect, lMultiSelect, lClickSelect, lP
 	::lSearch 		:= lSearch
 	::lTools 		:= lTools		
 	::cAction 		:= cAction
+	::cDblClick	:= cDblClick
 
 	IF Valtype( oParent ) == 'O'	
 		oParent:AddControl( SELF )	
@@ -228,6 +230,10 @@ METHOD Init( cVarJS, aRows ) CLASS TWebBrowse
 		IF !Empty( ::cAction ) 
 			::cInit += '   '  + cVarJS + '.bClick = ' + ::cAction + ' ' + CRLF
 		ENDIF
+		
+		IF !Empty( ::cDblClick ) 
+			::cInit += '   '  + cVarJS + '.bDblClick = ' + ::cDblClick + ' ' + CRLF
+		ENDIF		
 		
 	::cInit += '    ' + cVarJS + '.Init();'									+ CRLF
 
