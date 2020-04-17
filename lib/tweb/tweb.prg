@@ -6,7 +6,7 @@
 ** MIT license https://github.com/carles9000/tweb/blob/master/LICENSE
 */
 
-#define TWEB_VERSION 			'TWeb 0.7a'
+#define TWEB_VERSION 			'TWeb 0.7b'
 #define TWEB_PATH 				'lib/tweb/'
 
 #xcommand ?? <cText> => AP_RPuts( <cText> )
