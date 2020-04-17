@@ -29,10 +29,8 @@ function main()
 
 				INIT BROWSE oBrw DATA aRows
 		
-			END o
+			END o	
 			
-
-
 		END o
 
 		HTML o 
