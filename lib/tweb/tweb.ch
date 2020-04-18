@@ -20,6 +20,7 @@
 #xcommand DEFINE FORM <oForm> [ID <cId> ] [ACTION <cAction>] => <oForm> := TWebForm():New([<cId>], [<cAction>])
 #xcommand INIT FORM <oForm> => <oForm>:InitForm()
 #xcommand END FORM <oForm> => ?? <oForm>:Activate()
+#xcommand END FORM <oForm> RETURN =>  return <oForm>:Activate()
 #xcommand COL <oForm> [GRID <nGrid>] [TYPE <cType>] => <oForm>:Col( [<nGrid>], [<cType>] )
 #xcommand ROW <oForm> => <oForm>:Row()
 #xcommand HTML <oForm> => #pragma __cstream| <oForm>:Html( %s )
