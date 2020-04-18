@@ -95,9 +95,21 @@ retu cHtml
 
 function TWebInclude( cPathPluggin )
 
-	DEFAULT cPathPluggin TO TWEB_PATH
+	local cFile, oError
 
-RETU '"' + HB_GetEnv( "PRGPATH" ) + '/' + cPathPluggin + 'tweb.ch' + '"'
+	DEFAULT cPathPluggin TO TWEB_PATH
+	
+	cFile := HB_GetEnv( "PRGPATH" ) + '/' + cPathPluggin + 'tweb.ch'
+	
+	if ! File( cFile )
+		oError := ErrorNew()
+		oError:Subsystem   := "System"
+		oError:Severity    := 2	//	ES_ERROR
+		oError:Description := "TWebInclude() File not found: " + cFile 
+		Eval( ErrorBlock(), oError)
+   endif
+
+RETU '"' + cFile + '"'
 
 
 CLASS TWeb
