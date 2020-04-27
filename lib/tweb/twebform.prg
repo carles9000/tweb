@@ -21,9 +21,11 @@ CLASS TWebForm FROM TWebControl
 
 	DATA aControls					INIT {}
 	DATA cAction					INIT ''		
+	DATA cMethod					INIT 'POST'
 	DATA cType						INIT ''		//	sm, md, lg, xl, xs
 	DATA cSizing					INIT ''		//	sm, lg
-	DATA lFluid					INIT .F. 
+	DATA lFluid						INIT .F. 
+	DATA lRowGroupVertical			INIT .F. 
 
 	METHOD New() 					CONSTRUCTOR	
 
@@ -44,12 +46,14 @@ CLASS TWebForm FROM TWebControl
 	
 ENDCLASS 
 
-METHOD New( cId, cAction ) CLASS TWebForm		
+METHOD New( cId, cAction, cMethod ) CLASS TWebForm		
 
 	DEFAULT cId 	TO ''
 	DEFAULT cAction TO ''
+	DEFAULT cMethod TO 'POST'
 	
 	::cAction := cAction
+	::cMethod := cMethod
 
 
 RETU SELF
@@ -62,11 +66,11 @@ METHOD InitForm() CLASS TWebForm
 	
 	IF !empty( ::cAction )
 	
-		::Html( '<form action="' + ::cAction + '" method="POST">'  )
+		::Html( '<form action="' + ::cAction + '" method="' + ::cMethod + '">'  )
 	
 	ENDIF
 	
-	
+	::lRowGroupVertical := .F.		
 	
 RETU NIL
 

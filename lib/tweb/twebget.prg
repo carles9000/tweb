@@ -72,6 +72,8 @@ METHOD Activate() CLASS TWebGet
 	
 	IF !empty( ::cLabel )
 	
+		::oParent:lRowGroupVertical := .T.
+	
 		cHtml += '<label class="col-form-label " for="' + ::cId + '">' + ::cLabel + '</label>'
 	
 	ENDIF

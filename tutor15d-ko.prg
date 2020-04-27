@@ -8,9 +8,8 @@ function main()
 
     LOCAL o, oWeb
 
-	DEFINE WEB oWeb TITLE 'Test CharSet - ANSI / Dbf' 	
-		oWeb:cCharset := 'utf-8'
-	INIT WEB oWeb
+	DEFINE WEB oWeb TITLE 'Test CharSet - ANSI / Dbf' 	CHARSET 'utf-8' INIT
+
 	
 	DEFINE FORM o ID 'demo'
 

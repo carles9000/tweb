@@ -6,12 +6,9 @@ function main()
 
     LOCAL o, oWeb
 
-	DEFINE WEB oWeb TITLE 'Test CharSet - Latin-1' 
-		oWeb:cCharset := 'utf-8'	
-	INIT WEB oWeb
+	DEFINE WEB oWeb TITLE 'Test CharSet - Latin-1' CHARSET 'utf-8' INIT
 	
 	DEFINE FORM o ID 'demo'
-
 		
 	INIT FORM o  			
 
@@ -25,9 +22,12 @@ function main()
 			<br><b><u>Bloc 1</u></b>
 			
 			<br> Special characters ƒд’хь№ Barзa caсa абийнтуъ ь о	
-			<br>
+			<br><br>
 			
-			<br><b><u>Bloc 2</u></b>
+			I have made a copy / paste of the Test 15.prg example in utf8. 
+			Special symbols are not pasted correctly if our editor is Ansi encoded
+			
+			<br><br><b><u>Bloc 2</u></b>
 			
 			<br> ??? (China)
 			<br> ??? (Hong Kong)

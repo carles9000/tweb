@@ -5,10 +5,10 @@
 function main()
 
     LOCAL o, oWeb
+	
+	//	By default charset = ISO-8859-1, because this way is compatible with most dbfs
 
-	DEFINE WEB oWeb TITLE 'Test CharSet - UTF8' 
-		oWeb:cCharset := 'utf-8'	//	Latin-1				
-	INIT WEB oWeb
+	DEFINE WEB oWeb TITLE 'Test CharSet - UTF8' CHARSET 'utf-8' INIT
 	
 	DEFINE FORM o ID 'demo'
 

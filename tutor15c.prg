@@ -6,14 +6,11 @@
 
 function main()
 
-    LOCAL o, oWeb
+    LOCAL o, oWeb	
 
-	DEFINE WEB oWeb TITLE 'Test CharSet - UTF8 / Dbf' 
-		oWeb:cCharset := 'utf-8'		//	Latin-1				
-	INIT WEB oWeb
+	DEFINE WEB oWeb TITLE 'Test CharSet - UTF8 / Dbf' CHARSET 'utf-8' INIT 
 	
 	DEFINE FORM o ID 'demo'
-
 		
 	INIT FORM o  	
 	
@@ -29,6 +26,8 @@ function main()
 	
 	END FORM o
 	
+	//	This dbf is coded with utf-8
+	
 	USE ( PATH_DATA + 'utf8.dbf' ) SHARED NEW VIA 'DBFCDX'
 	
 	while !Eof()
@@ -39,4 +38,3 @@ function main()
 	end			
 	
 retu nil
-

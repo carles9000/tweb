@@ -15,11 +15,13 @@ CLASS TWebButton FROM TWebControl
 
 ENDCLASS 
 
-METHOD New( oParent, cId, cLabel, cAction , nGrid, cIcon, cClass, lDisabled, lSubmit, cLink  ) CLASS TWebButton
+METHOD New( oParent, cId, cLabel, cAction , cName, cValue, nGrid, cIcon, cClass, lDisabled, lSubmit, cLink  ) CLASS TWebButton
 
 	DEFAULT cId TO ''
 	DEFAULT cLabel TO 'Submit'
 	DEFAULT cAction TO ''
+	DEFAULT cName TO ''
+	DEFAULT cValue TO ''
 	DEFAULT nGrid TO 12
 	DEFAULT cIcon TO ''		// '<i class="fas fa-check"></i>'
 	DEFAULT cClass TO 'btn-primary'				
@@ -37,9 +39,11 @@ METHOD New( oParent, cId, cLabel, cAction , nGrid, cIcon, cClass, lDisabled, lSu
 	::nGrid			:= nGrid
 	::cLabel 		:= cLabel
 	::cAction		:= cAction	
+	::cName			:= cName
+	::uValue		:= cValue
 	::cClass		:= cClass
 	::cIcon			:= cIcon
-	::lDisabled		:= lDisabled
+	::lDisabled	:= lDisabled
 	::lSubmit		:= lSubmit
 	::cLink			:= cLink
 
@@ -65,14 +69,39 @@ METHOD Activate() CLASS TWebButton
 	ENDIF	
 
 	IF !empty( ::cLink )
-		::cAction := "location.href='" + ::cLink + "'"
+		::cAction := "location.href='" + ::cLink + "' "
 	ENDIF
-	
+
+	IF empty( ::cName )
+		::cName := ::cId
+	ENDIF
 
 	cHtml += '<div class="col-' + ltrim(str(::nGrid)) + IF( ::oParent:lDessign, ' tweb_dessign', '')  + '" ' + IF( ::oParent:lDessign, 'style="border:1px solid blue;"', '' ) + '>'
-	cHtml += '<button type="' + cType + '" class="btn ' + ::cClass + ' ' + cSize + ' " onclick="' + ::cAction + '" id="' + ::cId + '" ' + IF( ::lDisabled, 'disabled', '' ) + ' >' 
+	
+	IF ::oParent:lRowGroupVertical
+	
+		cHtml += '<label>&nbsp</label>'		
+		cHtml += '<div class="input-group">'
+	
+	ENDIF		
+	
+	cHtml += '<button type="' + cType + '" class="btn ' + ::cClass + ' ' + cSize + '" ' 
+	cHtml += 'style="width:100%;" '
+	
+	IF !empty( ::cAction )
+		cHtml += 'onclick="' + ::cAction + '" ' 
+	ENDIF
+		
+	cHtml += 'id="' + ::cId + '" name="' + ::cName + '" value="' + ::uValue + '" ' 
+	cHtml += IF( ::lDisabled, 'disabled', '' ) + ' >' 
 	cHtml += ::cIcon + ::cLabel
 	cHtml += '</button>'
-	cHtml += '</div>'	
+	cHtml += '</div>'
+
+	IF ::oParent:lRowGroupVertical
+	
+		cHtml += '</div>'				
+	
+	ENDIF		
 
 RETU cHtml

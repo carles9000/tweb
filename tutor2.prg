@@ -10,6 +10,8 @@ function main()
 
     DEFINE FORM o ID 'demo'	
 		o:lDessign := .F.
+		o:lFluid:= .t.
+		o:cType     := 'sm'
 		
         HTML o
             <div class="alert alert-dark form_title" role="alert">

@@ -11,13 +11,14 @@
 #xcommand LOAD TWEB => ?? LoadTWeb()
 #xcommand LOAD TWEB TABLES => ?? LoadTWebTables()
 
-#xcommand DEFINE WEB <oWeb> [ TITLE <cTitle>] [ ICON <cIcon>] [<lTables: TABLES>] [<lInit: INIT>] ;
+#xcommand DEFINE WEB <oWeb> [ TITLE <cTitle>] [ ICON <cIcon>] [<lTables: TABLES>] [ CHARSET <cCharSet>] [<lInit: INIT>] ;
 	=> ;
-		<oWeb> := TWeb():New( [<cTitle>], [<cIcon>], [<.lTables.>], [<.lInit.>] )
+		<oWeb> := TWeb():New( [<cTitle>], [<cIcon>], [<.lTables.>], [<cCharSet>], [<.lInit.>] )
 		
 #xcommand INIT WEB <oWeb> => <oWeb>:Activate()
 
-#xcommand DEFINE FORM <oForm> [ID <cId> ] [ACTION <cAction>] => <oForm> := TWebForm():New([<cId>], [<cAction>])
+
+#xcommand DEFINE FORM <oForm> [ID <cId> ] [ACTION <cAction>] [METHOD <cMethod>] => <oForm> := TWebForm():New([<cId>], [<cAction>], [<cMethod>] )
 #xcommand INIT FORM <oForm> => <oForm>:InitForm()
 #xcommand END FORM <oForm> => ?? <oForm>:Activate()
 #xcommand END FORM <oForm> RETURN =>  return <oForm>:Activate()
@@ -28,6 +29,14 @@
 #xcommand HTML <oForm> [ PARAMS [<v1>] [,<vn>] ] ;
 => ;
 	#pragma __cstream |<oForm>:Html( InlinePrg( ReplaceBlocks( %s, '<$', "$>" [,<(v1)>][+","+<(vn)>] [, @<v1>][, @<vn>] ) ) )
+								
+#xcommand HTML <oForm> FILE <cFile> [ <prm: PARAMS, VARS> <cValues,...> ]  => AP_RPuts( TWebHtmlInline( <cFile>, [\{<cValues>\}]  ) )
+
+#xcommand HTML <oForm> PRG  <cFile> [FUNC <cFunc> ] [PARAMS <explist,...>]  => AP_RPuts( TWebHtmlPrg( <cFile>, [<cFunc>] [,<explist>] ) )
+
+
+
+	
 #xcommand CAPTION <oForm> LABEL <cLabel> [ GRID <nGrid> ] => <oForm>:Caption( <cLabel>, <nGrid> )
 #xcommand SEPARATOR <oForm> LABEL <cLabel> => <oForm>:Separator( <cLabel> )
 #xcommand SMALL <oForm> [ ID <cId> ] [ LABEL <cLabel> ] [ GRID <nGrid> ] => <oForm>:Small( <cId>, <cLabel>, <nGrid> )
@@ -53,11 +62,11 @@
 	[<oGetMemo> := ] TWebGetMemo():New( <oForm>, [<cId>], [<uValue>], [<nGrid>], [<cLabel>], [<cAlign>], [<.ro.>], [<nRows>] )
 	
 	
-#xcommand BUTTON [<oBtn>] [ ID <cId> ] [ LABEL <cLabel> ] [ ACTION <cAction> ] [ GRID <nGrid> ] [ ICON <cIcon> ] ;
-	[ CLASS <cClass> ] [ <ds: DISABLED> ] [ <sb: SUBMIT> ] [ LINK <cLink> ] ;
+#xcommand BUTTON [<oBtn>] [ ID <cId> ] [ LABEL <cLabel> ] [ ACTION <cAction> ] [ NAME <cName> ] [ VALUE <cValue> ] [ GRID <nGrid> ] ; 
+	[ ICON <cIcon> ] [ CLASS <cClass> ] [ <ds: DISABLED> ] [ <sb: SUBMIT> ] [ LINK <cLink> ] ;
 	OF <oForm> ;
 => ;
-	[ <oBtn> := ] TWebButton():New( <oForm>, [<cId>], <cLabel>, <cAction>, <nGrid>, <cIcon>, <cClass>, [<.ds.>], [<.sb.>], [<cLink>] )	
+	[ <oBtn> := ] TWebButton():New( <oForm>, [<cId>], <cLabel>, <cAction>, <cName>, <cValue>, <nGrid>, <cIcon>, <cClass>, [<.ds.>], [<.sb.>], [<cLink>] )	
 	
 	
 #xcommand SWITCH [<oSwitch>] [ ID <cId> ] [ <lValue: ON> ] [ VALUE <lValue> ] [ LABEL <cLabel> ] [GRID <nGrid>] [ <act:ACTION,ONCHANGE> <cAction> ] OF <oForm> ;

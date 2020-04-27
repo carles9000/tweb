@@ -8,17 +8,18 @@ CLASS TWebControl
 	DATA aControls					INIT {}
 	DATA aHtml						INIT {}
 	DATA cId						INIT ''
-	DATA uValue					INIT ''
-	DATA cLabel					INIT ''
+	DATA cName						INIT ''
+	DATA uValue						INIT ''
+	DATA cLabel						INIT ''
 	DATA lDessign					INIT .F.
 	DATA nGrid						INIT 4
 	DATA lReadOnly					INIT .F.
 	DATA lDisabled					INIT .F.
 	DATA lRequired					INIT .F.
-	DATA cAlign					INIT 'left'
+	DATA cAlign						INIT 'left'
 	DATA cAction					INIT ''
 	DATA cDblClick					INIT ''
-	DATA cClass					INIT ''	
+	DATA cClass						INIT ''	
 	DATA cIcon						INIT ''
 		
     METHOD New()					CONSTRUCTOR
