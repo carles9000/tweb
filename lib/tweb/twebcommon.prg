@@ -22,4 +22,24 @@ FUNCTION UHtmlEncode(cString)
    next
 	
 RETURN cRet
+
+//	----------------------------------------------------------------
+//	Recupera la variable enviada con MsgServer() en su tipo original
+//	----------------------------------------------------------------
+
+function GetMsgServer()
+
+	local hParam 	:= AP_PostPairs()
+	local uValue 
+	
+	do case
+		case hParam[ 'type' ] == 'C'; 	uValue := hb_urldecode(hParam[ 'value' ]) 
+		case hParam[ 'type' ] == 'H'; 	uValue := hb_jsonDecode( hb_urldecode( hParam[ 'value' ] ) )
+		case hParam[ 'type' ] == 'N'; 	uValue := Val( hParam[ 'value' ] )
+		case hParam[ 'type' ] == 'L';  uValue := if( hParam[ 'value' ] == 'true', .t., .f.  )
+		otherwise
+			uValue := hParam[ 'value' ]
+	endcase	
+
+retu uValue
 	

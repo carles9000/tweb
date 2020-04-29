@@ -9,9 +9,7 @@ function main()
 	LOcAL oWeb
 	
 	
-	DEFINE WEB oWeb TITLE 'Test Browse'
-		oWeb:lTables := .T.
-	INIT WEB oWeb
+	DEFINE WEB oWeb TITLE 'Test Browse' TABLES INIT
 	
 	DEFINE FORM o ID 'demo'
 
