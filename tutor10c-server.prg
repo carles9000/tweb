@@ -6,7 +6,7 @@ function main()
 				
 	
 	?? 'Type: ' + valtype( uValue )
-	? uValue
+	? valtochar(uValue)
 
 	
 retu nil
