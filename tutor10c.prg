@@ -19,32 +19,25 @@ function main()
             
                 COL o GRID 12
 			
-					ROWGROUP o			
-                        
-                        GET ID 'mytext' VALUE 'James Brown...'   GRID 4 LABEL 'String' BUTTON 'Test String' ACTION 'TestString()' OF o         
-    
+					ROWGROUP o                        
+                        GET ID 'mytext' VALUE 'James Brown...'   GRID 4 LABEL 'String' BUTTON 'Test String' ACTION 'TestString()' OF o             
                     END o
                     
-                    ROWGROUP o
-                        
-                        GET ID 'mynumber' VALUE '1234.56'   GRID 4 LABEL 'Number' BUTTON 'Test Number' ACTION 'TestNumber()' OF o         
-    
-                    END o   
-                    
-                    
-                    ROWGROUP o
+                    ROWGROUP o                        
+                        GET ID 'mynumber' VALUE '1234.56'   GRID 4 LABEL 'Number' BUTTON 'Test Number' ACTION 'TestNumber()' OF o             
+                    END o    
 
-						BUTTON ID 'btn'  LABEL 'Send All' GRID 0 ACTION 'TestAll()' OF o
-    
-                    END o 
-				
+                    ROWGROUP o                                                
+						SWITCH ID 'mylogic' LABEL 'OnOff'  ACTION 'TestLogic()' GRID 6 OF o						
+                    END o  					
+                    
+                    ROWGROUP o
+						BUTTON ID 'btn'  LABEL 'Send All' GRID 0 ACTION 'TestAll()' OF o    
+                    END o 				
                 
                 END o
             
-            END o
-        
-
-
+            END o        
 	
 		HTML o
 		
@@ -76,7 +69,7 @@ function main()
 					var oParam = new Object()
 						oParam[ 'mytext'    ] = $('#mytext').val()
 						oParam[ 'mynumber'  ] = parseFloat( $('#mynumber').val() )
-						//oParam[ 'mylogic'   ] = $('#mylogic').prop('checked' )
+						oParam[ 'mylogic'   ] = $('#mylogic').prop('checked' )
 						
 						MsgServer( 'tutor10c-server.prg', oParam, PostView )
 				}
