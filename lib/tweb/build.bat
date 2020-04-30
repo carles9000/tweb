@@ -6,9 +6,9 @@
 del tweb.hrb
 
 
-@echo =======================================
-@echo Building TWeb ( GUI Genesis Bootstrap )
-@echo =======================================
+@echo ===========================================
+@echo Building TWeb ( GUI Bootstrap for Harbour )
+@echo ===========================================
 
 harbour tweb.prg /n /w /gh
 

@@ -42,4 +42,27 @@ function GetMsgServer()
 	endcase	
 
 retu uValue
+
+
+//	-----------------------------------------------------------
+//	Transforma una variable harbour al mismo tipo en Javascript
+//	-----------------------------------------------------------
+
+function SetDataJS( u )
+
+	local uValue 	:= ''
+	local cType 	:= valtype( u )
+
+	do case
+		case cType == 'C'  ; uValue := "'" + u + "'"
+		case cType == 'N'  ; uValue := u 
+		case cType == 'L'  ; uValue := if( u, 'true', 'false' )
+		case cType == 'D'  ; uValue := "'" + DToC( u ) + "'"
+		case cType == 'H'  ; uValue := "JSON.parse( '" +  hb_jsonencode( u )	+ "'); " 
+		case cType == 'A'  ; uValue := "JSON.parse( '" +  hb_jsonencode( u )	+ "'); "
+		otherwise
+			uValue := "'" + valtochar(u) + "'"
+	endcase
+
+retu uValue
 	
