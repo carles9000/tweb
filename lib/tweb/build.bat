@@ -3,7 +3,7 @@
 @set    path=c:\harbour\bin
 @set include=c:\harbour\include
 
-del tweb.hrb
+del ..\tweb\tweb.hrb
 
 
 @echo ===========================================
@@ -11,5 +11,4 @@ del tweb.hrb
 @echo ===========================================
 
 harbour tweb.prg /n /w /gh
-
 pause
