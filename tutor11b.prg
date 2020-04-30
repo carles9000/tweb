@@ -33,19 +33,20 @@ function main()
 					oParam[ 'hData' ] 		= <$  SetDataJS( hData ) $>
 					oParam[ 'aFruits' ]		= <$  SetDataJS( aFruits ) $>
 				
-				console.log( 'oParam', oParam )
+					console.log( 'Send', oParam )
 				
-				MsgServer( 'tutor10c-server.prg', oParam, PostView )
-			
+				MsgServer( 'tutor11b-server.prg', oParam, PostView )			
 			}
 			
-			//  Funcion Callback que se ejecutará cuando el servidor devuelva
-			//  un resultado.
+			//  Recibimos los mismos parámetros q hemos enviados y en el mismo formato...
 			
 			function PostView( dat ) {
-			
-				MsgInfo( dat )
-				console.log( dat )
+
+				console.log( 'Response', dat )
+				
+				var cData = '<pre>' + JSON.stringify( dat, undefined, 2) + '</pre>'
+				
+				MsgInfo( cData, 'Check console...' )
 			}
 
 		</script>
