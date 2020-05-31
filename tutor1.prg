@@ -14,7 +14,8 @@ function main()
        
         ROWGROUP o
         
-            GET ID 'myid' VALUE '' GRID 6 LABEL 'Id.' PLACEHOLDER 'User Id.' BUTTON 'GetId' ACTION 'GetId()' OF o
+            GET ID 'myid' VALUE '' GRID 6 LABEL 'Id.' PLACEHOLDER 'User Id.' ;
+				BUTTON 'GetId' ACTION 'GetId()' OF o
         
         END o		
 		

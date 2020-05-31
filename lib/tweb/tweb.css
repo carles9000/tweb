@@ -31,3 +31,13 @@
 .ui-autocomplete-loading {
 		background: white url("images/ui-anim_basic_16x16.gif") right center no-repeat;
 }
+
+/*	Varios...	*/
+.msg_dialog_log {
+	height:90%;
+}
+
+.msg_content {
+	margin: 0 auto;				
+	height: 100%;
+}

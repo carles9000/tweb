@@ -17,7 +17,7 @@ CLASS TWebGet FROM TWebControl
 
 ENDCLASS 
 
-METHOD New( oParent, cId, uValue, nGrid, cLabel, cAlign, lReadOnly, cType, cPlaceHolder, cBtnLabel, cBtnAction, lRequired, uSource, cSelect ) CLASS TWebGet
+METHOD New( oParent, cId, uValue, nGrid, cLabel, cAlign, lReadOnly, cType, cPlaceHolder, cBtnLabel, cBtnAction, lRequired, uSource, cSelect, cChange ) CLASS TWebGet
 
 	DEFAULT cId TO ''
 	DEFAULT uValue TO ''
@@ -32,6 +32,7 @@ METHOD New( oParent, cId, uValue, nGrid, cLabel, cAlign, lReadOnly, cType, cPlac
 	DEFAULT lRequired TO .F.	
 	DEFAULT uSource TO ''
 	DEFAULT cSelect TO ''
+	DEFAULT cChange TO ''
 	
 	::oParent 		:= oParent
 	::cId			:= cId
@@ -47,6 +48,7 @@ METHOD New( oParent, cId, uValue, nGrid, cLabel, cAlign, lReadOnly, cType, cPlac
 	::lRequired		:= lRequired
 	::uSource 		:= uSource
 	::cSelect 		:= cSelect
+	::cChange 		:= cChange
 
 	IF Valtype( oParent ) == 'O'	
 		oParent:AddControl( SELF )	
@@ -91,6 +93,11 @@ METHOD Activate() CLASS TWebGet
 	IF ::lRequired
 		cHtml += ' required '
 	ENDIF	
+	
+	IF !empty( ::cChange )
+		//cHtml += ' onchange="' + ::cChange + '" '
+		cHtml += ' onfocusout="' + ::cChange + '" '
+	ENDIF
 	
 	cHtml += ' value="' + ::uValue + '">'
 

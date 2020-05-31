@@ -51,9 +51,10 @@
 	[ <ro: READONLY> ] [TYPE <cType>] [ PLACEHOLDER <cPlaceHolder>] ;
 	[ BUTTON <cBtnLabel> [ ACTION  <cAction> ]] [ <rq: REQUIRED> ] ;
 	[ AUTOCOMPLETE <uSource> [ SELECT <cSelect>] ] ;
+	[ <chg: ONCHANGE,VALID> <cChange> ];
 	OF <oForm> ;
 => ;
-	[<oGet> := ] TWebGet():New( <oForm>, [<cId>], [<uValue>], [<nGrid>], [<cLabel>], [<cAlign>], [<.ro.>], [<cType>], [<cPlaceHolder>], [<cBtnLabel>], [<cAction>], [<.rq.>], [<uSource>], [<cSelect>] )
+	[<oGet> := ] TWebGet():New( <oForm>, [<cId>], [<uValue>], [<nGrid>], [<cLabel>], [<cAlign>], [<.ro.>], [<cType>], [<cPlaceHolder>], [<cBtnLabel>], [<cAction>], [<.rq.>], [<uSource>], [<cSelect>], [<cChange>] )
 	
 #xcommand GET [<oGetMemo>] MEMO [ ID <cId> ] [ VALUE <uValue> ] [ LABEL <cLabel> ] [ ALIGN <cAlign> ] [GRID <nGrid>] ;
 	[ <ro: READONLY> ] [ ROWS <nRows> ] ;	
