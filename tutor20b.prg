@@ -95,7 +95,7 @@ function main()
 				function acceptFormatter(value, row) {
 						
 					if ( value )
-						return '<img src="images/ball_green.png">Â Ok'					
+						return '<img src="images/ball_green.png"> Ok'					
 					else
 						return ''
 				}						

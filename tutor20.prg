@@ -41,7 +41,7 @@ function main()
 	
 	?? cStyle
 
-	//	Chequeamos si entran par√°metros
+	//	Chequeamos si entran par·metros
 
 		IF len( hParameters ) > 0 
 	
@@ -66,7 +66,7 @@ function main()
 		
 	//	--------------------------------------------------------------------------------------
 	
-	//	Inicio Dise√±o...
+	//	Inicio DiseÒo...
 
 		Banner()
 		
@@ -101,7 +101,7 @@ function main()
 
         END o          
         
-        cLoren := "En la ind√∫stria editorial i en disseny gr√†fic, lorem ipsum √©s un text de farciment que s'usa habitualment per a mostrar els elements gr√†fics d'un document, com ara la tipografia o la composici√≥."
+        cLoren := "En la ind˙stria editorial i en disseny gr‡fic, lorem ipsum Ès un text de farciment que s'usa habitualment per a mostrar els elements gr‡fics d'un document, com ara la tipografia o la composiciÛ."
 		
         ROWGROUP o	
 			
