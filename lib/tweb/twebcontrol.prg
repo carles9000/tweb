@@ -1,6 +1,4 @@
-#include 'hbclass.ch'
-#include 'common.ch'
-
+//	-------------------------------------------------------------
 
 CLASS TWebControl
 

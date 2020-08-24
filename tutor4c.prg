@@ -23,9 +23,8 @@ function main()
 		(cAlias)->( dbskip() )
 	end	
 
-	DEFINE WEB oWeb TITLE 'Test Browse UTF8' ICON 'images/favicon.ico'
-		oWeb:lTables := .T.		
-	INIT WEB oWeb
+	DEFINE WEB oWeb TITLE 'Test Browse UTF8' ICON 'images/favicon.ico' CHARSET 'utf-8' TABLES INIT
+
 	
 	DEFINE FORM o ID 'demo'
 

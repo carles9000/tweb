@@ -1,5 +1,4 @@
-#include 'hbclass.ch'
-#include 'common.ch'
+//	-------------------------------------------------------------
 
 CLASS TWebCheckbox FROM TWebControl
 

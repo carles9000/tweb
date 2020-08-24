@@ -1,10 +1,4 @@
-#include 'hbclass.ch'
-#include 'common.ch'
-
-#define CRLF Chr(13)+Chr(10)
-#xcommand BLOCKS ADDITIVE <v>[ PARAMS [<v1>] [,<vn>] ] => ;
-	#pragma __cstream |<v>+= InlinePrg( ReplaceBlocks( %s, "{{", "}}" [,<(v1)>][+","+<(vn)>] [, @<v1>][, @<vn>] ) )
-
+//	-------------------------------------------------------------
 	
 CLASS TWebBrowse FROM TWebControl
 

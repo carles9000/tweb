@@ -1,5 +1,4 @@
-#include 'hbclass.ch'
-#include 'common.ch'
+//	-------------------------------------------------------------
 
 CLASS TWebRadio FROM TWebControl
 

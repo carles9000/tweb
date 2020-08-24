@@ -1,5 +1,4 @@
-#include 'hbclass.ch'
-#include 'common.ch'
+//	-------------------------------------------------------------
 
 /*
 	The Bootstrap grid system has four classes:
