@@ -32,7 +32,7 @@ function main()
 			
                     ADD oCol TO oBrw ID 'last' 		HEADER 'Last'   ALIGN 'right'
             		ADD oCol TO oBrw ID 'first'		HEADER 'First'  SORT
-            		ADD oCol TO oBrw ID 'street' 		HEADER 'Street' SORT
+            		ADD oCol TO oBrw ID 'street' 	HEADER 'Street' SORT
             		ADD oCol TO oBrw ID 'age' 	    HEADER 'Age'    WIDTH 70 ALIGN 'center' FORMATTER 'ageFormatter'	   
 		END o
 		
@@ -63,7 +63,7 @@ function main()
 					if ( row.age > 50 )
 						return '<i class="fa fa-star"></i> ' + value
 					else
-						return '<img src="images/ball_green.png">Â ' + value									
+						return '<img src="images/ball_green.png"> ' + value									
 				}				
 
 				$(document).ready(function () {				

@@ -45,9 +45,9 @@ function main()
 				function ageFormatter(value, row) {
 						
 					if ( row.age > 50 )
-						return '<i class="fa fa-star"></i> ' + value
+						return '<i class="fa fa-star"></i>&nbsp;' + value
 					else
-						return '<img src="images/ball_green.png"> ' + value									
+						return '<img src="images/ball_green.png">&nbsp' + value									
 				}						
 				
 			</script>

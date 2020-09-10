@@ -11,7 +11,7 @@ function main()
 	DEFINE FORM o ID 'demo'	
 		o:lDessign := .F.
 		
-		HTML o FILE 'html-title.tpl' PARAMS '<i class="far fa-share-square"></i>', 'Form example'
+		HTML o FILE 'templates/html-title.tpl' PARAMS '<i class="far fa-share-square"></i>', 'Form example'
 
 	INIT FORM o  				
 

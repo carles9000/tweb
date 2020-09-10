@@ -7,8 +7,9 @@ function main()
     LOCAL o
 	
 	DEFINE WEB oWeb TITLE 'Tutor1' INIT
-
     DEFINE FORM o ID 'demo'	
+		o:lDessign 	:= .T.
+		
 
     INIT FORM o  		
        
@@ -33,5 +34,6 @@ function main()
 		ENDTEXT
 		
     END FORM o	
+
 	
 retu nil

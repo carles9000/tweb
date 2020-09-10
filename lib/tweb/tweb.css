@@ -41,3 +41,17 @@
 	margin: 0 auto;				
 	height: 100%;
 }
+
+.tweb_say {
+	padding-right:5px;
+	overflow:hidden;
+}
+
+.tweb_say  p {
+	margin-bottom:0px;
+}
+
+.tweb_button {
+	padding-left:20px;
+	padding-right:20px;
+}

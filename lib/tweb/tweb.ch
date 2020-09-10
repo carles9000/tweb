@@ -23,7 +23,8 @@
 #xcommand END FORM <oForm> => ?? <oForm>:Activate()
 #xcommand END FORM <oForm> RETURN =>  return <oForm>:Activate()
 #xcommand COL <oForm> [GRID <nGrid>] [TYPE <cType>] => <oForm>:Col( [<nGrid>], [<cType>] )
-#xcommand ROW <oForm> => <oForm>:Row()
+
+#xcommand ROW <oForm> [ ALIGN <cAlign> ] => <oForm>:Row( <cAlign> )
 #xcommand HTML <oForm> => #pragma __cstream| <oForm>:Html( %s )
 #xcommand HTML <oForm> INLINE <cHtml> => <oForm>:Html( <cHtml> )
 #xcommand HTML <oForm> [ PARAMS [<v1>] [,<vn>] ] ;
@@ -41,11 +42,17 @@
 #xcommand SEPARATOR <oForm> LABEL <cLabel> => <oForm>:Separator( <cLabel> )
 #xcommand SMALL <oForm> [ ID <cId> ] [ LABEL <cLabel> ] [ GRID <nGrid> ] => <oForm>:Small( <cId>, <cLabel>, <nGrid> )
 
-#xcommand ROWGROUP <oForm> => <oForm>:RowGroup()
+#xcommand ROWGROUP <oForm> [ ALIGN <cAlign> ] => <oForm>:RowGroup( <cAlign> )
+
 #xcommand ENDROW <oForm> => <oForm>:End()
 #xcommand ENDCOL <oForm> => <oForm>:End()
 #xcommand END <oForm> => <oForm>:End()
 
+#xcommand SAY [<oSay>] [ ID <cId> ] [ VALUE <uValue> ] [ ALIGN <cAlign> ] ;
+	[GRID <nGrid>] OF <oForm> ;
+=> ;
+	[<oSay> := ] TWebSay():New( <oForm>, [<cId>], [<uValue>], [<nGrid>], [<cAlign>] )
+	
 
 #xcommand GET [<oGet>] [ ID <cId> ] [ VALUE <uValue> ] [ LABEL <cLabel> ] [ ALIGN <cAlign> ] [GRID <nGrid>] ;
 	[ <ro: READONLY> ] [TYPE <cType>] [ PLACEHOLDER <cPlaceHolder>] ;
@@ -63,11 +70,12 @@
 	[<oGetMemo> := ] TWebGetMemo():New( <oForm>, [<cId>], [<uValue>], [<nGrid>], [<cLabel>], [<cAlign>], [<.ro.>], [<nRows>] )
 	
 	
-#xcommand BUTTON [<oBtn>] [ ID <cId> ] [ LABEL <cLabel> ] [ ACTION <cAction> ] [ NAME <cName> ] [ VALUE <cValue> ] [ GRID <nGrid> ] ; 
+#xcommand BUTTON [<oBtn>] [ ID <cId> ] [ LABEL <cLabel> ] [ ACTION <cAction> ] [ NAME <cName> ] [ VALUE <cValue> ] ;
+    [ GRID <nGrid> ] [ ALIGN <cAlign> ]  ;
 	[ ICON <cIcon> ] [ CLASS <cClass> ] [ <ds: DISABLED> ] [ <sb: SUBMIT> ] [ LINK <cLink> ] ;
 	OF <oForm> ;
 => ;
-	[ <oBtn> := ] TWebButton():New( <oForm>, [<cId>], <cLabel>, <cAction>, <cName>, <cValue>, <nGrid>, <cIcon>, <cClass>, [<.ds.>], [<.sb.>], [<cLink>] )	
+	[ <oBtn> := ] TWebButton():New( <oForm>, [<cId>], <cLabel>, <cAction>, <cName>, <cValue>, <nGrid>, <cAlign>, <cIcon>, <cClass>, [<.ds.>], [<.sb.>], [<cLink>] )	
 	
 	
 #xcommand SWITCH [<oSwitch>] [ ID <cId> ] [ <lValue: ON> ] [ VALUE <lValue> ] [ LABEL <cLabel> ] [GRID <nGrid>] [ <act:ACTION,ONCHANGE> <cAction> ] OF <oForm> ;

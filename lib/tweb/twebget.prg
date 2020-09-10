@@ -50,7 +50,7 @@ METHOD New( oParent, cId, uValue, nGrid, cLabel, cAlign, lReadOnly, cType, cPlac
 	::cChange 		:= cChange
 
 	IF Valtype( oParent ) == 'O'	
-		oParent:AddControl( SELF )	
+		oParent:AddControl( SELF )			
 	ENDIF
 
 RETU SELF
@@ -58,11 +58,16 @@ RETU SELF
 METHOD Activate() CLASS TWebGet
 
 	LOCAL cHtml, hSource
-	LOCAL cSize := ''
+	LOCAL cSize 	:= ''
+	LOCAL cBtnSize 	:= ''
 	
 	DO CASE
-		CASE upper(::oParent:cSizing) == 'SM' ; cSize := 'form-control-sm'
-		CASE upper(::oParent:cSizing) == 'LG' ; cSize := 'form-control-lg'
+		CASE upper(::oParent:cSizing) == 'SM' 
+			cSize 		:= 'form-control-sm'
+			cBtnSize 	:= 'btn-sm'
+		CASE upper(::oParent:cSizing) == 'LG' 
+			cSize 		:= 'form-control-lg'
+			cBtnSize 	:= 'btn-lg'
 	ENDCASE	
 
 	cHtml := '<div class="col-' + ltrim(str(::nGrid)) 
@@ -72,9 +77,7 @@ METHOD Activate() CLASS TWebGet
 	cHtml += ' >'
 	
 	IF !empty( ::cLabel )
-	
-		::oParent:lRowGroupVertical := .T.
-	
+
 		cHtml += '<label class="col-form-label " for="' + ::cId + '">' + ::cLabel + '</label>'
 	
 	ENDIF
@@ -104,7 +107,7 @@ METHOD Activate() CLASS TWebGet
 	
 		cHtml += '<div class="input-group-append">'
 		
-		cHtml += '<button class="btn btn-outline-secondary" type="button" onclick="' + ::cBtnAction + '">'
+		cHtml += '<button class="btn btn-outline-secondary ' + cBtnSize + '" type="button" onclick="' + ::cBtnAction + '">'
 		cHtml += ::cBtnLabel
 		cHtml += '</button>'
 		

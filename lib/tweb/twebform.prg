@@ -24,7 +24,6 @@ CLASS TWebForm FROM TWebControl
 	DATA cType						INIT ''		//	sm, md, lg, xl, xs
 	DATA cSizing					INIT ''		//	sm, lg
 	DATA lFluid						INIT .F. 
-	DATA lRowGroupVertical			INIT .F. 
 
 	METHOD New() 					CONSTRUCTOR	
 
@@ -68,8 +67,7 @@ METHOD InitForm() CLASS TWebForm
 		::Html( '<form action="' + ::cAction + '" method="' + ::cMethod + '">'  )
 	
 	ENDIF
-	
-	::lRowGroupVertical := .F.		
+
 	
 RETU NIL
 
@@ -94,16 +92,36 @@ METHOD Col( nCol, cType ) CLASS TWebForm
 	
 RETU NIL
 
-METHOD Row() CLASS TWebForm
+METHOD Row( cAlign ) CLASS TWebForm
 
-	::Html( '<div class="row" ' + IF( ::lDessign, 'style="border:1px solid red;"', '' ) + ' >' )
+	DEFAULT cAlign TO 'center'
+	
+	cAlign := lower( cAlign )
+	
+	do case
+		case cAlign == 'top' 	;	cAlign := 'align-items-start'
+		case cAlign == 'center' ;	cAlign := 'align-items-center'
+		case cAlign == 'bottom' ;	cAlign := 'align-items-end'
+	endcase
+	
+	::Html( '<div class="row ' + cAlign + '" ' + IF( ::lDessign, 'style="border:1px solid red;"', '' ) + ' >' )
 	
 RETU NIL
 
 
-METHOD RowGroup() CLASS TWebForm
+METHOD RowGroup( cAlign ) CLASS TWebForm
 
-	::Html( '<div class="form-group row align-items-center" ' + IF( ::lDessign, 'style="border:1px solid red;"', '' ) + ' >' )
+	DEFAULT cAlign TO 'center'
+	
+	cAlign := lower( cAlign )
+	
+	do case
+		case cAlign == 'top' 	;	cAlign := 'align-items-start'
+		case cAlign == 'center' ;	cAlign := 'align-items-center'
+		case cAlign == 'bottom' ;	cAlign := 'align-items-end'
+	endcase
+
+	::Html( '<div class="form-group row ' + cAlign + '" ' + IF( ::lDessign, 'style="border:1px solid red;"', '' ) + ' >' )
 
 RETU NIL
 

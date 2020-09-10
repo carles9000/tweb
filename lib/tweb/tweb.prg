@@ -21,6 +21,7 @@
 
 #include 'TWebControl.prg'
 #include 'TWebForm.prg'
+#include 'TWebSay.prg'
 #include 'TWebGet.prg'
 #include 'TWebGetMemo.prg'
 #include 'TWebButton.prg'
@@ -41,6 +42,10 @@ function LoadTWeb( cPathPluggin )
 	
 	DEFAULT cPathPluggin TO TWEB_PATH
 	
+	if right( cPathPluggin, 1 ) != '/'
+		cPathPluggin += '/'
+	endif
+	
 	cHtml := TWebLibs( cPathPluggin )	
 	
 retu cHtml
@@ -59,6 +64,10 @@ retu cHtml
 function TWebLibs( cPathPluggin ) 	
 
 	DEFAULT cPathPluggin TO TWEB_PATH
+	
+	if right( cPathPluggin, 1 ) != '/'
+		cPathPluggin += '/'
+	endif	
 	
 return '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>' + CRLF + ;
 		'<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>' + CRLF + ;
@@ -230,7 +239,7 @@ CLASS TWeb
 	DATA cIcon 						
 	DATA cLang						INIT 'en' 						
 	DATA cCharset					INIT 'ISO-8859-1'			//	'utf-8'
-	DATA lActivated				INIT .F.
+	DATA lActivated					INIT .F.
 
 	METHOD New() 					CONSTRUCTOR
 	METHOD Activate()
@@ -239,9 +248,9 @@ ENDCLASS
 
 METHOD New( cTitle, cIcon, lTables, cCharset, lInit ) CLASS TWeb
 
-	DEFAULT cTitle 		TO 'TWeb'
+	DEFAULT cTitle 			TO 'TWeb'
 	DEFAULT cIcon 			TO TWEB_PATH + 'images/tweb.png'
-	DEFAULT lTables		TO .F.
+	DEFAULT lTables			TO .F.
 	DEFAULT cCharSet		TO 'ISO-8859-1'
 	DEFAULT lInit 			TO .F.
 	
@@ -264,6 +273,7 @@ METHOD Activate() CLASS TWeb
 		retu nil
 	ENDIF
 
+	
 
 	cHtml   := '<!DOCTYPE html>' + CRLF
 	cHtml 	+= '<html lang="' + ::cLang + '">' + CRLF
@@ -281,7 +291,7 @@ METHOD Activate() CLASS TWeb
 		cHtml += LoadTWeb()	
 	ENDIF	
 	
-	?? cHtml
+	?? cHtml	
 	
 	::lActivated := .T.
 

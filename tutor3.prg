@@ -9,11 +9,9 @@ function main()
 	DEFINE WEB oWeb TITLE 'Tutor3' INIT
 
     DEFINE FORM o ID 'demo'	
-		o:lDessign := .F.
+		o:lDessign := .T.
+        o:cSizing   := ''       //  SM/LG
 
-        DEFINE FORM o ID 'demo'
-            o:lDessign  := .T.
-            o:cSizing   := 'sm'       //  SM/LG
 
         HTML o
             <div class="alert alert-dark form_title" role="alert">
@@ -43,26 +41,22 @@ function main()
         
         ROWGROUP o
            
-            GET ID 'chofer' VALUE '11' GRID 6 PLACEHOLDER 'Id.' LABEL 'Chofer'  BUTTON '<i class="fas fa-search"></i>' ACTION 'LoadChofer()' OF o
+            GET ID 'chofer' VALUE '22' GRID 6 PLACEHOLDER 'Id.' LABEL 'Chofer'  BUTTON '<i class="fas fa-search"></i>' ACTION 'GetChofer()' OF o
 
         END o
         
-        ROWGROUP o
+        ROWGROUP o ALIGN 'bottom'
+
             
             SEPARATOR o LABEL 'Crear Ticket de Salida'
 
-            BUTTON ID 'btn' LABEL ' Test Button' ACTION 'alert(123)' GRID 6 ICON '<i class="fas fa-clipboard-check"></i>' CLASS 'btn-primary btnticket' OF o
-        
-            SWITCH ID 'onoff' VALUE .T. LABEL 'Ready' OF o
+			GET  VALUE '555' GRID 4 LABEL 'Test de label' OF o
+			
+            BUTTON ID 'btn' LABEL ' Test Button' ACTION 'alert(123)' GRID 4 ICON '<i class="fas fa-clipboard-check"></i>' CLASS 'btn-danger btnticket' OF o
+			
+            SWITCH ID 'onoff' VALUE .T. LABEL 'Ready' OF o		
 
         END o          
-        
-        
-        ROWGROUP o
-
-            SWITCH ID 'onoff2' VALUE .T. LABEL 'Ready.' ACTION  "alert('change')" OF o
-
-        END o  
         
         cLoren := "Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. "
 
@@ -89,13 +83,13 @@ function main()
                 END o
             END o            
 
-        END o           
-        
-        ROW o
-            SEPARATOR o LABEL 'Test Select'
+        END o                   	
+		
+        ROW o ALIGN 'bottom'
+            SEPARATOR o LABEL 'Test bottom'
             SELECT oSelect  ID 'cars'  LABEL 'Cars' PROMPT 'Volvo', 'Seat', 'Renault' VALUES  'V', 'S', 'R'  GRID 6  ONCHANGE 'Select()' OF o
             SELECT oSelect  ID 'cars2'              PROMPT 'Volvo', 'Seat', 'Renault' VALUES  'V', 'S', 'R'  GRID 6  OF o            
-        END o
+        END o		
 		
 		HTML o
 			<script>
@@ -106,6 +100,13 @@ function main()
 				
 					MsgInfo( cId )
 				}
+				
+				function GetChofer() {
+				
+					var cId = $('#chofer').val() 
+				
+					MsgInfo( cId )
+				}				
 				
 				function TestBtn() {
 				

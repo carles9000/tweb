@@ -6,21 +6,9 @@
 
 function main()
 
-    local oForm, oCol, oBrw, cAlias, nI
-	local aRows := {}
-	
-	USE ( PATH_DATA + 'test.dbf' ) SHARED NEW VIA 'DBFCDX'
-	
-	cAlias := Alias()
-	
-	for nI := 1 to 100
-	
-		Aadd( aRows,  {'first' 	=> UHtmlEncode( (cAlias)->first  )	,;
-						'last' 		=> UHtmlEncode( (cAlias)->last 	 )	,;						
-						'street' 	=> UHtmlEncode( (cAlias)->street )	})
-		
-		(cAlias)->( dbskip() )
-	next
+    local oForm, oCol, oBrw
+	local aRows := LoadData()
+
 
 	DEFINE WEB oWeb TITLE 'Test Browse' ICON 'images/favicon.ico' TABLES INIT
 	
@@ -38,7 +26,7 @@ function main()
 		DEFINE BROWSE oBrw ID 'ringo' HEIGHT 400 OF oForm
 
 			ADD oCol TO oBrw ID 'first' 	HEADER 'First' 	ALIGN 'right'
-			ADD oCol TO oBrw ID 'last'	HEADER 'Last'  	SORT			
+			ADD oCol TO oBrw ID 'last'		HEADER 'Last'  	SORT			
 			ADD oCol TO oBrw ID 'street'	HEADER 'Street'  	SORT						
 
 		INIT BROWSE oBrw DATA aRows			
@@ -46,3 +34,6 @@ function main()
 	END FORM oForm	
 	
 retu nil
+
+
+{% LoadFile( 'loaddata.prg' ) %}

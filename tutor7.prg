@@ -49,7 +49,7 @@ function main()
 		
 				SEPARATOR o LABEL 'Col 2'
 				
-				GET oGet ID 'dni' VALUE '39690754L' LABEL 'CÃ³digo' GRID 8 OF o
+				GET oGet ID 'dni' VALUE '39690754L' LABEL 'Código' GRID 8 OF o
 				
 			END o
 			
