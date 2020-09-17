@@ -12,7 +12,7 @@ CLASS TWebRadio FROM TWebControl
 
 ENDCLASS 
 
-METHOD New( oParent, cId, aItems, aValues, nGrid, cAction, lInline  ) CLASS TWebRadio
+METHOD New( oParent, cId, aItems, aValues, nGrid, cAction, lInline, cClass, cFont   ) CLASS TWebRadio
 
 	DEFAULT cId TO ''
 	DEFAULT aItems TO {}
@@ -20,6 +20,8 @@ METHOD New( oParent, cId, aItems, aValues, nGrid, cAction, lInline  ) CLASS TWeb
 	DEFAULT nGrid TO 4
 	DEFAULT cAction TO ''
 	DEFAULT lInline TO .F.
+	DEFAULT cClass TO ''
+	DEFAULT cFont TO ''	
 
 	
 	::cId			:= cId
@@ -28,6 +30,8 @@ METHOD New( oParent, cId, aItems, aValues, nGrid, cAction, lInline  ) CLASS TWeb
 	::nGrid			:= nGrid
 	::cAction		:= cAction
 	::lInline		:= lInline
+	::cClass 		:= cClass
+	::cFont 		:= cFont	
 
 	IF Valtype( oParent ) == 'O'	
 		oParent:AddControl( SELF )	
@@ -56,7 +60,19 @@ METHOD Activate() CLASS TWebRadio
 		cHtml += '<div class="custom-control custom-radio ' + IF( ::lInline, 'custom-control-inline', '' ) + '">'
 		cHtml += '	<input type="radio" class="custom-control-input tweb_pointer" id="' + ::cId + '_' + ltrim(str(ni)) + '" name="' +  ::cId  + '" value="' +  ::aValues[nI] + '" ' + IF( ::lDisabled, 'disabled', '' )
 		cHtml += ' 	onchange="' + ::cAction + '"  >' 
-		cHtml += '	<label class="custom-control-label tweb_pointer" for="'  + ::cId + '_' + ltrim(str(ni)) + '" >' + ::aItems[nI] + '</label>' 
+		cHtml += '	<label class="custom-control-label tweb_pointer '
+		
+			if !empty( ::cClass )	
+				cHtml += ' ' + ::cClass
+			endif
+			
+			if !empty( ::cFont )	
+				cHtml += ' ' + ::cFont
+			endif
+
+			cHtml += '" '		
+
+		cHtml += '	for="'  + ::cId + '_' + ltrim(str(ni)) + '" >' + ::aItems[nI] + '</label>' 
 		cHtml += '</div>' 
 		
 	NEXT	

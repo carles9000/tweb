@@ -19,7 +19,7 @@ CLASS TWebFolder FROM TWebForm
 
 ENDCLASS 
 
-METHOD New( oParent, cId, aTabs, aPrompts, nGrid, cInitTab, lAdjust  ) CLASS TWebFolder
+METHOD New( oParent, cId, aTabs, aPrompts, nGrid, cInitTab, lAdjust, cClass, cFont  ) CLASS TWebFolder
 
 	DEFAULT cId 			TO ''
 	DEFAULT nGrid 			TO 12
@@ -27,6 +27,8 @@ METHOD New( oParent, cId, aTabs, aPrompts, nGrid, cInitTab, lAdjust  ) CLASS TWe
 	//DEFAULT cClass 		TO ''
 	DEFAULT cInitTab 		TO ''
 	DEFAULT lAdjust 		TO .F.
+	DEFAULT cClass TO ''
+	DEFAULT cFont TO ''	
 		
 	::oParent 		:= oParent
 	::cId			:= cId
@@ -36,6 +38,8 @@ METHOD New( oParent, cId, aTabs, aPrompts, nGrid, cInitTab, lAdjust  ) CLASS TWe
 	//::cClass		:= cClass
 	::cInitTab 	:= cInitTab
 	::lAdjust		:= lAdjust
+	::cClass 		:= cClass
+	::cFont 		:= cFont	
 
 	IF Valtype( oParent ) == 'O'	
 		oParent:AddControl( SELF )	
@@ -59,7 +63,11 @@ METHOD AddTab( cId , lFocus ) CLASS TWebFolder
 
 	DEFAULT lFocus TO .F.
 	
-	cHtml := '<div class="tab-pane ' + cClass + ' '  + IF( lFocus, 'active', 'fade' ) + '" '
+	cHtml := '<div class="tab-pane ' + cClass + ' '  + IF( lFocus, 'active', 'fade' ) 
+	
+	
+	
+	cHtml += '" '
 	cHtml += ' id="' +  cId + '">'
 	
 	::Html( cHtml )	
@@ -83,7 +91,17 @@ METHOD Activate() CLASS TWebFolder
 			
 				 cHtml += '<li class="nav-item">'
 				 
-					cHtml += '<a class="nav-link " data-toggle="tab" href="#' + ::aTabs[nI] + '">' + ::aPrompts[nI] + '</a>'			 
+					cHtml += '<a class="nav-link '			 						
+	
+						if !empty( ::cClass )	
+							cHtml += ' ' + ::cClass
+						endif
+						
+						if !empty( ::cFont )	
+							cHtml += ' ' + ::cFont
+						endif																
+					
+					cHtml += '" data-toggle="tab" href="#' + ::aTabs[nI] + '">' + ::aPrompts[nI] + '</a>'			 
 				 
 				 cHtml += '</li>'				
 			NEXT		

@@ -15,7 +15,7 @@ CLASS TWebGetMemo FROM TWebControl
 
 ENDCLASS 
 
-METHOD New( oParent, cId, uValue, nGrid, cLabel, cAlign, lReadOnly, nRows ) CLASS TWebGetMemo
+METHOD New( oParent, cId, uValue, nGrid, cLabel, cAlign, lReadOnly, nRows, cClass, cFont  ) CLASS TWebGetMemo
 
 	DEFAULT cId TO ''
 	DEFAULT uValue TO ''
@@ -24,6 +24,9 @@ METHOD New( oParent, cId, uValue, nGrid, cLabel, cAlign, lReadOnly, nRows ) CLAS
 	DEFAULT cAlign TO ''
 	DEFAULT lReadOnly TO .F.
 	DEFAULT nRows TO 3
+	DEFAULT cClass TO ''
+	DEFAULT cFont TO ''
+	
 	
 
 	
@@ -35,6 +38,8 @@ METHOD New( oParent, cId, uValue, nGrid, cLabel, cAlign, lReadOnly, nRows ) CLAS
 	::cAlign 		:= cAlign
 	::lReadOnly		:= lReadOnly
 	::nRows 		:= nRows
+	::cClass 		:= cClass
+	::cFont 		:= cFont	
 	
 
 	IF Valtype( oParent ) == 'O'	
@@ -61,7 +66,17 @@ METHOD Activate() CLASS TWebGetMemo
 	
 	ENDIF	
 	
-	cHtml += '<textarea class="form-control ' + cSize + '" rows="' + ltrim(str(::nRows)) + '" '
+	cHtml += '<textarea class="form-control ' 	
+	
+		if !empty( ::cClass )	
+			cHtml += ' ' + ::cClass
+		endif
+		
+		if !empty( ::cFont )	
+			cHtml += ' ' + ::cFont
+		endif					
+	
+	cHtml += '" rows="' + ltrim(str(::nRows)) + '" '
 	cHtml += 'id="' + ::cId + '"	 name="' + ::cId + '" ' 
 	//cHtml += 'placeholder="' + ::cPlaceHolder + '" ' 
 	

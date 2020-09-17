@@ -16,7 +16,7 @@ CLASS TWebGet FROM TWebControl
 
 ENDCLASS 
 
-METHOD New( oParent, cId, uValue, nGrid, cLabel, cAlign, lReadOnly, cType, cPlaceHolder, cBtnLabel, cBtnAction, lRequired, uSource, cSelect, cChange ) CLASS TWebGet
+METHOD New( oParent, cId, uValue, nGrid, cLabel, cAlign, lReadOnly, cType, cPlaceHolder, cBtnLabel, cBtnAction, lRequired, uSource, cSelect, cChange, cClass, cFont ) CLASS TWebGet
 
 	DEFAULT cId TO ''
 	DEFAULT uValue TO ''
@@ -32,6 +32,8 @@ METHOD New( oParent, cId, uValue, nGrid, cLabel, cAlign, lReadOnly, cType, cPlac
 	DEFAULT uSource TO ''
 	DEFAULT cSelect TO ''
 	DEFAULT cChange TO ''
+	DEFAULT cClass TO ''
+	DEFAULT cFont TO ''
 	
 	::oParent 		:= oParent
 	::cId			:= cId
@@ -48,6 +50,8 @@ METHOD New( oParent, cId, uValue, nGrid, cLabel, cAlign, lReadOnly, cType, cPlac
 	::uSource 		:= uSource
 	::cSelect 		:= cSelect
 	::cChange 		:= cChange
+	::cClass 		:= cClass
+	::cFont 		:= cFont
 
 	IF Valtype( oParent ) == 'O'	
 		oParent:AddControl( SELF )			
@@ -72,7 +76,8 @@ METHOD Activate() CLASS TWebGet
 
 	cHtml := '<div class="col-' + ltrim(str(::nGrid)) 
 	//cHtml += ' col-form-label ' 
-	cHtml += IF( ::oParent:lDessign, ' tweb_dessign', '') + '" '
+	cHtml += IF( ::oParent:lDessign, ' tweb_dessign', '') 		
+	cHtml += '" '
 	chtml += IF( ::oParent:lDessign, 'style="border:1px solid blue;"', '' ) 
 	cHtml += ' >'
 	
@@ -84,7 +89,17 @@ METHOD Activate() CLASS TWebGet
 	
 	cHtml += '<div class="input-group">'
 	
-	cHtml += '<input type="' + ::cType + '" class="form-control ' + cSize + '" '
+	cHtml += '<input type="' + ::cType + '" class="form-control ' + cSize 
+	
+	if !empty( ::cClass )	
+		cHtml += ' ' + ::cClass
+	endif
+	
+	if !empty( ::cFont )	
+		cHtml += ' ' + ::cFont
+	endif						
+	
+	cHtml += '" '
 	cHtml += 'id="' + ::cId + '"	 name="' + ::cId + '" ' 
 	cHtml += 'placeholder="' + ::cPlaceHolder + '" ' 
 	

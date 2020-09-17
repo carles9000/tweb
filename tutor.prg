@@ -2,7 +2,6 @@
 
 function main()
 
-	? 'Hello World!'
 	? 'Version:', twebversion()	
 	
 retu nil

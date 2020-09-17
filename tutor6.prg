@@ -4,45 +4,56 @@
 
 function main()
 
-    LOCAL o
+    LOCAL o, oWeb
+	local cLoren := "<h2>Why do we use it?</h2>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like)."
+	local cIpsum := "<h5>Align top</h5>The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested."
+
 	
-	DEFINE WEB oWeb TITLE 'Tutor6' INIT
+	DEFINE WEB oWeb TITLE 'Tutor 6' INIT
+	
+    DEFINE FORM o 
+		o:ldessign 	:= .t.
+		o:lFluid  	:= .f.		
 
-	DEFINE FORM o ID 'demo'
-		o:lDessign  := .F.
-		o:cSizing   := ''     //  SM/LG
-
-	HTML o
-		<div class="alert alert-dark form_title" role="alert">
-			<h5 style="margin:0px;">
-				<i class="far fa-share-square"></i>
-				Test Combobox
-			</h5>
-		</div>
-	ENDTEXT
-
-	INIT FORM o         
-   
-		ROWGROUP o
-		   
-			SEPARATOR o LABEL 'Datos de Salida'
-
-			SELECT oSelect  ID 'cars' PROMPT 'Volvo', 'Seat', 'Renault' VALUES  'V', 'S', 'R'  GRID 6  ONCHANGE 'Select()' OF o
-			
-		END o
-
-		HTML o
+		HTML o FILE 'templates/header.tpl' PARAMS '<i class="far fa-share-square"></i>', 'Form example...'
 		
-			<script>
+		INIT FORM o  	
+		
+			ROW o VALIGN 'top'
+				COL o GRID 8 
 				
-				function Select() {
+					ROWGROUP o
+						SAY VALUE 'Id:' ALIGN 'right' OF o
+						GET VALUE '' OF o
+					ENDROW o
+
+					ROWGROUP o
+						SAY VALUE 'Phone:' ALIGN 'right' OF o
+						GET VALUE '' PLACEHOLDER "Enter phone number" OF o
+					ENDROW o
 					
-					alert( $('#cars').val() )
-				}				
+					ROWGROUP o	
+						BUTTON LABEL ' Test Button' ACTION "alert( 'Hi!' )" GRID 8  ALIGN 'right' ICON '<i class="fas fa-clipboard-check"></i>' CLASS 'btn-danger btnticket' OF o
+					ENDROW o		
+
+				ENDCOL o			
 				
-			</script>	
-		ENDTEXT		        
-	
-	END FORM o
+				COL o GRID 4						
+
+					ROWGROUP o 
+						SAY VALUE cIpsum GRID 12 OF o			
+					ENDROW o		
+					
+				ENDCOL o
+
+			ENDROW o
+			
+		
+			ROWGROUP o 
+				SAY VALUE cLoren GRID 12 OF o			
+			ENDROW o			
+			
+		
+    END FORM o	
 	
 retu nil

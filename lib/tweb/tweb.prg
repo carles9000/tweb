@@ -7,7 +7,7 @@
 */
 
 
-#define TWEB_VERSION 			'TWeb 0.8'
+#define TWEB_VERSION 			'TWeb 1.0'
 #define TWEB_PATH 				'lib/tweb/'
 #define CRLF 					Chr(13)+Chr(10)
 
@@ -32,6 +32,8 @@
 #include 'TWebRadio.prg'
 #include 'TWebSelect.prg'
 #include 'TWebCommon.prg'
+#include 'TWebFont.prg'
+#include 'TWebApache.prg'
 
 
 function TWebVersion() ; RETU TWEB_VERSION
@@ -159,9 +161,14 @@ function Parameter( uValue )
 	DO CASE
 	
 		CASE cType == 'A'
-			aParam := uValue 
+		
+			if valtype( uValue[1] ) == 'H'
+				aParam := uValue[1]
+			else
+				aParam := uValue 
+			endif				
 			
-		CASE cType == 'N'
+		CASE cType == 'N'		//	Buscar elemento de array
 		
 			if valtype( aParam ) == 'A'
 			
@@ -171,7 +178,17 @@ function Parameter( uValue )
 					retu '*** Index error ' + ltrim(str(uValue)) + ' ***'
 				endif
 			
-			endif			
+			endif
+
+		CASE cType == 'C'		//	Buscar key in Hash
+		
+			HB_HCaseMatch( aParam, .F. ) 
+		
+			if HB_HHasKey( aParam, uValue ) 
+				retu aParam[ uValue ]
+			else
+				retu '*** Index hash error: ' + uValue + ' ***'
+			endif		
 			
 	endcase
 	
@@ -240,9 +257,11 @@ CLASS TWeb
 	DATA cLang						INIT 'en' 						
 	DATA cCharset					INIT 'ISO-8859-1'			//	'utf-8'
 	DATA lActivated					INIT .F.
+	DATA aControls					INIT {}
 
 	METHOD New() 					CONSTRUCTOR
 	METHOD Activate()
+	METHOD Html( cCode ) 			INLINE Aadd( ::aControls, cCode )
 
 ENDCLASS 
 
@@ -268,6 +287,7 @@ RETU SELF
 METHOD Activate() CLASS TWeb
 
 	local cHtml := ''
+	local nI 
 	
 	IF ::lActivated
 		retu nil
@@ -291,11 +311,45 @@ METHOD Activate() CLASS TWeb
 		cHtml += LoadTWeb()	
 	ENDIF	
 	
+	
+	FOR nI := 1 To len( ::aControls )
+	
+		IF Valtype( ::aControls[nI] ) == 'O'			
+			cHtml += ::aControls[nI]:Activate()			
+		ELSE		
+			cHtml += ::aControls[nI]
+		ENDIF
+	
+	NEXT	
+	
+	
 	?? cHtml	
 	
 	::lActivated := .T.
 
 RETU NIL
+
+
+function JSReady( cFunction, cLog ) 
+
+	local cEcho := ''
+
+	DEFAULT cFunction TO ''
+	DEFAULT cLog TO ''
+
+	cEcho  = "<script type='text/javascript'>"
+	cEcho += "  $( document ).ready(function() {"
+	
+	if !empty( cLog )
+		cEcho += "console.info( 'info', '" + cLog + "' );"
+	endif
+	
+	cEcho += 		cFunction  + ';'
+	cEcho += "  })"
+	cEcho += "</script>"
+	
+retu cEcho
+
 
 
 

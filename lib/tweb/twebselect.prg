@@ -12,7 +12,7 @@ CLASS TWebSelect FROM TWebControl
 
 ENDCLASS 
 
-METHOD New( oParent, cId, uValue, aItems, aValues, nGrid, cAction, cLabel  ) CLASS TWebSelect
+METHOD New( oParent, cId, uValue, aItems, aValues, nGrid, cAction, cLabel, cClass, cFont   ) CLASS TWebSelect
 
 	DEFAULT cId TO ''
 	DEFAULT aItems TO {}
@@ -21,17 +21,52 @@ METHOD New( oParent, cId, uValue, aItems, aValues, nGrid, cAction, cLabel  ) CLA
 	DEFAULT cAction TO ''
 	DEFAULT cLabel TO ''
 	DEFAULT uValue TO ''
-	
+	DEFAULT cClass TO ''
+	DEFAULT cFont TO ''	
 
 	::oParent 		:= oParent	
 	::cId			:= cId
-	::aItems 		:= IF( valtype( aItems ) == 'A', aItems, {} )
+	
 	::aValues		:= IF( valtype( aValues ) == 'A' .AND. len( aValues ) == len( aItems ), aValues, aItems )
 	::nGrid			:= nGrid
 	::cAction		:= cAction
 	::cLabel		:= cLabel
-	::uValue		:= uValue 
+	::uValue		:= uValue
+	::cClass 		:= cClass
+	::cFont 		:= cFont	
 	
+	
+	if valtype( aItems ) == 'A' .and. len( aItems ) > 0
+
+		if valtype( aItems[1] ) == 'A'
+			::aItems := aItems[1]		
+		else
+			::aItems := aItems		
+		endif
+	
+	else
+			
+		::aItems := {}
+	endif
+
+	
+	if valtype( aValues ) == 'A' .and. len( aValues ) > 0
+
+		if valtype( aValues[1] ) == 'A'
+			::aValues := aValues[1]
+		else
+			::aValues := aValues
+		endif
+	
+	else
+		::aValues := {}
+	endif	
+
+	if len( ::aItems ) <> len( ::aValues )
+		::aValues := ::aItems
+	endif
+	
+
 
 	IF Valtype( oParent ) == 'O'	
 		oParent:AddControl( SELF )	
@@ -64,8 +99,20 @@ METHOD Activate() CLASS TWebSelect
 	
 	//cHtml += '<select class="col-' + ltrim(str(::nGrid)) + ' custom-select form-control ' + cSize + '" id="' + ::cId + '" onchange="' + ::cAction + '" >'
 	//cHtml += '<select class="col-' + ltrim(str(::nGrid)) + ' form-control ' + cSize + IF( ::oParent:lDessign, ' tweb_dessign', '')  + '" ' + IF( ::oParent:lDessign, 'style="border:1px solid blue;"', '' ) + ' id="' + ::cId + '" onchange="' + ::cAction + '" >'
-	cHtml += '<select class="col-12 form-control ' + cSize + IF( ::oParent:lDessign, ' tweb_dessign', '')  + '" ' + IF( ::oParent:lDessign, 'style="border:1px solid blue;"', '' ) + ' id="' + ::cId + '" name="' + ::cId + '" onchange="' + ::cAction + '" >'
+	cHtml += '<select class="col-12 form-control ' + cSize + IF( ::oParent:lDessign, ' tweb_dessign', '') 
+
 	
+	if !empty( ::cClass )	
+		cHtml += ' ' + ::cClass
+	endif
+	
+	if !empty( ::cFont )	
+		cHtml += ' ' + ::cFont
+	endif	
+
+	
+	cHtml += '" ' + IF( ::oParent:lDessign, 'style="border:1px solid blue;"', '' ) + ' id="' + ::cId + '" name="' + ::cId + '" onchange="' + ::cAction + '" >'
+
 	FOR nI := 1 TO len( ::aItems )
 	
 		cHtml += '<option value="' + ::aValues[nI] + '" ' 			

@@ -4,47 +4,44 @@
 
 function main()
 
-    local cHtml 	:= ''
-	local cString	:= 'James Bond'
-	local nNumeric	:= 1234
-	local lLogic	:= .T.
-	local dDate	:= date()
-	local hData	:= { 'string' => cString, 'numeric' => nNumeric, 'logic' => lLogic }
-	local aFruits  := { 'banana', 4567, .T. }
-	
-	SET DATE TO ITALIAN
-	
-	??	'<h2>Transform PRG var To JAVASCRIPT var</h2>'
-	??	'<h3>Go to console...</h3><hr>'
-	
-	?	'String', cString
-	?	'Numeric', valtochar( nNumeric )
-	?	'Logic', valtochar( lLogic )
-	?	'Date', valtochar( dDate )
-	?	'Hash', valtochar( hData )
-	?	'Array', valtochar( aFruits )
-	
-	
-	TEXT TO cHtml PARAMS cString, nNumeric, lLogic, dDate, hData, aFruits					
-	
-		<script>
-			var cString 	= <$  SetDataJS( cString ) $>
-			var nNumeric 	= <$  SetDataJS( nNumeric ) $>
-			var lLogic 	= <$  SetDataJS( lLogic ) $>
-			var dDate 		= <$  SetDataJS( dDate ) $>
-			var hData 		= <$  SetDataJS( hData ) $>
-			var aFruits	= <$  SetDataJS( aFruits ) $>
+    LOCAL o
+
+	DEFINE WEB oWeb TITLE 'Get' INIT
+
+    DEFINE FORM o		
+
+	INIT FORM o  		
+	   
+		ROWGROUP o
+		
+			GET ID 'myid' 		VALUE '123' GRID 4 LABEL 'Id.' ;
+				PLACEHOLDER 'User Id.' ;
+				BUTTON 'GetId' ACTION 'GetId()' OF o
+		
+		END o		
+		
+		ROWGROUP o
+			BUTTON ID 'mybtn'	LABEL 'Test' GRID 4 ACTION 'TestBtn()' OF o        
+		END o		
+		
+		HTML o
+			<script>
 			
-			console.log( typeof( cString ), cString )
-			console.log( typeof( nNumeric ), nNumeric )
-			console.log( typeof( lLogic ), lLogic )
-			console.log( typeof( dDate ), dDate )
-			console.log( typeof( hData ), hData )
-			console.log( typeof( aFruits ), aFruits )
-		</script>
-	
-	ENDTEXT
-	
-	? cHtml 
+				function GetId() {
+				
+					var cId = $('#myid').val() 
+				
+					MsgInfo( cId )
+				}
+				
+				function TestBtn() {
+				
+					alert( 'Button...' )
+				}				
+				
+			</script>		
+		ENDTEXT
+		
+    END FORM o	
 	
 retu nil

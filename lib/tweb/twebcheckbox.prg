@@ -7,19 +7,23 @@ CLASS TWebCheckbox FROM TWebControl
 
 ENDCLASS 
 
-METHOD New(  oParent, cId, lValue, cLabel, nGrid, cAction    ) CLASS TWebCheckbox
+METHOD New(  oParent, cId, lValue, cLabel, nGrid, cAction, cClass, cFont     ) CLASS TWebCheckbox
 
 	DEFAULT cId TO ''
 	DEFAULT lValue TO .F.
 	DEFAULT nGrid TO 4
 	DEFAULT cLabel TO ''
 	DEFAULT cAction TO ''
+	DEFAULT cClass TO ''
+	DEFAULT cFont TO ''
 	
 	::cId			:= cId
 	::uValue 		:= lValue
 	::cLabel 		:= cLabel
 	::nGrid			:= nGrid
 	::cAction		:= cAction
+	::cClass 		:= cClass
+	::cFont 		:= cFont	
 
 	IF Valtype( oParent ) == 'O'	
 		oParent:AddControl( SELF )	
@@ -44,7 +48,20 @@ METHOD Activate() CLASS TWebCheckbox
 	
 	IF !empty( ::cLabel )
 	
-		cHtml += '<label class="custom-control-label tweb_pointer" for="' + ::cId + '">' + ::cLabel + '</label>'
+		cHtml += '<label class="custom-control-label tweb_pointer '
+		
+		if !empty( ::cClass )	
+			cHtml += ' ' + ::cClass
+		endif
+		
+		if !empty( ::cFont )	
+			cHtml += ' ' + ::cFont
+		endif
+
+		cHtml += '" '
+
+		
+		cHtml += 'for="' + ::cId + '">' + ::cLabel + '</label>'
 	
 	ENDIF	
 

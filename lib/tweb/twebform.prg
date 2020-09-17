@@ -92,44 +92,63 @@ METHOD Col( nCol, cType ) CLASS TWebForm
 	
 RETU NIL
 
-METHOD Row( cAlign ) CLASS TWebForm
+METHOD Row( cVAlign, cHAlign ) CLASS TWebForm
 
-	DEFAULT cAlign TO 'center'
+	DEFAULT cVAlign TO 'center'
+	DEFAULT cHAlign TO 'left'
 	
-	cAlign := lower( cAlign )
+	cVAlign 	:= lower( cVAlign )
+	cHAlign 	:= lower( cHAlign )
 	
 	do case
-		case cAlign == 'top' 	;	cAlign := 'align-items-start'
-		case cAlign == 'center' ;	cAlign := 'align-items-center'
-		case cAlign == 'bottom' ;	cAlign := 'align-items-end'
+		case cVAlign == 'top' 		;	cVAlign := 'align-items-start'
+		case cVAlign == 'center' 	;	cVAlign := 'align-items-center'
+		case cVAlign == 'bottom' 	;	cVAlign := 'align-items-end'
 	endcase
 	
-	::Html( '<div class="row ' + cAlign + '" ' + IF( ::lDessign, 'style="border:1px solid red;"', '' ) + ' >' )
+	do case
+		case cHAlign == 'left' 		;	cHAlign := 'justify-content-start'
+		case cHAlign == 'center'	;	cHAlign := 'justify-content-center'
+		case cHAlign == 'right' 	;	cHAlign := 'justify-content-end'
+	endcase	
+	
+	::Html( '<div class="row ' + cVAlign + ' ' + cHAlign + '" ' + IF( ::lDessign, 'style="border:1px solid red;"', '' ) + ' >' )
 	
 RETU NIL
 
 
-METHOD RowGroup( cAlign ) CLASS TWebForm
+METHOD RowGroup( cVAlign, cHAlign ) CLASS TWebForm
 
-	DEFAULT cAlign TO 'center'
+	DEFAULT cVAlign TO 'center'
+	DEFAULT cHAlign TO 'left'
 	
-	cAlign := lower( cAlign )
+	cVAlign 	:= lower( cVAlign )
+	cHAlign 	:= lower( cHAlign )
 	
 	do case
-		case cAlign == 'top' 	;	cAlign := 'align-items-start'
-		case cAlign == 'center' ;	cAlign := 'align-items-center'
-		case cAlign == 'bottom' ;	cAlign := 'align-items-end'
+		case cVAlign == 'top' 		;	cVAlign := 'align-items-start'
+		case cVAlign == 'center' 	;	cVAlign := 'align-items-center'
+		case cVAlign == 'bottom' 	;	cVAlign := 'align-items-end'
 	endcase
+	
+	do case
+		case cHAlign == 'left' 		;	cHAlign := 'justify-content-start'
+		case cHAlign == 'center'	;	cHAlign := 'justify-content-center'
+		case cHAlign == 'right' 	;	cHAlign := 'justify-content-end'
+	endcase	
+	
 
-	::Html( '<div class="form-group row ' + cAlign + '" ' + IF( ::lDessign, 'style="border:1px solid red;"', '' ) + ' >' )
+	::Html( '<div class="form-group row ' + cVAlign + ' ' + cHAlign + '" ' + IF( ::lDessign, 'style="border:1px solid red;"', '' ) + ' >' )
 
 RETU NIL
 
 
-METHOD Activate() CLASS TWebForm
+METHOD Activate( fOnInit ) CLASS TWebForm
 
 	LOCAL cHtml := ''
 	LOCAL nI
+	
+	DEFAULT fOnInit TO ''
 	
 	IF !empty( ::cAction )
 	
@@ -139,6 +158,13 @@ METHOD Activate() CLASS TWebForm
 	
 	::Html( '</div>' )
 
+	if !empty( fOnInit ) 
+
+		::Html( JSReady( fOnInit, 'ON INIT...' ) )	
+	
+	endif
+	
+	
 	FOR nI := 1 To len( ::aControls )
 	
 		IF Valtype( ::aControls[nI] ) == 'O'			
@@ -148,6 +174,9 @@ METHOD Activate() CLASS TWebForm
 		ENDIF
 	
 	NEXT
+
+	
+	
 
 RETU cHtml
 

@@ -4,57 +4,21 @@
 
 function main()
 
-    LOCAL o
-	LOCAL cTxt := ''
-
-	DEFINE WEB oWeb TITLE 'Tutor8' INIT
-
-	DEFINE FORM o ID 'demo'
-		o:lDessign  := .F.
-		o:cType     := 'md'     //  xs,sm,md,lg
-		o:cSizing   := 'sm'     //  sm,lg
-
-	HTML o
-		<div class="alert alert-dark form_title" role="alert">
-			<h5 style="margin:0px;">
-				<i class="far fa-share-square"></i>
-				Test Memo (Resizing screen...)
-			</h5>
-		</div>
-	ENDTEXT
+    LOCAL o, oWeb
 	
-	TEXT TO cTxt
-Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, 
-when an unknown printer took a galley of type and scrambled it to make a type specimen book. 
-It has survived not only five centuries, but also the leap into electronic typesetting, 
-remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets 
-containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker 
-including versions of Lorem Ipsum.
-	ENDTEXT
-
-	INIT FORM o  
+	DEFINE WEB oWeb TITLE 'Tutor 8' INIT
 	
-		ROW o
+    DEFINE FORM o 
+		o:lDessign 	:= .T.
+		o:lFluid 	:= .T.
 		
-			COL o GRID 6
-			
-				SEPARATOR o LABEL 'Col 1'
-				
-				GET oGet MEMO ID 'text' LABEL 'Text Area...' VALUE cTxt GRID 12 OF o
-				
-			END o
-			
-			COL o GRID 6
-		
-				SEPARATOR o LABEL 'Col 2'
-				
-				 SMALL o ID 'ppp' LABEL cTxt GRID 12
-				
-			END o
-		
-		ENDROW o
+	INIT FORM o
 	
-	END FORM o    
+		ROW o HALIGN 'center'
+			SAY VALUE 'Hello' GRID 4 ALIGN 'right' OF o
+			SAY VALUE 'Bye'   GRID 2 OF o			
+		END o
+		
+    END FORM o	
 	
 retu nil
