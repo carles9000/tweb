@@ -1,3 +1,6 @@
 doc.private
 ace
 z
+upload/*
+# exception to the rule
+!upload/.gitkeep 
