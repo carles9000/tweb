@@ -80,7 +80,7 @@ function main()
 			ENDIF
 		ENDIF
 
-    DEFINE FORM o ID 'demo' ACTION 'tutor20.prg'
+    DEFINE FORM o ID 'demo' ACTION 'spaguetti.prg'
         o:lDessign  := .F.
         o:cSizing   := '' //'sm'       //  SM/LG				
 
