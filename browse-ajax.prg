@@ -13,8 +13,7 @@ function main()
 	
 	DEFINE FORM o ID 'demo'
 
-		HTML o INLINE cHtml
-		HTML o INLINE '<h3>Test Browse II</h3><hr>'
+	HTML o INLINE '<h3>Test Browse II</h3><hr>'
 		
 	INIT FORM o  			
 		
