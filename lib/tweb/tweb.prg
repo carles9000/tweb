@@ -33,6 +33,7 @@
 #include 'TWebSelect.prg'
 #include 'TWebCommon.prg'
 #include 'TWebFont.prg'
+#include 'TWebBox.prg'
 #include 'TWebApache.prg'
 
 

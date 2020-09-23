@@ -26,12 +26,11 @@
 #xcommand CSS <oForm> => #pragma __cstream| <oForm>:Html( '<style>' + %s + '</style>' )
 
 
-
-#xcommand HTML <oForm> => #pragma __cstream| <oForm>:Html( %s )
-#xcommand HTML <oForm> INLINE <cHtml> => <oForm>:Html( <cHtml> )
-#xcommand HTML <oForm> [ PARAMS [<v1>] [,<vn>] ] ;
+#xcommand HTML <o> => #pragma __cstream| <o>:Html( %s )
+#xcommand HTML <o> INLINE <cHtml> => <o>:Html( <cHtml> )
+#xcommand HTML <o> [ PARAMS [<v1>] [,<vn>] ] ;
 => ;
-	#pragma __cstream |<oForm>:Html( InlinePrg( ReplaceBlocks( %s, '<$', "$>" [,<(v1)>][+","+<(vn)>] [, @<v1>][, @<vn>] ) ) )
+	#pragma __cstream |<o>:Html( InlinePrg( ReplaceBlocks( %s, '<$', "$>" [,<(v1)>][+","+<(vn)>] [, @<v1>][, @<vn>] ) ) )
 								
 //#xcommand HTML <oForm> FILE <cFile> [ <prm: PARAMS, VARS> <cValues,...> ]  => AP_RPuts( TWebHtmlInline( <cFile>, [\{<cValues>\}]  ) )
 #xcommand HTML <oForm> FILE <cFile> [ <prm: PARAMS, VARS> <cValues,...> ]  => <oForm>:Html( TWebHtmlInline( <cFile>, [\{<cValues>\}]  ) )
@@ -45,8 +44,8 @@
 #xcommand SEPARATOR <oForm> LABEL <cLabel> => <oForm>:Separator( <cLabel> )
 #xcommand SMALL <oForm> [ ID <cId> ] [ LABEL <cLabel> ] [ GRID <nGrid> ] => <oForm>:Small( <cId>, <cLabel>, <nGrid> )
 
-#xcommand ROW <oForm> [ VALIGN <cVAlign> ] [ HALIGN <cHAlign> ] => <oForm>:Row( <cVAlign>, <cHAlign> )
-#xcommand ROWGROUP <oForm> [ VALIGN <cVAlign> ] [ HALIGN <cHAlign> ]  => <oForm>:RowGroup( <cVAlign>, <cHAlign> )
+#xcommand ROW <oForm> [ VALIGN <cVAlign> ] [ HALIGN <cHAlign> ] [ CLASS <cClass> ] => <oForm>:Row( <cVAlign>, <cHAlign>, <cClass> )
+#xcommand ROWGROUP <oForm> [ VALIGN <cVAlign> ] [ HALIGN <cHAlign> ] [ CLASS <cClass> ] => <oForm>:RowGroup( <cVAlign>, <cHAlign>, <cClass> )
 
 #xcommand COL <oForm> [GRID <nGrid>] [TYPE <cType>] => <oForm>:Col( [<nGrid>], [<cType>] )
 #xcommand ENDROW <oForm> => <oForm>:End()
@@ -95,6 +94,13 @@
 => ;
 	[ <oBtn> := ] TWebButton():New( <oForm>, [<cId>], <cLabel>, <cAction>, <cName>, <cValue>, <nGrid>, <cAlign>, <cIcon>, [<.ds.>], [<.sb.>], [<cLink>], [<cClass>], [<cFont>], [<.files.>]  )	
 	
+	
+#xcommand BOX [<oBox>] [ ID <cId> ]  ;
+	[GRID <nGrid>] [ HEIGHT <nHeight> ] [ CLASS <cClass> ] OF <oContainer> ;
+=> ;
+	[<oBox> := ] TWebBox():New( <oContainer>, [<cId>], [<nGrid>], [<nHeight>], [<cClass>] )
+	
+#xcommand ENDBOX <oBox> => <oBox>:End()	
 	
 #xcommand SWITCH [<oSwitch>] [ ID <cId> ] [ <lValue: ON> ] [ VALUE <lValue> ] [ LABEL <cLabel> ] [GRID <nGrid>] [ <act:ACTION,ONCHANGE> <cAction> ] OF <oForm> ;
 => ;

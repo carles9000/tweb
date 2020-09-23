@@ -92,10 +92,13 @@ METHOD Col( nCol, cType ) CLASS TWebForm
 	
 RETU NIL
 
-METHOD Row( cVAlign, cHAlign ) CLASS TWebForm
+METHOD Row( cVAlign, cHAlign, cClass ) CLASS TWebForm
+
+	local cHtml := ''
 
 	DEFAULT cVAlign TO 'center'
 	DEFAULT cHAlign TO 'left'
+	DEFAULT cClass TO ''
 	
 	cVAlign 	:= lower( cVAlign )
 	cHAlign 	:= lower( cHAlign )
@@ -112,15 +115,26 @@ METHOD Row( cVAlign, cHAlign ) CLASS TWebForm
 		case cHAlign == 'right' 	;	cHAlign := 'justify-content-end'
 	endcase	
 	
-	::Html( '<div class="row ' + cVAlign + ' ' + cHAlign + '" ' + IF( ::lDessign, 'style="border:1px solid red;"', '' ) + ' >' )
+	cHtml += '<div class="row ' + cVAlign + ' ' + cHAlign 
+	
+	if !empty( cClass )
+		cHtml += ' ' + cClass
+	endif
+	
+	cHtml += '" ' + IF( ::lDessign, 'style="border:1px solid red;"', '' ) + ' >' 
+	
+	::Html( cHtml )
 	
 RETU NIL
 
 
-METHOD RowGroup( cVAlign, cHAlign ) CLASS TWebForm
+METHOD RowGroup( cVAlign, cHAlign, cClass ) CLASS TWebForm
+
+	local cHtml := ''
 
 	DEFAULT cVAlign TO 'center'
 	DEFAULT cHAlign TO 'left'
+	DEFAULT cClass TO ''
 	
 	cVAlign 	:= lower( cVAlign )
 	cHAlign 	:= lower( cHAlign )
@@ -138,8 +152,20 @@ METHOD RowGroup( cVAlign, cHAlign ) CLASS TWebForm
 	endcase	
 	
 
-	::Html( '<div class="form-group row ' + cVAlign + ' ' + cHAlign + '" ' + IF( ::lDessign, 'style="border:1px solid red;"', '' ) + ' >' )
+	//::Html( '<div class="form-group row ' + cVAlign + ' ' + cHAlign + '" ' + IF( ::lDessign, 'style="border:1px solid red;"', '' ) + ' >' )
 
+	cHtml += '<div class="form-group row ' + cVAlign + ' ' + cHAlign 
+	
+	if !empty( cClass )
+		cHtml += ' ' + cClass
+	endif
+	
+	cHtml += '" ' + IF( ::lDessign, 'style="border:1px solid red;"', '' ) + ' >' 
+	
+	::Html( cHtml )
+	
+	
+	
 RETU NIL
 
 
