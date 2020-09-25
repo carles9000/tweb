@@ -1,5 +1,6 @@
 25/09/2020
 ==========
+New: TWebImage. See image.prg
 New: JS BrwSelect(). Select from table a row. brwselect.prg
 
 13/09/2020
