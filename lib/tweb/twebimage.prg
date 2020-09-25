@@ -3,6 +3,9 @@
 CLASS TWebImage FROM TWebControl
 
 	DATA cSrc						INIT ''
+	DATA cBigSrc					INIT ''
+	DATA cGallery					INIT ''
+	DATA lZoom						INIT .t.
 
 	METHOD New() 					CONSTRUCTOR
 	METHOD Activate()
@@ -10,22 +13,26 @@ CLASS TWebImage FROM TWebControl
 
 ENDCLASS 
 
-METHOD New( oParent, cId, cSrc, nGrid, cAlign, cClass, nWidth ) CLASS TWebImage
+METHOD New( oParent, cId, cSrc, cBigSrc, nGrid, cAlign, cClass, nWidth, cGallery ) CLASS TWebImage
 
 	DEFAULT cId TO ''
 	DEFAULT cSrc TO ''
+	DEFAULT cBigSrc TO ''
 	DEFAULT nGrid TO 4
 	DEFAULT cAlign TO ''
 	DEFAULT cClass TO ''
 	DEFAULT nWidth TO 0
+	DEFAULT cGallery TO ''
 	
 	::oParent 		:= oParent
 	::cId			:= cId
 	::cSrc			:= cSrc
+	::cBigSrc		:= cBigSrc
 	::nGrid			:= nGrid
 	::cAlign 		:= lower( cAlign )
 	::cClass 		:= cClass
 	::nWidth 		:= nWidth
+	::cGallery		:= cGallery
 
 
 	IF Valtype( oParent ) == 'O'	
@@ -65,6 +72,28 @@ METHOD Activate() CLASS TWebImage
 	cHtml += '" '
 	cHtml += IF( ::oParent:lDessign, 'style="border:1px solid black;"', '' ) 		
 	cHtml += ' >'
+	
+	if ( !empty( ::cBigSrc ) .or.  ::lZoom  )
+	
+		if empty( ::cBigSrc ) 
+			::cBigSrc = ::cSrc
+		endif
+		
+		cHtml += '<a href="' + ::cBigSrc + '" '
+		
+		if  empty( ::cGallery ) 				
+			cHtml += 'data-lightbox="twebimg_' + ::cId + '" '
+		else 
+			cHtml += 'data-lightbox="' + ::cGallery + '" '
+		endif
+		
+		if !empty( ::uValue )
+			cHtml += 'data-title="' + ::cCaption + '" '
+		endif
+		
+		cHtml += ' >'		
+	
+	endif
 
 	
 	cHtml += '<img src="' + ::cSrc + '" class="rounded " '
@@ -74,6 +103,10 @@ METHOD Activate() CLASS TWebImage
 	endif
 		
 	cHtml += ' alt="...">'
+	
+	if ( !empty( ::cBigSrc ) .or.  ::lZoom  )			
+		cHtml += '</a>'
+	endif	
 
 	cHtml += '</div>'
 
