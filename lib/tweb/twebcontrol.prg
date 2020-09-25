@@ -22,6 +22,7 @@ CLASS TWebControl
 	DATA cChange					INIT ''
 	DATA cFont						INIT ''
 	DATA nHeight					INIT 0
+	DATA nWidth						INIT 0
 		
     METHOD New()					CONSTRUCTOR
 	

@@ -1,3 +1,7 @@
+25/09/2020
+==========
+New: JS BrwSelect(). Select from table a row. brwselect.prg
+
 13/09/2020
 ==========
 New: Container BOX: See box.prg, box2.prg, box3.prg

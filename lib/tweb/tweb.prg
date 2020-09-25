@@ -34,6 +34,7 @@
 #include 'TWebCommon.prg'
 #include 'TWebFont.prg'
 #include 'TWebBox.prg'
+#include 'TWebImage.prg'
 #include 'TWebApache.prg'
 
 

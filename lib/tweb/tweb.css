@@ -26,6 +26,13 @@
 	padding:0px;
 }
 
+.tweb_image {
+	overflow: hidden;
+}
+.tweb_image  img {
+	width: inherit;
+}
+
 /*	Gif loading en autocomplete ui */
 
 .ui-autocomplete-loading {

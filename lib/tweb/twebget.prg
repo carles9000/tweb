@@ -62,15 +62,18 @@ RETU SELF
 METHOD Activate() CLASS TWebGet
 
 	LOCAL cHtml, hSource
-	LOCAL cSize 	:= ''
-	LOCAL cBtnSize 	:= ''
+	LOCAL cSize 	 := ''
+	LOCAL cSizeLabel := 'col-form-label'
+	LOCAL cBtnSize 	 := ''
 	
 	DO CASE
 		CASE upper(::oParent:cSizing) == 'SM' 
 			cSize 		:= 'form-control-sm'
+			cSizeLabel	:= 'col-form-label-sm'
 			cBtnSize 	:= 'btn-sm'
 		CASE upper(::oParent:cSizing) == 'LG' 
 			cSize 		:= 'form-control-lg'
+			cSizeLabel	:= 'col-form-label-lg'
 			cBtnSize 	:= 'btn-lg'
 	ENDCASE	
 
@@ -83,7 +86,7 @@ METHOD Activate() CLASS TWebGet
 	
 	IF !empty( ::cLabel )
 
-		cHtml += '<label class="col-form-label " for="' + ::cId + '">' + ::cLabel + '</label>'
+		cHtml += '<label class="' + cSizeLabel + ' " for="' + ::cId + '">' + ::cLabel + '</label>'
 	
 	ENDIF
 	
