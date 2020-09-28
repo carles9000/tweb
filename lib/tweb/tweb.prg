@@ -83,7 +83,7 @@ return '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.m
 		'<link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css" rel="stylesheet">' + CRLF + ;
 		'<script src="' + cPathPluggin + 'lightbox/lightbox.js"></script>' + CRLF + ;
 		'<link href="'  + cPathPluggin + 'lightbox/css/lightbox.css" rel="stylesheet" >' + CRLF + ;		
-		'<script src="' + cPathPluggin + 'notify/bootstrap-notify.min.js' + '"></script>' + CRLF + ;
+		'<script src="' + cPathPluggin + 'notify/bootstrap-notify.js' + '"></script>' + CRLF + ;
 		'<script src="' + cPathPluggin + 'bootbox/bootbox.all.min.js"></script>' + CRLF + ;
 		'<link href="'  + cPathPluggin + 'tweb.css' + '" rel="stylesheet">' + CRLF + ;		
 		'<script src="' + cPathPluggin + 'tweb.js' + '"></script>' + CRLF  

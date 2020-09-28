@@ -13,7 +13,7 @@ CLASS TWebImage FROM TWebControl
 
 ENDCLASS 
 
-METHOD New( oParent, cId, cSrc, cBigSrc, nGrid, cAlign, cClass, nWidth, cGallery ) CLASS TWebImage
+METHOD New( oParent, cId, cSrc, cBigSrc, nGrid, cAlign, cClass, nWidth, cGallery, lNoZoom ) CLASS TWebImage
 
 	DEFAULT cId TO ''
 	DEFAULT cSrc TO ''
@@ -23,6 +23,7 @@ METHOD New( oParent, cId, cSrc, cBigSrc, nGrid, cAlign, cClass, nWidth, cGallery
 	DEFAULT cClass TO ''
 	DEFAULT nWidth TO 0
 	DEFAULT cGallery TO ''
+	DEFAULT lNoZoom TO .F.
 	
 	::oParent 		:= oParent
 	::cId			:= cId
@@ -33,6 +34,7 @@ METHOD New( oParent, cId, cSrc, cBigSrc, nGrid, cAlign, cClass, nWidth, cGallery
 	::cClass 		:= cClass
 	::nWidth 		:= nWidth
 	::cGallery		:= cGallery
+	::lZoom			:= !lNoZoom
 
 
 	IF Valtype( oParent ) == 'O'	
@@ -73,7 +75,7 @@ METHOD Activate() CLASS TWebImage
 	cHtml += IF( ::oParent:lDessign, 'style="border:1px solid black;"', '' ) 		
 	cHtml += ' >'
 	
-	if ( !empty( ::cBigSrc ) .or.  ::lZoom  )
+	if ( !empty( ::cBigSrc ) .or. ::lZoom  )
 	
 		if empty( ::cBigSrc ) 
 			::cBigSrc = ::cSrc
@@ -96,7 +98,7 @@ METHOD Activate() CLASS TWebImage
 	endif
 
 	
-	cHtml += '<img src="' + ::cSrc + '" class="rounded " '
+	cHtml += '<img id="' + ::cId + '" src="' + ::cSrc + '" class="rounded " '
 	
 	if ::nWidth > 0
 		cHtml += ' style="width:' + ltrim(str(::nWidth)) + 'px; '

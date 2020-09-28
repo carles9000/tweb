@@ -4,8 +4,8 @@ CLASS TWebGet FROM TWebControl
 
 	DATA cType		 				INIT 'text'
 	DATA cPlaceHolder 				INIT ''
-	DATA cBtnLabel 					INIT ''
-	DATA cBtnAction 				INIT ''
+	DATA aBtnLabel 					INIT {}
+	DATA aBtnAction 				INIT {}
 	DATA uSource 					INIT ''
 	DATA cSelect 					INIT ''
 
@@ -16,7 +16,7 @@ CLASS TWebGet FROM TWebControl
 
 ENDCLASS 
 
-METHOD New( oParent, cId, uValue, nGrid, cLabel, cAlign, lReadOnly, cType, cPlaceHolder, cBtnLabel, cBtnAction, lRequired, uSource, cSelect, cChange, cClass, cFont ) CLASS TWebGet
+METHOD New( oParent, cId, uValue, nGrid, cLabel, cAlign, lReadOnly, cType, cPlaceHolder, aBtnLabel, aBtnAction, lRequired, uSource, cSelect, cChange, cClass, cFont ) CLASS TWebGet
 
 	DEFAULT cId TO ''
 	DEFAULT uValue TO ''
@@ -26,8 +26,8 @@ METHOD New( oParent, cId, uValue, nGrid, cLabel, cAlign, lReadOnly, cType, cPlac
 	DEFAULT lReadOnly TO .F.
 	DEFAULT cType TO 'text'
 	DEFAULT cPlaceHolder TO ''
-	DEFAULT cBtnLabel TO ''
-	DEFAULT cBtnAction TO '&nbsp;'	
+	DEFAULT aBtnLabel TO {}
+	DEFAULT aBtnAction TO {'&nbsp;'	}
 	DEFAULT lRequired TO .F.	
 	DEFAULT uSource TO ''
 	DEFAULT cSelect TO ''
@@ -44,8 +44,8 @@ METHOD New( oParent, cId, uValue, nGrid, cLabel, cAlign, lReadOnly, cType, cPlac
 	::lReadOnly		:= lReadOnly
 	::cType			:= cType
 	::cPlaceHolder 	:= cPlaceHolder
-	::cBtnLabel		:= cBtnLabel
-	::cBtnAction	:= cBtnAction	
+	::aBtnLabel		:= aBtnLabel
+	::aBtnAction	:= aBtnAction	
 	::lRequired		:= lRequired
 	::uSource 		:= uSource
 	::cSelect 		:= cSelect
@@ -63,8 +63,15 @@ METHOD Activate() CLASS TWebGet
 
 	LOCAL cHtml, hSource
 	LOCAL cSize 	 := ''
+	LOCAL cAlign 	 := ''
 	LOCAL cSizeLabel := 'col-form-label'
 	LOCAL cBtnSize 	 := ''
+	local nI, nBtn, cLabel, cAction
+	
+	DO CASE
+		CASE ::cAlign == 'center' ; cAlign := 'text-center'
+		CASE ::cAlign == 'right'  ; cAlign := 'text-right'
+	ENDCASE
 	
 	DO CASE
 		CASE upper(::oParent:cSizing) == 'SM' 
@@ -92,7 +99,7 @@ METHOD Activate() CLASS TWebGet
 	
 	cHtml += '<div class="input-group">'
 	
-	cHtml += '<input type="' + ::cType + '" class="form-control ' + cSize 
+	cHtml += '<input type="' + ::cType + '" class="form-control ' + cSize + ' ' + cAlign
 	
 	if !empty( ::cClass )	
 		cHtml += ' ' + ::cClass
@@ -121,6 +128,7 @@ METHOD Activate() CLASS TWebGet
 	
 	cHtml += ' value="' + ::uValue + '">'
 
+	/*
 	IF !empty( ::cBtnLabel )
 	
 		cHtml += '<div class="input-group-append">'
@@ -132,6 +140,33 @@ METHOD Activate() CLASS TWebGet
 		cHtml += '</div>'			
 	
 	ENDIF
+	*/
+	
+	nBtn := len( ::aBtnAction )
+	
+	if nBtn > 0 
+	
+		cHtml += '<div class="input-group-append">'
+	
+		for nI := 1 to nBtn 
+		
+			cLabel  := ::aBtnLabel[nI]
+			cAction := ::aBtnAction[nI]
+			
+		
+			cHtml += '<button class="btn btn-outline-secondary ' + cBtnSize + '" type="button" onclick="' + cAction + '">'
+			cHtml += cLabel
+			cHtml += '</button>'		
+		
+		
+		next
+		
+		cHtml += '</div>'	
+		
+	endif
+	
+	
+	
 	
 	
 	cHtml += '	</div>'

@@ -1,3 +1,12 @@
+28/09/2020
+==========
+Enchanced: TWebGet multi-button. See get-btn.prg
+
+27/09/2020
+==========
+Enchanced: TWebGet align
+
+
 25/09/2020
 ==========
 New: TWebImage. See image.prg
