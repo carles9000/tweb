@@ -27,7 +27,7 @@ METHOD New( oParent, cId, uValue, nGrid, cLabel, cAlign, lReadOnly, cType, cPlac
 	DEFAULT cType TO 'text'
 	DEFAULT cPlaceHolder TO ''
 	DEFAULT aBtnLabel TO {}
-	DEFAULT aBtnAction TO {'&nbsp;'	}
+	DEFAULT aBtnAction TO {}
 	DEFAULT lRequired TO .F.	
 	DEFAULT uSource TO ''
 	DEFAULT cSelect TO ''
@@ -128,21 +128,9 @@ METHOD Activate() CLASS TWebGet
 	
 	cHtml += ' value="' + ::uValue + '">'
 
-	/*
-	IF !empty( ::cBtnLabel )
-	
-		cHtml += '<div class="input-group-append">'
-		
-		cHtml += '<button class="btn btn-outline-secondary ' + cBtnSize + '" type="button" onclick="' + ::cBtnAction + '">'
-		cHtml += ::cBtnLabel
-		cHtml += '</button>'
-		
-		cHtml += '</div>'			
-	
-	ENDIF
-	*/
 	
 	nBtn := len( ::aBtnAction )
+
 	
 	if nBtn > 0 
 	

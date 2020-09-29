@@ -16,7 +16,7 @@ function main()
 		HTML o INLINE '<h3>Test BrwSelect()</h3><hr>'	
 			
 		ROWGROUP o
-			BUTTON LABEL 'Test BrwSelect()' GRID 6 ACTION 'Test()' OF o      			
+			BUTTON LABEL 'Test TWebBrwSelect()' GRID 6 ACTION 'Test()' OF o      			
 		END o
 		
 		HTML o
@@ -40,7 +40,7 @@ function main()
 								 { 'id' :10, 'name' : 'John', 'price' : 555  , 'dummy' : 6 } 
 								]								
 					
-					BrwSelect( headers, rows, myfunc )
+					TWebBrwSelect( headers, rows, myfunc )
 				}
 		
 				function myfunc( row ) {

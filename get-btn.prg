@@ -10,7 +10,13 @@ function main()
 
     DEFINE FORM o		
 
-	INIT FORM o  		
+	INIT FORM o  	
+
+		ROWGROUP o
+		
+			GET VALUE '123' GRID 12 OF o
+		
+		END o	
 	   
 		ROWGROUP o
 		

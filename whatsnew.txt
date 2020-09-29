@@ -1,3 +1,7 @@
+29/09/2020
+==========
+New: JS TWebBrwSearch(). See brwsearch.prg
+
 28/09/2020
 ==========
 Enchanced: TWebGet multi-button. See get-btn.prg
@@ -10,7 +14,7 @@ Enchanced: TWebGet align
 25/09/2020
 ==========
 New: TWebImage. See image.prg
-New: JS BrwSelect(). Select from table a row. brwselect.prg
+New: JS TWebBrwSelect(). Select from table a row. brwselect.prg
 
 13/09/2020
 ==========
