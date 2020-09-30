@@ -29,7 +29,7 @@ function main()
 					var cUrl 	= 'srv_brwsearch.prg'					
 					var aHeader = { 'first':'First' ,  'last':'Last', 'age': 'Edad...' } 																											
 				
-					TWebBrwSearch( cUrl, aHeader, myfunc )
+					TWebBrwSearch( cUrl, aHeader, myfunc, "NY" )
 				}
 		
 				function myfunc( row ) {

@@ -23,7 +23,10 @@ function main()
 
 		ROWGROUP o
 		
-			FOLDER oFld ID 'fld' TABS 'menu1', 'admin' PROMPT 'Menu 1', '<i class="fas fa-tv"></i> Admin' OF o
+			FOLDER oFld ID 'fld' ; 
+				TABS 'menu1', 'admin' ;
+				PROMPT 'Menu 1', '<i class="fas fa-tv"></i> Admin' ;
+				OPTION 'admin' OF o
 
 				DEFINE TAB 'menu1' OF oFld
 
@@ -44,9 +47,10 @@ function main()
 						
 					ENDTEXT
 					
+					
 					ROWGROUP oFld
-						GET oGet ID 'aaa' VALUE 'aaa' GRID 4 PLACEHOLDER 'Test aaa' BUTTON '<i class="fas fa-search"></i>' ACTION 'LoadChofer()' OF oFld
-						GET oGet ID 'bbb' VALUE 'bbb' GRID 8 PLACEHOLDER 'Test bbb' BUTTON '<i class="fas fa-search"></i>' ACTION 'LoadChofer()' OF oFld                             
+						GET oGet ID 'aaa' VALUE 'aaa' GRID 4 PLACEHOLDER 'Test aaa' BUTTON '<i class="fas fa-search"></i>'  OF oFld
+						GET oGet ID 'bbb' VALUE 'bbb' GRID 8 PLACEHOLDER 'Test bbb' BUTTON '<i class="fas fa-search"></i>'  OF oFld                             
 					END oFld
 					
 					

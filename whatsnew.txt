@@ -1,6 +1,7 @@
 29/09/2020
 ==========
 New: JS TWebBrwSearch(). See brwsearch.prg
+Updated: TWebFolder() Option working
 
 28/09/2020
 ==========

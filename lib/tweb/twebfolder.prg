@@ -2,7 +2,7 @@
 
 CLASS TWebFolder FROM TWebForm
 	
-	DATA oParent
+	//DATA oParent
 	DATA aTabs	 					INIT {}
 	DATA aPrompts 					INIT {}
 	DATA aTabs 						INIT {=>}
@@ -34,9 +34,9 @@ METHOD New( oParent, cId, aTabs, aPrompts, nGrid, cInitTab, lAdjust, cClass, cFo
 	::cId			:= cId
 	::nGrid			:= nGrid
 	::aTabs 		:= aTabs
-	::aPrompts 	:= aPrompts
+	::aPrompts 		:= aPrompts
 	//::cClass		:= cClass
-	::cInitTab 	:= cInitTab
+	::cInitTab 		:= cInitTab
 	::lAdjust		:= lAdjust
 	::cClass 		:= cClass
 	::cFont 		:= cFont	
@@ -45,6 +45,8 @@ METHOD New( oParent, cId, aTabs, aPrompts, nGrid, cInitTab, lAdjust, cClass, cFo
 		oParent:AddControl( SELF )	
 		
 		::lDessign := oParent:lDessign
+		::cSizing  := oParent:cSizing
+		::cType    := oParent:cType
 		
 	ENDIF
 
@@ -63,8 +65,16 @@ METHOD AddTab( cId , lFocus ) CLASS TWebFolder
 
 	DEFAULT lFocus TO .F.
 	
-	cHtml := '<div class="tab-pane ' + cClass + ' '  + IF( lFocus, 'active', 'fade' ) 
+
+	//cHtml := '<div class="tab-pane ' + cClass + ' '  + IF( lFocus, 'active', 'fade' )
+
+	// fade no es amigo de active...
 	
+	cHtml := '<div class="tab-pane  ' + cClass + ' ' 
+	
+	if cId == ::cInitTab
+		cHtml += ' active '
+	endif
 	
 	
 	cHtml += '" '
@@ -82,16 +92,25 @@ METHOD Activate() CLASS TWebFolder
 	//retu valtochar( ::APrompts )
 	
 	
-	
 	cHtml += '<div class="col-' + ltrim(str(::nGrid)) + ' tweb_folder" >'	
 	
 		cHtml += '<ul class="nav nav-tabs">'	
 		
 			FOR nI := 1 To len( ::aPrompts )
 			
-				 cHtml += '<li class="nav-item">'
+				 cHtml += '<li class="nav-item ' 
+								 
+				 if ::cInitTab == ::aTabs[nI] 
+				 	cHtml += ' active'				 
+				 endif
 				 
-					cHtml += '<a class="nav-link '			 						
+				 cHtml += '">'
+				 
+					cHtml += '<a class="nav-link '	
+
+						 if ::cInitTab == ::aTabs[nI] 
+							cHtml += ' active'				 
+						 endif					
 	
 						if !empty( ::cClass )	
 							cHtml += ' ' + ::cClass
@@ -113,7 +132,7 @@ METHOD Activate() CLASS TWebFolder
 
 
 		//	EndFolder() cierra los 2 divs abiertos...
-		
+	
 
 		
 	FOR nI := 1 To len( ::aControls )
