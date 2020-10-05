@@ -33,6 +33,16 @@
 	width: inherit;
 }
 
+
+
+/* Tabs */
+
+.nav-tabs .nav-link:not(.active) {
+    border-color: transparent !important;
+}
+
+/*	---------------	*/
+
 fieldset.scheduler-border {
     border: 1px groove #ddd !important;
     padding: 10px !important;
@@ -53,8 +63,23 @@ legend.scheduler-border {
 /*	Gif loading en autocomplete ui */
 
 .ui-autocomplete-loading {
-		background: white url("images/ui-anim_basic_16x16.gif") right center no-repeat;
+	background: white url("images/ui-anim_basic_16x16.gif") right center no-repeat;
 }
+
+/*	MsgLoading	*/
+
+	.loading_width { 
+		width: 250px !important;
+		text-align: center;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	
+	.loading_center {
+	    display: flex !important;
+		align-items: center;
+		justify-content: center;
+	}
 
 /*	Varios...	*/
 .msg_dialog_log {

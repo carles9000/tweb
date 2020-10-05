@@ -10,6 +10,7 @@ CLASS TWebControl
 	DATA uValue						INIT ''
 	DATA cLabel						INIT ''
 	DATA lDessign					INIT .F.
+	DATA lBorder					INIT .F.
 	DATA nGrid						INIT 4
 	DATA lReadOnly					INIT .F.
 	DATA lDisabled					INIT .F.

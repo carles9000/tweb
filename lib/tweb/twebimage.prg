@@ -81,7 +81,7 @@ METHOD Activate() CLASS TWebImage
 			::cBigSrc = ::cSrc
 		endif
 		
-		cHtml += '<a href="' + ::cBigSrc + '" '
+		cHtml += '<a id="twebimg_' + ::cId + '" href="' + ::cBigSrc + '" '
 		
 		if  empty( ::cGallery ) 				
 			cHtml += 'data-lightbox="twebimg_' + ::cId + '" '

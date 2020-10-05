@@ -8,6 +8,7 @@ CLASS TWebGet FROM TWebControl
 	DATA aBtnAction 				INIT {}
 	DATA uSource 					INIT ''
 	DATA cSelect 					INIT ''
+	DATA cLink 						INIT ''
 
 
 	METHOD New() 					CONSTRUCTOR
@@ -16,7 +17,7 @@ CLASS TWebGet FROM TWebControl
 
 ENDCLASS 
 
-METHOD New( oParent, cId, uValue, nGrid, cLabel, cAlign, lReadOnly, cType, cPlaceHolder, aBtnLabel, aBtnAction, lRequired, uSource, cSelect, cChange, cClass, cFont ) CLASS TWebGet
+METHOD New( oParent, cId, uValue, nGrid, cLabel, cAlign, lReadOnly, cType, cPlaceHolder, aBtnLabel, aBtnAction, lRequired, uSource, cSelect, cChange, cClass, cFont, cLink ) CLASS TWebGet
 
 	DEFAULT cId TO ''
 	DEFAULT uValue TO ''
@@ -34,6 +35,7 @@ METHOD New( oParent, cId, uValue, nGrid, cLabel, cAlign, lReadOnly, cType, cPlac
 	DEFAULT cChange TO ''
 	DEFAULT cClass TO ''
 	DEFAULT cFont TO ''
+	DEFAULT cLink TO ''
 	
 	::oParent 		:= oParent
 	::cId			:= cId
@@ -52,6 +54,7 @@ METHOD New( oParent, cId, uValue, nGrid, cLabel, cAlign, lReadOnly, cType, cPlac
 	::cChange 		:= cChange
 	::cClass 		:= cClass
 	::cFont 		:= cFont
+	::cLink 		:= cLink
 
 	IF Valtype( oParent ) == 'O'	
 		oParent:AddControl( SELF )			
@@ -129,7 +132,7 @@ METHOD Activate() CLASS TWebGet
 	cHtml += ' value="' + ::uValue + '">'
 
 	
-	nBtn := len( ::aBtnAction )
+	nBtn := len( ::aBtnLabel )
 
 	
 	if nBtn > 0 
@@ -138,14 +141,30 @@ METHOD Activate() CLASS TWebGet
 	
 		for nI := 1 to nBtn 
 		
-			cLabel  := ::aBtnLabel[nI]
-			cAction := ::aBtnAction[nI]
+			cLabel  := ::aBtnLabel[nI]					
 			
-		
-			cHtml += '<button class="btn btn-outline-secondary ' + cBtnSize + '" type="button" onclick="' + cAction + '">'
-			cHtml += cLabel
-			cHtml += '</button>'		
-		
+			cHtml += '<button class="btn btn-outline-secondary ' + cBtnSize + '" type="button" '
+			
+			if empty( ::cLink )
+				cAction := ::aBtnAction[nI]
+				cHtml += 'onclick="' + cAction + '" '
+			else	
+				cHtml += 'style="border-radius: 0px 5px 5px 0px;" '												
+			endif
+			
+			cHtml += ' >'
+			
+			if !empty( ::cLink )
+				cHtml += '<a href="' + ::cLink + '" >'
+			endif	
+			
+			cHtml += cLabel								
+			
+			if !empty( ::cLink )
+				cHtml += '</a>'
+			endif
+			
+			cHtml += '</button>'	
 		
 		next
 		

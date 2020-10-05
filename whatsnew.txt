@@ -1,3 +1,11 @@
+05/10/2020
+==========
+Enchanced: TWebFolder() propertie :lBorder. See folder3.prg
+
+30/09/2020
+==========
+Enchanced: TWebGet() clause LINK. See get-link.prg
+
 29/09/2020
 ==========
 New: JS TWebBrwSearch(). See brwsearch.prg

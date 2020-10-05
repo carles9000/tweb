@@ -76,6 +76,10 @@ METHOD AddTab( cId , lFocus ) CLASS TWebFolder
 		cHtml += ' active '
 	endif
 	
+	if ( ::lBorder ) 
+		cHtml += ' h-100 border border-primary border-bottom-0 '
+	endif	
+	
 	
 	cHtml += '" '
 	cHtml += ' id="' +  cId + '">'
@@ -94,7 +98,7 @@ METHOD Activate() CLASS TWebFolder
 	
 	cHtml += '<div class="col-' + ltrim(str(::nGrid)) + ' tweb_folder" >'	
 	
-		cHtml += '<ul class="nav nav-tabs">'	
+		cHtml += '<ul class="nav nav-tabs border-0">'	
 		
 			FOR nI := 1 To len( ::aPrompts )
 			
@@ -111,6 +115,10 @@ METHOD Activate() CLASS TWebFolder
 						 if ::cInitTab == ::aTabs[nI] 
 							cHtml += ' active'				 
 						 endif					
+						 
+						if ( ::lBorder ) 
+							cHtml += ' border border-primary border-bottom-0 '
+						endif
 	
 						if !empty( ::cClass )	
 							cHtml += ' ' + ::cClass
