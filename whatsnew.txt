@@ -1,6 +1,11 @@
+07/10/2020
+==========
+Example: Use HTML command. html.prg
+
 05/10/2020
 ==========
 Enchanced: TWebFolder() propertie :lBorder. See folder3.prg
+Enchanced: TWebFolder() Tab clause class. See folder3.prg
 
 30/09/2020
 ==========

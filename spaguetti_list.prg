@@ -29,11 +29,11 @@ function main()
 			(cAlias)->( dbskip() )
 		end
 	
-	//	Definie Web 
+	//	Define Web 
 
-		DEFINE WEB oWeb TITLE 'Form example' TABLES INIT
+		DEFINE WEB oWeb TITLE 'Form example' TABLES 
 		
-		TEXT TO cStyle ECHO
+		HTML oWeb
 			<style>
 				.jumbotron{
 					background: url("images/bg-head-02.jpg") no-repeat center center; 
@@ -42,7 +42,9 @@ function main()
 			</style>	
 		ENDTEXT
 
-		Banner()	
+		Banner( oWeb )
+
+		INIT WEB oWeb
 
 	DEFINE FORM o ID 'demo'
 	
@@ -51,10 +53,10 @@ function main()
 		DEFINE BROWSE oBrw ID 'ringo' HEIGHT 400 OF o
 
 			ADD oCol TO oBrw ID 'alias' 	HEADER 'Alias' 
-			ADD oCol TO oBrw ID 'name' 	HEADER 'Name' 
-			ADD oCol TO oBrw ID 'mail' 	HEADER 'Mail' 
-			ADD oCol TO oBrw ID 'date' 	HEADER 'Date' 
-			ADD oCol TO oBrw ID 'type' 	HEADER 'Type' 		ALIGN 'center' FORMATTER 'typeFormatter'
+			ADD oCol TO oBrw ID 'name' 		HEADER 'Name' 
+			ADD oCol TO oBrw ID 'mail' 		HEADER 'Mail' 
+			ADD oCol TO oBrw ID 'date' 		HEADER 'Date' 
+			ADD oCol TO oBrw ID 'type' 		HEADER 'Type' 		ALIGN 'center' FORMATTER 'typeFormatter'
 			ADD oCol TO oBrw ID 'accept'	HEADER 'Accept' 	WIDTH 70 ALIGN 'center' FORMATTER 'acceptFormatter'	
 
 		INIT BROWSE oBrw DATA aRows	
@@ -108,11 +110,11 @@ function main()
 	
 retu nil
 
-function Banner()
+function Banner( o )
 
 	LOCAL cHtml := ''
 
-	TEXT TO cHtml ECHO 
+	HTML o
 	
 		<div class="jumbotron">
 			<div class="container">

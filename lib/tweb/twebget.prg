@@ -141,9 +141,10 @@ METHOD Activate() CLASS TWebGet
 	
 		for nI := 1 to nBtn 
 		
-			cLabel  := ::aBtnLabel[nI]					
+			cLabel  := ::aBtnLabel[nI]
 			
-			cHtml += '<button class="btn btn-outline-secondary ' + cBtnSize + '" type="button" '
+			
+			cHtml += '<button id="btn_' + ::cId + '" class="btn btn-outline-secondary ' + cBtnSize + '" type="button" '
 			
 			if empty( ::cLink )
 				cAction := ::aBtnAction[nI]

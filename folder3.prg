@@ -9,7 +9,6 @@ function main()
 	DEFINE WEB oWeb TITLE 'Tutor9' INIT
 
 	DEFINE FORM o 
-		o:cSizing   := 'sm'
 
 	HTML o
 		<div class="alert alert-dark form_title" role="alert">
@@ -26,44 +25,19 @@ function main()
 		
 			FOLDER oFld ID 'fld' ;
 				TABS 'general', 'admin' ;
-				PROMPT 'General', '<i class="fas fa-tv"></i> Admin' ;
-				OPTION 'general' OF o
+				PROMPT 'General', 'Admin' ;
+				OPTION 'admin' OF o
 				
 				oFld:lBorder := .t.
 			
 				DEFINE TAB 'general' OF oFld
-					/*
-					SEPARATOR oFld LABEL 'Auditor'
-					
-					ROWGROUP oFld  
-						SAY VALUE 'Stock' GRID 5 ALIGN 'right' OF oFld
-						GET ID 'xxx' VALUE '12,34' GRID 7 ALIGN 'center'  ;
-							BUTTON '<i class="fas fa-wrench"></i>' ;
-							ACTION "alert('modifica')" OF oFld
-					END oFld
-					
-					ROWGROUP oFld  
-						SAY VALUE 'Etiqueta' GRID 5 ALIGN 'right' OF oFld
-						GET ID 'xxx' VALUE '9416015' GRID 7 ALIGN 'center' ;
-							BUTTON '<i class="fas fa-wrench"></i>' ;
-							ACTION "alert('etiqueta')" OF oFld
-					END oFld
 
-					ROWGROUP oFld  
-						SAY VALUE 'Ubicacion' GRID 5 ALIGN 'right' OF oFld
-						GET ID 'xxx' VALUE '1234567890' GRID 7 ALIGN 'center' ;
-							BUTTON '<i class="fas fa-wrench"></i>' ;
-							ACTION "alert('ubicacion')" OF oFld
-					END oFld			
-					*/
 				
 				ENDTAB oFld
 				
-				DEFINE TAB 'admin' OF oFld
-				
-					//SEPARATOR oFld LABEL 'Others...'	
+				DEFINE TAB 'admin' CLASS 'p-5' OF oFld 
 
-					GET oGet ID 'myid' VALUE '' LABEL 'Id. User' BUTTON 'Hello' ACTION "alert('hola')" OF oFld
+					GET oGet ID 'myid' VALUE '' LABEL 'Id. User' GRID 12 BUTTON 'Hello' ACTION "alert('hola')" OF oFld
 					
 				ENDTAB oFld			
 			

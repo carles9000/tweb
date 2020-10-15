@@ -28,9 +28,9 @@ function main()
 		hData[ 'accept' ] := IF( HB_HGetDef( hParameters, 'accept', '' )  == 'on', .T., .F. )
 
 
-	DEFINE WEB oWeb TITLE 'Form example' INIT
-	
-	TEXT TO cStyle 
+	DEFINE WEB oWeb TITLE 'Form example' 
+
+	HTML oWeb
 		<style>
 			.jumbotron{
 				background: url("images/bg-head-02.jpg") no-repeat center center; 
@@ -38,8 +38,6 @@ function main()
 			}
 		</style>	
 	ENDTEXT
-	
-	?? cStyle
 
 	//	Chequeamos si entran parámetros
 
@@ -68,17 +66,19 @@ function main()
 	
 	//	Inicio Diseño...
 
-		Banner()
+		Banner( oWeb )
 		
 		IF lError
-			MessageError( cError )
+			MessageError( oWeb, cError )
 		ELSE
 			IF lSave
-				MessageSave()
+				MessageSave( oWeb )
 			ELSE
-				MessageContactUs()
+				MessageContactUs( oWeb )
 			ENDIF
 		ENDIF
+		
+	INIT WEB oWeb
 
     DEFINE FORM o ID 'demo' ACTION 'spaguetti.prg'
         o:lDessign  := .F.
@@ -123,11 +123,11 @@ function main()
 	
 RETU NIL
 
-function Banner()
+function Banner( o )
 
 	LOCAL cHtml := ''
 
-	TEXT TO cHtml ECHO
+	HTML o
 	
 		<div class="jumbotron">
 			<div class="container">
@@ -140,11 +140,11 @@ function Banner()
 
 retu nil
 
-function MessageContactUs()
+function MessageContactUs( o )
 
 	LOCAL cHtml := ''
 
-	TEXT TO cHtml ECHO
+	HTML o
 	
 		<div class="alert alert-dark" style="border-radius: 0px;" >
 			<h5 style="margin:0px;">
@@ -156,11 +156,11 @@ function MessageContactUs()
 		
 RETU NIL
 
-function MessageError( cError )
+function MessageError( o, cError )
 
 	LOCAL cHtml := ''
 
-	TEXT TO cHtml PARAMS cError ECHO
+	HTML o PARAMS cError 
 	
 		<div class="alert alert-danger" style="border-radius: 0px;" >
 			<h5 style="margin:0px;">
@@ -172,11 +172,11 @@ function MessageError( cError )
 		
 RETU NIL
 
-function MessageSave()
+function MessageSave( o )
 
 	LOCAL cHtml := ''
 
-	TEXT TO cHtml ECHO 
+	HTML o  
 	
 		<div class="alert alert-success" style="border-radius: 0px;" >
 			<h5 style="margin:0px;">

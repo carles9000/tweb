@@ -49,8 +49,8 @@ retu uValue
 /*	---------------------------------------------------------------------------
 	GetMsgUpload() devuelve la informacion de subida de un fichero en un hash:
 	blob - Fichero decodificado
-	file - hash con info de fichero: name, type, size, ext
-	data - hash con variables adicionales que se han enviado junto al fichero
+	file - (opcional) hash con info de fichero: name, type, size, ext
+	data - (opcional) hash con variables adicionales que se han enviado junto al fichero
 	--------------------------------------------------------------------------- */
 	
 function GetMsgUpload()
@@ -59,9 +59,13 @@ function GetMsgUpload()
 	local h 		:= {=>}
 	
 	h[ 'blob' ] 	:= Hb_Base64Decode( hParam[ 'blob' ] )
-	h[ 'file' ] 	:= hb_jsonDecode( hParam[ 'file' ] ) 
 	
-	h[ 'file' ][ 'ext' ] := lower( cFileExt( h[ 'file' ][ 'name' ]  ) )	
+	if HB_HHasKey( hParam, 'file' )
+		h[ 'file' ] 			:= hb_jsonDecode( hParam[ 'file' ] ) 	
+		h[ 'file' ][ 'ext' ] 	:= lower( cFileExt( h[ 'file' ][ 'name' ]  ) )
+	else
+		h[ 'file' ]				:= nil
+	endif
 	
 	if HB_HHasKey( hParam, 'data' )
 		h[ 'data' ] 	:= hb_jsonDecode( hParam[ 'data' ] ) 

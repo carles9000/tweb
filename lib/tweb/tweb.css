@@ -41,7 +41,17 @@
     border-color: transparent !important;
 }
 
-/*	---------------	*/
+/*	Desactivar autozoom en IOS	-------- */
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+	select:focus,
+	textarea:focus,
+	input:focus {
+		font-size: 16px;
+	}
+}
+
+/*	-----------------------------------	*/
 
 fieldset.scheduler-border {
     border: 1px groove #ddd !important;

@@ -47,7 +47,7 @@
 #xcommand ROW <oForm> [ VALIGN <cVAlign> ] [ HALIGN <cHAlign> ] [ CLASS <cClass> ] => <oForm>:Row( <cVAlign>, <cHAlign>, <cClass> )
 #xcommand ROWGROUP <oForm> [ VALIGN <cVAlign> ] [ HALIGN <cHAlign> ] [ CLASS <cClass> ] => <oForm>:RowGroup( <cVAlign>, <cHAlign>, <cClass> )
 
-#xcommand COL <oForm> [GRID <nGrid>] [TYPE <cType>] => <oForm>:Col( [<nGrid>], [<cType>] )
+#xcommand COL <oForm> [GRID <nGrid>] [TYPE <cType>]  [ CLASS <cClass> ] => <oForm>:Col( [<nGrid>], [<cType>], [<cClass>] )
 #xcommand ENDROW <oForm> => <oForm>:End()
 #xcommand ENDCOL <oForm> => <oForm>:End()
 #xcommand END <oForm> => <oForm>:End()
@@ -158,7 +158,7 @@
 => ;
 	[ <oFolder> := ] TWebFolder():New( <oForm>, [<cId>], [\{<cTab>\}], [\{<cPrompt>\}], [<nGrid>], [<cOption>], [<.lAdjust.>] , [<cClass>], [<cFont>]) 
 
-#xcommand DEFINE TAB <cId> [ <lFocus: FOCUS> ] OF <oFld> => <oFld>:AddTab( <cId>, [<.lFocus.>] )
+#xcommand DEFINE TAB <cId> [ <lFocus: FOCUS> ] [ CLASS <cClass> ] OF <oFld> => <oFld>:AddTab( <cId>, [<.lFocus.>], [<cClass>] )
 #xcommand ENDTAB <oFld> => <oFld>:End()
 #xcommand ENDFOLDER <oFld> => <oFld>:Activate()
 	

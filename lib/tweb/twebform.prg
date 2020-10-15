@@ -71,11 +71,13 @@ METHOD InitForm() CLASS TWebForm
 	
 RETU NIL
 
-METHOD Col( nCol, cType ) CLASS TWebForm
+METHOD Col( nCol, cType, cClass ) CLASS TWebForm
 
-	LOCAL cPrefix := IF( empty(::cType), '', ::cType + '-' )
+	local cHtml := ''
+	local cPrefix := IF( empty(::cType), '', ::cType + '-' )
 	
 	DEFAULT cType TO ''
+	DEFAULT cClass TO ''	
 	
 	IF !Empty( cType )
 		cPrefix := cType + '-' 	
@@ -88,7 +90,18 @@ METHOD Col( nCol, cType ) CLASS TWebForm
 	//	Si ponemos e- -sm, responsive y pone 1 debajo de otro...
 	//::Html ( '<div class="col-sm-' + ltrim(str(nCol)) + '"' + IF( ::lDessign, 'style="border:1px solid blue;"', '' ) + '>' )	
 	
-	::Html ( '<div class="col-' + cPrefix + ltrim(str(nCol)) + '"' + IF( ::lDessign, 'style="border:1px solid blue;"', '' ) + '>' )
+	cHtml := '<div class="col-' + cPrefix + ltrim(str(nCol)) 
+	
+	if !empty( cClass )
+		cHtml += ' ' + cClass
+	endif	
+	
+	cHtml += '" ' + IF( ::lDessign, 'style="border:1px solid blue;"', '' )
+	
+	cHtml += '>'
+	
+	//::Html ( '<div class="col-' + cPrefix + ltrim(str(nCol)) + '"' + IF( ::lDessign, 'style="border:1px solid blue;"', '' ) + '>' )
+	::Html ( cHtml )
 	
 RETU NIL
 

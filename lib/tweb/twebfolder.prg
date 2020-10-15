@@ -54,10 +54,12 @@ RETU SELF
 
 
 
-METHOD AddTab( cId , lFocus ) CLASS TWebFolder
+METHOD AddTab( cId , lFocus, cClassTab ) CLASS TWebFolder
 
 	LOCAL cHtml := ''
 	LOCAL cClass := IF( ::oParent:lFluid, 'container-fluid', 'container' )
+	
+	DEFAULT cClassTab TO ''
 	
 	IF ::lAdjust
 		cClass += ' tweb_folder '
@@ -70,7 +72,7 @@ METHOD AddTab( cId , lFocus ) CLASS TWebFolder
 
 	// fade no es amigo de active...
 	
-	cHtml := '<div class="tab-pane  ' + cClass + ' ' 
+	cHtml := '<div class="tab-pane  ' + cClassTab + ' ' +  cClass + ' ' 
 	
 	if cId == ::cInitTab
 		cHtml += ' active '

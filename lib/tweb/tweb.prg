@@ -261,11 +261,14 @@ CLASS TWeb
 	DATA cLang						INIT 'en' 						
 	DATA cCharset					INIT 'ISO-8859-1'			//	'utf-8'
 	DATA lActivated					INIT .F.
+	DATA aInclude					INIT {}
 	DATA aControls					INIT {}
 
 	METHOD New() 					CONSTRUCTOR
 	METHOD Activate()
 	METHOD Html( cCode ) 			INLINE Aadd( ::aControls, cCode )
+	METHOD AddJs( cFile ) 			INLINE Aadd( ::aInclude, '<script src="' + cFile + '"></script>' )
+	METHOD AddCss( cFile ) 			INLINE Aadd( ::aInclude, '<link rel="stylesheet" href="' + cFile + '">' )
 
 ENDCLASS 
 
@@ -305,7 +308,7 @@ METHOD Activate() CLASS TWeb
 	cHtml 	+= '<title>' + ::cTitle + '</title>' + CRLF
 	cHtml	+= '<meta charset="' + ::cCharset + '">' + CRLF			
 	cHtml 	+= '<meta http-equiv="X-UA-Compatible" content="IE=edge">' + CRLF
-	cHtml 	+= '<meta name="viewport" content="width=device-width, initial-scale=1">' + CRLF
+	cHtml 	+= '<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">' + CRLF	
 	cHtml 	+= '<link rel="shortcut icon" type="image/png" href="' + ::cIcon + '"/>' + CRLF
 	
 	
@@ -313,7 +316,12 @@ METHOD Activate() CLASS TWeb
 		cHtml += LoadTWebTables()
 	ELSE
 		cHtml += LoadTWeb()	
-	ENDIF	
+	ENDIF		
+
+	FOR nI := 1 To len( ::aInclude )
+	
+		cHtml += ::aInclude[ nI ] + CRLF 
+	next
 	
 	
 	FOR nI := 1 To len( ::aControls )
