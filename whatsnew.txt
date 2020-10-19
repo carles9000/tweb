@@ -2,6 +2,7 @@
 ==========
 New: GETNUMBER control for use in tablets. See get-num.prg
 Bug: Font solved when focus
+New: Browse Multiselect. See browse-select
 
 07/10/2020
 ==========
