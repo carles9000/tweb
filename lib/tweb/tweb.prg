@@ -24,6 +24,7 @@
 #include 'TWebSay.prg'
 #include 'TWebGet.prg'
 #include 'TWebGetMemo.prg'
+#include 'TWebGetNumber.prg'
 #include 'TWebButton.prg'
 #include 'TWebSwitch.prg'
 #include 'TWebBrowse.prg'

@@ -47,23 +47,23 @@ METHOD Activate() CLASS TWebFont
 	cHtml += '    .' + ::cId + '{ '
 	
 	if !empty( ::cColor )
-		cHtml += 'color: ' + ::cColor + ';'
+		cHtml += 'color: ' + ::cColor + ' !important;'
 	endif
 	
 	if !empty( ::cBackGround )
-		cHtml += 'background: ' + ::cBackGround + ';'
+		cHtml += 'background: ' + ::cBackGround + ' !important;'
 	endif	
 	
 	if ::nSize > 0
-		cHtml += 'font-size: ' + ltrim(str( ::nSize )) + 'px;'
+		cHtml += 'font-size: ' + ltrim(str( ::nSize )) + 'px  !important;'
 	endif	
 	
 	if ::lBold
-		cHtml += 'font-weight: bold;'
+		cHtml += 'font-weight: bold  !important;'
 	endif
 	
 	if ::lItalic
-		cHtml += 'font-style: italic;'
+		cHtml += 'font-style: italic  !important;'
 	endif	
 	
 	cHtml += '} '

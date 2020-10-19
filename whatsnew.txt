@@ -1,3 +1,8 @@
+19/10/2020
+==========
+New: GETNUMBER control for use in tablets. See get-num.prg
+Bug: Font solved when focus
+
 07/10/2020
 ==========
 Example: Use HTML command. html.prg

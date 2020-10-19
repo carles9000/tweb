@@ -61,7 +61,7 @@
 	[<oFont> := ] TWebFont():New( <oForm>, <cId>, <cColor>, <cBackGround>, <nSize>, [<.bold.>], [<.italic.>]  )
 	
 
-#xcommand SAY [<oSay>] [ ID <cId> ] [ VALUE <uValue> ] [ ALIGN <cAlign> ] ;
+#xcommand SAY [<oSay>] [ ID <cId> ] [ <prm: VALUE,PROMPT,LABEL> <uValue> ] [ ALIGN <cAlign> ] ;
 	[GRID <nGrid>] [ CLASS <cClass> ] [ FONT <cFont> ] OF <oForm> ;
 => ;
 	[<oSay> := ] TWebSay():New( <oForm>, [<cId>], [<uValue>], [<nGrid>], [<cAlign>], [<cClass>], [<cFont>] )
@@ -92,6 +92,15 @@
 => ;
 	[<oGetMemo> := ] TWebGetMemo():New( <oForm>, [<cId>], [<uValue>], [<nGrid>], [<cLabel>], [<cAlign>], [<.ro.>], [<nRows>], [<cClass>], [<cFont>] )
 	
+#xcommand GETNUMBER [<oGet>] [ ID <cId> ] [ VALUE <uValue> ] [ LABEL <cLabel> ] [ ALIGN <cAlign> ] [ <col:GRID, COL> <nGrid>] ;
+	[ <ro: READONLY> ] [ PLACEHOLDER <cPlaceHolder>] ;	
+	[ <rq: REQUIRED> ]  ;
+	[ <chg: ONCHANGE,VALID> <cChange> ];
+	[ CLASS <cClass> ] [ FONT <cFont> ] ;	
+	OF <oForm> ;
+=> ;
+	[<oGet> := ] TWebGetNumber():New( <oForm>, [<cId>], [<uValue>], [<nGrid>], [<cLabel>], [<cAlign>], [<.ro.>], [<cPlaceHolder>], [<.rq.>], [<cChange>], [<cClass>], [<cFont>] )
+
 	
 #xcommand BUTTON [<oBtn>] [ ID <cId> ] [ LABEL <cLabel> ] [ ACTION <cAction> ] [ NAME <cName> ] [ VALUE <cValue> ] ;
     [ GRID <nGrid> ] [ ALIGN <cAlign> ]  ;

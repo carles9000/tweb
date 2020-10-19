@@ -1,5 +1,7 @@
 //	-------------------------------------------------------------
 
+
+
 CLASS TWebImage FROM TWebControl
 
 	DATA cSrc						INIT ''

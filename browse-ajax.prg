@@ -29,8 +29,8 @@ function main()
 			
 			DEFINE BROWSE oBrw ID 'ringo' HEIGHT 400 OF o
 			
-                    ADD oCol TO oBrw ID 'last' 		HEADER 'Last'   ALIGN 'right'
-            		ADD oCol TO oBrw ID 'first'		HEADER 'First'  SORT
+                    ADD oCol TO oBrw ID 'last' 	HEADER 'Last'   ALIGN 'right'
+            		ADD oCol TO oBrw ID 'first'	HEADER 'First'  SORT
             		ADD oCol TO oBrw ID 'street' 	HEADER 'Street' SORT
             		ADD oCol TO oBrw ID 'age' 	    HEADER 'Age'    WIDTH 70 ALIGN 'center' FORMATTER 'ageFormatter'	   
 		END o

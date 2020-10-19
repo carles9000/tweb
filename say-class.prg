@@ -21,7 +21,7 @@ function main()
 			.MySayItalic {
 			    font-style: italic;
 				font-family: auto;
-				font-weight: bold;			
+				font-weight: bold;								
 			}
 			
 		ENDTEXT
