@@ -7,6 +7,7 @@ CLASS TWebFont FROM TWebControl
 	DATA nSize 						INIT 0
 	DATA lBold 						INIT .F.
 	DATA lItalic 					INIT .F.
+	DATA cFamily					INIT ''
 
 	METHOD New() 					CONSTRUCTOR
 	METHOD Activate()
@@ -14,14 +15,15 @@ CLASS TWebFont FROM TWebControl
 
 ENDCLASS 
 
-METHOD New( oParent, cId, cColor, cbackGround, nSize, lBold, lItalic ) CLASS TWebFont
+METHOD New( oParent, cId, cColor, cbackGround, nSize, lBold, lItalic, cFamily ) CLASS TWebFont
 
 	DEFAULT cId 			TO ''
-	DEFAULT cColor 			TO ''
+	DEFAULT cColor 		TO ''
 	DEFAULT cBackGround 	TO ''
 	DEFAULT nSize			TO 0
 	DEFAULT lBold			TO .F.
-	DEFAULT lItalic			TO .F.
+	DEFAULT lItalic		TO .F.
+	DEFAULT cFamily 		TO ''
 
 	
 	::oParent 		:= oParent
@@ -31,6 +33,7 @@ METHOD New( oParent, cId, cColor, cbackGround, nSize, lBold, lItalic ) CLASS TWe
 	::nSize 		:= nSize
 	::lBold 		:= lBold
 	::lItalic 		:= lItalic
+	::cFamily 		:= cFamily
 
 	IF Valtype( oParent ) == 'O'	
 		oParent:AddControl( SELF )	
@@ -65,6 +68,10 @@ METHOD Activate() CLASS TWebFont
 	if ::lItalic
 		cHtml += 'font-style: italic  !important;'
 	endif	
+	
+	if !empty( ::cFamily )
+		cHtml += 'font-family: ' + ::cFamily + ' !important;'
+	endif		
 	
 	cHtml += '} '
 	cHtml += '</style>'

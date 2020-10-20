@@ -4,7 +4,7 @@ CLASS TWebGet FROM TWebControl
 
 	DATA cType		 				INIT 'text'
 	DATA cPlaceHolder 				INIT ''
-	DATA aBtnLabel 					INIT {}
+	DATA aBtnLabel 				INIT {}
 	DATA aBtnAction 				INIT {}
 	DATA uSource 					INIT ''
 	DATA cSelect 					INIT ''
@@ -17,7 +17,7 @@ CLASS TWebGet FROM TWebControl
 
 ENDCLASS 
 
-METHOD New( oParent, cId, uValue, nGrid, cLabel, cAlign, lReadOnly, cType, cPlaceHolder, aBtnLabel, aBtnAction, lRequired, uSource, cSelect, cChange, cClass, cFont, cLink ) CLASS TWebGet
+METHOD New( oParent, cId, uValue, nGrid, cLabel, cAlign, lReadOnly, cType, cPlaceHolder, aBtnLabel, aBtnAction, lRequired, uSource, cSelect, cChange, cClass, cFont, cFontLabel, cLink ) CLASS TWebGet
 
 	DEFAULT cId TO ''
 	DEFAULT uValue TO ''
@@ -35,6 +35,7 @@ METHOD New( oParent, cId, uValue, nGrid, cLabel, cAlign, lReadOnly, cType, cPlac
 	DEFAULT cChange TO ''
 	DEFAULT cClass TO ''
 	DEFAULT cFont TO ''
+	DEFAULT cFontLabel TO ''
 	DEFAULT cLink TO ''
 	
 	::oParent 		:= oParent
@@ -45,15 +46,16 @@ METHOD New( oParent, cId, uValue, nGrid, cLabel, cAlign, lReadOnly, cType, cPlac
 	::cAlign 		:= cAlign
 	::lReadOnly		:= lReadOnly
 	::cType			:= cType
-	::cPlaceHolder 	:= cPlaceHolder
-	::aBtnLabel		:= aBtnLabel
+	::cPlaceHolder := cPlaceHolder
+	::aBtnLabel	:= aBtnLabel
 	::aBtnAction	:= aBtnAction	
-	::lRequired		:= lRequired
+	::lRequired	:= lRequired
 	::uSource 		:= uSource
 	::cSelect 		:= cSelect
 	::cChange 		:= cChange
 	::cClass 		:= cClass
 	::cFont 		:= cFont
+	::cFontLabel	:= cFontLabel
 	::cLink 		:= cLink
 
 	IF Valtype( oParent ) == 'O'	
@@ -96,7 +98,7 @@ METHOD Activate() CLASS TWebGet
 	
 	IF !empty( ::cLabel )
 
-		cHtml += '<label class="' + cSizeLabel + ' " for="' + ::cId + '">' + ::cLabel + '</label>'
+		cHtml += '<label class="' + cSizeLabel + ' ' + ::cFontLabel + ' " for="' + ::cId + '">' + ::cLabel + '</label>'
 	
 	ENDIF
 	

@@ -22,13 +22,14 @@ CLASS TWebControl
 	DATA cIcon						INIT ''
 	DATA cChange					INIT ''
 	DATA cFont						INIT ''
+	DATA cFontLabel				INIT ''
 	DATA nHeight					INIT 0
 	DATA nWidth						INIT 0
 		
     METHOD New()					CONSTRUCTOR
 	
 	METHOD Html( cCode ) 			INLINE Aadd( ::aControls, cCode )
-	METHOD AddControl( uValue )		INLINE Aadd( ::aControls, uValue )
+	METHOD AddControl( uValue )	INLINE Aadd( ::aControls, uValue )
 	METHOD End() 					INLINE ::Html( '</div>' )	
 	
 ENDCLASS
