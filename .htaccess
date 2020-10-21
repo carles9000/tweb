@@ -1,4 +1,11 @@
 # -----------------------------------------------------
+# Directorio donde se almacen las sessiones.
+# Si se activa deberá crear directorio en httdocs.
+# Por defecto las sesiones se almacenan en HB_DirTemp()
+# -----------------------------------------------------
+#Setenv SESSION_PATH 	'/_sessions'
+
+# -----------------------------------------------------
 # Impedir que lean los ficheros del directorio
 # -----------------------------------------------------
 Options All -Indexes

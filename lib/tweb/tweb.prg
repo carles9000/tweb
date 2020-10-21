@@ -11,6 +11,7 @@
 #define TWEB_PATH 				'lib/tweb/'
 #define CRLF 					Chr(13)+Chr(10)
 
+#xcommand ? [<explist,...>] => AP_RPuts( '<br>' [,<explist>] )
 #xcommand ?? <cText> => AP_RPuts( <cText> )
 #xcommand BLOCKS ADDITIVE <v>[ PARAMS [<v1>] [,<vn>] ] => ;
 	#pragma __cstream |<v>+= InlinePrg( ReplaceBlocks( %s, "{{", "}}" [,<(v1)>][+","+<(vn)>] [, @<v1>][, @<vn>] ) )
@@ -36,6 +37,7 @@
 #include 'TWebFont.prg'
 #include 'TWebBox.prg'
 #include 'TWebImage.prg'
+#include 'TWebSession.prg'
 #include 'TWebApache.prg'
 
 

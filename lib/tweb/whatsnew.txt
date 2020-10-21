@@ -1,3 +1,8 @@
+21/10/2020
+==========
+New: Sessions system is ready !. 
+	See test_session.prg, test_session_read.prg, test_session_end.prg
+
 20/10/2020
 ==========
 Enchanced: New clause for get label: FONTLABEL. See get-font2
