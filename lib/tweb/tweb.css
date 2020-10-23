@@ -78,17 +78,27 @@ legend.scheduler-border {
 
 /*	MsgLoading	*/
 
-	.loading_width { 
+	.loading_content { 
 		width: 250px !important;
 		text-align: center;
 		margin-left: auto;
 		margin-right: auto;
+		box-shadow: 3px 3px 5px #000000;
 	}
 	
 	.loading_center {
 	    display: flex !important;
 		align-items: center;
 		justify-content: center;
+	}
+	
+	.loading_header {
+	    display:none !important;
+	}	
+	
+	.loading_body {
+	    height: 55px;
+		background-color: white;
 	}
 
 /*	Varios...	*/

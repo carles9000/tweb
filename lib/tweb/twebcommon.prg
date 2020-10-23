@@ -98,10 +98,6 @@ function SetDataJS( u )
 
 retu uValue
 
-
-
-
-
 //	-----------------------------------------------------------
 //	Include de una file
 //	-----------------------------------------------------------
@@ -141,6 +137,100 @@ FUNCTION LoadFile( cFile )
    endif
 
 RETU ''
+
+//	-----------------------------------------------------------
+//	Log 
+//	-----------------------------------------------------------
+function TWeblogfile() ; retu TWebGlobal( 'path_log' ) + '/log' + dtos(date()) + '.txt'
+
+function _l( uValue )
+
+	local cFile 	:= TWeblogfile()
+	local cInfo   	:= time() + ' ' + procname(1) + '(' +  ltrim(str(procline( 1 ))) + ')'	
+	LOCAL cLine, hFile	
+
+	//	Si no hay parámetros borramos el fichero 
+	
+		if PCount() == 0
+			if  fErase( cFile ) == -1
+				//	? 'Error eliminando ' + cFilename, fError()
+			endif
+			retu nil 
+		endif
+		
+	//	Abrimos fichero log
+	
+		if ! File( cFile )
+			fClose( FCreate( cFile ) )	
+		endif
+
+		if ( ( hFile := FOpen( cFile, FO_WRITE ) ) == -1 )
+			retu nil
+		endif
+		
+	//	Log	
+
+		cLine  	:=  cInfo + ' [' + valtype(uValue) + '] : ' + valtolog( uValue ) + Chr(13) + Chr(10)
+			
+		fSeek( hFile, 0, FS_END )
+		fWrite( hFile, cLine, Len( cLine ) )		
+	
+	//	Close file log
+
+		fClose( hFile )
+   
+RETU nil 
+
+//----------------------------------------------------------------//
+
+function ObjToHash( o )
+
+   local hObj := {=>}, aDatas := __objGetMsgList( o, .T. )
+   local hPairs := {=>}, aParents := __ClsGetAncestors( o:ClassH )
+
+   AEval( aParents, { | h, n | aParents[ n ] := __ClassName( h ) } ) 
+
+   hObj[ "CLASS" ] = o:ClassName()
+   hObj[ "FROM" ]  = aParents 
+
+   AEval( aDatas, { | cData | hPairs[ cData ] := __ObjSendMsg( o, cData ) } )
+   hObj[ "DATAs" ]   = hPairs
+   hObj[ "METHODs" ] = __objGetMsgList( o, .F. )
+
+retu hObj
+
+//----------------------------------------------------------------//
+
+function ValToLog( u )
+
+   local cType := ValType( u )
+   local cResult
+
+   do case
+      case cType == "C" .or. cType == "M"
+           cResult = u
+
+      case cType == "D"		; cResult = DToC( u )
+      case cType == "L" 	; cResult = If( u, ".T.", ".F." )
+      case cType == "N"		; cResult = AllTrim( Str( u ) )
+      case cType == "A"		; cResult = hb_ValToExp( u )
+      case cType == "O"		; cResult = hb_JsonEncode( ObjToHash(u), .t. )
+      case cType == "P"   	; cResult = "(P)" 
+      case cType == "S"		; cResult = "(Symbol)"  
+      case cType == "H"	
+	  
+			cResult := hb_JsonEncode( u, .t. )
+
+           if Left( cResult, 2 ) == "{}"
+              cResult = StrTran( cResult, "{}", "{=>}" )
+           endif   		 
+
+      case cType == "U"		; cResult = "nil"
+      otherwise
+           cResult = "type not supported yet in function ValToLog()"
+   endcase
+
+retu cResult 
 
 //	--------------------------------------------------------------------------------
 // 	Fivewin Functions

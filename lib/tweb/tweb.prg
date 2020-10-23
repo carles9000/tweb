@@ -6,8 +6,10 @@
 ** MIT license https://github.com/carles9000/tweb/blob/master/LICENSE
 */
 
+static __TWebGlobal 	
 
-#define TWEB_VERSION 			'TWeb 1.0'
+
+#define TWEB_VERSION 			'TWeb 1.0d'
 #define TWEB_PATH 				'lib/tweb/'
 #define CRLF 					Chr(13)+Chr(10)
 
@@ -365,39 +367,75 @@ function JSReady( cFunction, cLog )
 	
 retu cEcho
 
+//	------------------------------------------------------------------------------
+//	Validamos Paths
 
+INIT PROCEDURE __TWebInit()
 
+	local cPath 	:= ''
+	local cEcho 	:= ''
+	
+	__TWebGlobal := {=>}	
 
-/*
-       oHrb = HB_CompileFromBuf( cCode, .T., "-n", "-Ic:\fwh\include", "-Ic:\harbour\include" )
+	//	Check Path Sessions...
+	
+		if  !empty( AP_GetEnv( 'SESSION_PATH' ) ) 
+		
+			cPath 	:= AP_GETENV( 'DOCUMENT_ROOT' ) + AP_GetEnv( 'SESSION_PATH' ) 
+			
+			if right( cPath, 1 ) == '\' .or. right( cPath, 1 ) == '/'
+				cPath := Substr( cPath, 1 , len(cPath)-1 )
+			endif		
 
-       if ! Empty( oHrb )
-          BEGIN SEQUENCE
-          bOldError = ErrorBlock( { | o | DoBreak( o ) } )
-          hb_HrbRun( oHrb )
-          END SEQUENCE
-          ErrorBlock( bOldError )
-       endif
-	   
-    FUNCTION DoBreak( oError )
+			if ! IsDirectory( cPath )	
+				MakeDir( cPath )
+			endif
+			
+		else 
+		
+			cPath := HB_DirTemp() 
+			
+			if right( cPath, 1 ) == '\' .or. right( cPath, 1 ) == '/'
+				cPath := Substr( cPath, 1 , len(cPath)-1 )
+			endif
+		
+		endif 
+		
+		__TWebGlobal[ 'path_session' ] 	:= if( IsDirectory( cPath ), cPath, '' )
+		
+	//	Check Path Sessions...
+	
+		if  !empty( AP_GetEnv( 'LOG_PATH' ) ) 
+		
+			cPath 	:= AP_GETENV( 'DOCUMENT_ROOT' ) + AP_GetEnv( 'LOG_PATH' ) 
+			
+			if right( cPath, 1 ) == '\' .or. right( cPath, 1 ) == '/'
+				cPath := Substr( cPath, 1 , len(cPath)-1 )
+			endif		
 
-       local cInfo := oError:operation, n
+			if ! IsDirectory( cPath )	
+				MakeDir( cPath )
+			endif
+			
+		else 
+		
+			cPath := HB_DirTemp() 
+			
+			if right( cPath, 1 ) == '\' .or. right( cPath, 1 ) == '/'
+				cPath := Substr( cPath, 1 , len(cPath)-1 )
+			endif
+		
+		endif 
+		
+		__TWebGlobal[ 'path_log' ] 	:= if( IsDirectory( cPath ), cPath, '' )	
+		
+		
+	//	------------------------------------------------------------------------					
+	
+retu 
 
-       if ValType( oError:Args ) == "A"
-          cInfo += "   Args:" + CRLF
-          for n = 1 to Len( oError:Args )
-             MsgInfo( oError:Args[ n ] )
-             cInfo += "[" + Str( n, 4 ) + "] = " + ValType( oError:Args[ n ] ) + ;
-                       "   " + cValToChar( oError:Args[ n ] ) + CRLF
-          next
-       endif
+function TWebGlobal( cKey ) 
 
-       MsgStop( oError:Description + CRLF + cInfo,;
-                "Script error at line: " + AllTrim( Str( ProcLine( 2 ) ) ) )
+	__defaultNIL( @cKey, '' )
 
-       BREAK
-
-    return nil	   
-
-
-*/
+retu HB_HGetDef( __TWebGlobal, lower(cKey) , '' ) 

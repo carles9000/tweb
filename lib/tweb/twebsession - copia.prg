@@ -24,9 +24,8 @@
 #include 'hbclass.ch'
 #include 'hboo.ch'
 
-#define SESSION_PREFIX  		'hb_'
+#define SESSION_PREFIX  		'session_'
 #define SESSION_EXPIRED 		3600
-
 
 function InitSession( cName )
 
@@ -60,13 +59,11 @@ CLASS TWebSession
 
 	CLASSDATA lInit						INIT .F.
 	CLASSDATA cSessionName				INIT 'HRBSESSID'
-	CLASSDATA hSession 				INIT NIL
+	CLASSDATA hSession 					INIT NIL
 	CLASSDATA cSID 						INIT ''
 	CLASSDATA lIs_Session				INIT .F.
 			
 	CLASSDATA cDirTmp					INIT ''
-	DATA 	  cSeed						INIT 'MySesSiOn'
-
 			
 	METHOD  New() 						CONSTRUCTOR
 	
@@ -85,7 +82,12 @@ ENDCLASS
 
 METHOD New() CLASS TWebSession
 
-	::cDirTmp 		:= TWebGlobal( 'path_session' ) + if( "Linux" $ OS(), '\', '/' )
+	if  !empty( AP_GetEnv( 'SESSION_PATH' ) ) .and. IsDirectory( AP_GETENV( 'DOCUMENT_ROOT' ) + AP_GetEnv( 'SESSION_PATH' ) )	
+		::cDirTmp := AP_GETENV( 'DOCUMENT_ROOT' ) + AP_GetEnv( 'SESSION_PATH' ) + '/'	
+	else 	
+		::cDirTmp := HB_DirTemp()
+	endif
+
 
 	if !::lInit 
 
@@ -111,9 +113,37 @@ METHOD InitSession( cName ) CLASS TWebSession
 	
 	if ::lIs_Session
 	
-		//	Actualizamos tiempo de la sesion. Tambien esta a nivel cookie...
-	
-			::hSession[ 'expired' ] := seconds() + SESSION_EXPIRED		
+		//	Recuperar contenido del fichero de session...
+		
+			cFile 		:= ::cDirTmp + SESSION_PREFIX + ::cSID 		
+		
+		if File( cFile )
+
+			cSession := Memoread( cFile )		
+		
+			//	Si hay contenido Deserializaremos...
+			
+				if ( !empty( cSession ) )
+
+					::hSession := hb_Deserialize( cSession )
+
+					if Valtype( ::hSession ) == 'H' 
+					
+						//	Validaremos si esta Session es del solicitante, fecha de caducidad...					
+					
+					endif
+					
+				else	//	Incializamos Session
+
+					::StrSession()
+					
+				endif
+				
+		else 	//	Si NO existe el fichero, creamos la estructura de una Session
+
+			::StrSession()							
+
+		endif
 		
 	else
 	
@@ -122,8 +152,17 @@ METHOD InitSession( cName ) CLASS TWebSession
 			::SetSession() 
 		
 			::StrSession()
+	
+		//	Salvo la nueva session 
+		
+			cSession 	:= hb_Serialize( ::hSession )
 			
-			::lIs_Session := .T.
+			cFile 		:= ::cDirTmp + SESSION_PREFIX + ::cSID 
+
+		//	Pondremos la 'data' de la session accesible por el usuario
+		//	Tenemos definida un __hGet, podriamos definir de momento un __hSession	
+
+		::lIs_Session := .T.
 	
 	endif
 	
@@ -197,21 +236,27 @@ retu nil
 
 METHOD SaveSession() CLASS TWebSession
 
-	local cSession, cFile, lSave, cKey, cData
+	local cSession, cFile, lSave
 
 	if !::lIs_Session
 		retu ''
-	endif	
+	endif
+	
+	if ( Valtype( ::hSession ) == 'H' )
+	
+		//	Si estructura es correcta, procederemos a salvaremos
 		
-	cSession 	:= hb_jsonencode( ::hSession )
+		if ( 	hb_HHasKey( ::hSession, 'ip'   ) .and. ;
+				hb_HHasKey( ::hSession, 'sid'  ) .and. ;
+				hb_HHasKey( ::hSession, 'data' ) )
 
-	cKey 		:= hb_blowfishKey( ::cSeed )	
-	cData 		:= hb_blowfishEncrypt( cKey, cSession )
+			cSession 	:= hb_Serialize( ::hSession )		
+			cFile 	 	:= ::cDirTmp + SESSION_PREFIX + ::cSID 							
+			lSave 		:= memowrit( cFile, cSession )		
 	
-	//	Podriem aqui encryptar la session (Pendent)
-	
-	cFile 	 	:= ::cDirTmp + SESSION_PREFIX + ::cSID 	
-	lSave 		:= hb_memowrit( cFile, cData )		
+		endif
+
+	endif		
 
 retu NIL 
 
@@ -229,7 +274,6 @@ METHOD Get_Session() CLASS TWebSession
 
 	local hGet 		:= AP_GetPairs()
 	local lCookie 		:= .F.
-	local cFile, cSession, cData
 
 	::lIs_Session := .F.
 
@@ -248,53 +292,26 @@ METHOD Get_Session() CLASS TWebSession
 	endif
 	
 	if lCookie 
+	
+		::lIs_Session := .T.		//	Temporal
 		
-		//	Recuperar contenido del fichero de session...
-		
-		cFile 		:= ::cDirTmp + SESSION_PREFIX + ::cSID 	
+		//	Validar si cookie es buena
 		
 		
-		if File( cFile )
-
-			cSession := hb_Memoread( cFile )	
-			
-			
 		
-			//	Si hay contenido Deserializaremos...
-			
-			if ( !empty( cSession ) )
-			
-				cData := hb_blowfishDecrypt( hb_blowfishKey( ::cSeed ), cSession )
-			
-				//	Aui podriem desencryptar cSession... (pendent)
-
-				::hSession := hb_jsondecode( cData )							
-
-				if Valtype( ::hSession ) == 'H' 										
-				
-					//	Validaremos estructura
-					
-					if ( 	hb_HHasKey( ::hSession, 'ip'   	) .and. ;
-							hb_HHasKey( ::hSession, 'sid'  	) .and. ;
-							hb_HHasKey( ::hSession, 'expired' ) .and. ;
-							hb_HHasKey( ::hSession, 'data' 	) )												
-							
-						if  ::hSession[ 'expired' ] >= seconds()  .and. ;
-							::hSession[ 'ip' ] == AP_USERIP() 
-						
-							::lIs_Session := .t.
-							
-						endif							
-
-					endif	
-				
-				endif
-				
-			endif
-				
-		endif 									
+		
+	
 	
 	endif
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 retu ::lIs_Session 
 
@@ -306,7 +323,7 @@ METHOD StrSession() CLASS TWebSession
 	
 	::hSession[ 'ip'     ] := AP_USERIP()			//	La Ip no es fiable. Pueden usar proxy
 	::hSession[ 'sid'    ] := ::cSID
-	::hSession[ 'expired'] := seconds() + SESSION_EXPIRED
+	::hSession[ 'expired'] := hb_milliseconds() + SESSION_EXPIRED
 	::hSession[ 'data'   ] := { => }
 
 retu nil
@@ -316,7 +333,7 @@ retu nil
 
 METHOD Garbage( dMaxDate ) CLASS TWebSession
 
-	local aFiles 	:= Directory( ::cDirTmp + '*.*' )
+	local aFiles 	:= Directory( ::cDirTmp + '/*.*' )
 	local nFiles 	:= len( aFiles )
 	local nI 
 	
@@ -335,7 +352,7 @@ retu nil
 
 METHOD Info() CLASS TWebSession
 
-	local aFiles 	:= Directory( ::cDirTmp + '*.*' )
+	local aFiles 	:= Directory( ::cDirTmp + '/*.*' )
 	local nFiles 	:= len( aFiles )
 	local nBytes 	:= 0 
 	local nI
@@ -359,7 +376,7 @@ retu hInfo
 EXIT PROCEDURE __ExitSession()
 
 	local o		:= TWebSession():New()
-
+	
 	o:SaveSession()		
 	
 retu 
