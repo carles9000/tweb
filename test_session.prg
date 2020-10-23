@@ -20,8 +20,7 @@ function Main()
 	
 		?? '<h3>Iniciamos una Session</h3><hr>'
 		
-		InitSession()		
-		
+		InitSession()				
 		
 	//	Salvo mis variables que recuperare desde otras páginas...
 		
@@ -29,11 +28,11 @@ function Main()
 		Session( 'time', cTime )
 		
 
-		? '<h4>Se ha creado una session y añadido las variables dni y time - F5 Refresh Page</h4><hr>'
+		? '<h4>Se ha creado una session y añadido las variables dni y time</h4><hr>'
 		
 		? 'Dni: ' , cDni
 		? 'Time: ' , cTime	
 
-		? "<h4>Ir a otro ejemplo que inciará Sessiones y leerá estas variables - <a href='test_session_read.prg'>test_session_read.prg</a></h4><hr>"
+		? "<h4>Ir a otro ejemplo que iniciará Sessiones y leerá estas variables - <a href='test_session_read.prg'>test_session_read.prg</a></h4><hr>"
 	
 retu nil 

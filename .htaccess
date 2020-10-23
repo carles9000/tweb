@@ -3,14 +3,20 @@
 # Si se activa deberá crear directorio en httdocs.
 # Por defecto las sesiones se almacenan en HB_DirTemp()
 # -----------------------------------------------------
-Setenv SESSION_PATH 	'/_sessions'
+Setenv SESSION_PATH 	'/.sessions'
+
+# -----------------------------------------------------
+# Clave por defecto de sessiones.
+# Si no se especifica, usa una interna.
+# -----------------------------------------------------
+#Setenv SESSION_KEY 	'MykeY'
 
 # -----------------------------------------------------
 # Directorio donde se almacenan los logs.
 # Si se activa deberá crear directorio en httdocs.
 # Por defecto los logs se almacenan en HB_DirTemp()
 # -----------------------------------------------------
-Setenv LOG_PATH		 	'/_logs'
+Setenv LOG_PATH		 	'/.logs'
 
 # -----------------------------------------------------
 # Impedir que lean los ficheros del directorio

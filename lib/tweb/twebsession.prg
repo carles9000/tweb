@@ -24,15 +24,16 @@
 #include 'hbclass.ch'
 #include 'hboo.ch'
 
+#define SESSION_NAME 	 		'HRBSESSID'
 #define SESSION_PREFIX  		'hb_'
 #define SESSION_EXPIRED 		3600
 
 
-function InitSession( cName )
+function InitSession( cName, nExpired )
 
-	local o := TWebSession():New()
+	local o := TWebSession():New( cName, nExpired )
 	
-	o:InitSession( cName )
+	o:InitSession()
 
 retu nil
 
@@ -40,29 +41,31 @@ function Session( cKey, uValue )
 
 	local o := TWebSession():New()
 	
-	if cKey == NIL .and. uValue == NIL 
-	
-		retu o:Is_Session()
-		
-	endif 
-	
 retu o:Session( cKey, uValue )
 
-function EndSession()
+function Is_Session( cName )
 
-	local o := TWebSession():New()
+	local o := TWebSession():New( cName )
+	
+retu o:Is_Session()
+
+
+function EndSession( cName )
+
+	local o := TWebSession():New( cName )
 	
 	o:EndSession()
-
+	
 retu nil
 
 CLASS TWebSession 
 
 	CLASSDATA lInit						INIT .F.
-	CLASSDATA cSessionName				INIT 'HRBSESSID'
+	CLASSDATA cSessionName				INIT SESSION_NAME
 	CLASSDATA hSession 				INIT NIL
 	CLASSDATA cSID 						INIT ''
 	CLASSDATA lIs_Session				INIT .F.
+	CLASSDATA nExpired					INIT SESSION_EXPIRED
 			
 	CLASSDATA cDirTmp					INIT ''
 	DATA 	  cSeed						INIT 'MySesSiOn'
@@ -77,15 +80,22 @@ CLASS TWebSession
 	METHOD  Get_Session()
 	METHOD  StrSession()
 	METHOD  SetSession()	
-	METHOD  Is_Session()				INLINE ::lIs_Session
+	METHOD  Is_Session()				INLINE ::lIs_Session 
 	METHOD  Garbage()			
 	METHOD  Info()			
 
 ENDCLASS 
 
-METHOD New() CLASS TWebSession
+METHOD New( cName, nExpired ) CLASS TWebSession
 
-	::cDirTmp 		:= TWebGlobal( 'path_session' ) + if( "Linux" $ OS(), '\', '/' )
+	DEFAULT cName 		TO ''
+	DEFAULT nExpired 	TO SESSION_EXPIRED
+	
+	::cDirTmp 		:= TWebGlobal( 'session_path' ) + if( "Linux" $ OS(), '\', '/' )
+	::cSeed 		:= if( !empty( TWebGlobal( 'session_key' ) ), TWebGlobal( 'session_key' ), ::cSeed )
+	::cSessionName := if( !empty( cName ), cName , SESSION_NAME )
+	::nExpired 	:= nExpired
+	
 
 	if !::lInit 
 
@@ -97,17 +107,10 @@ METHOD New() CLASS TWebSession
 	
 retu Self
 
-METHOD InitSession( cName ) CLASS TWebSession
+
+METHOD InitSession() CLASS TWebSession
 
 	local cSession, cFile
-	
-	DEFAULT cName TO ''
-	
-	if !empty( cName )
-		::cSessionName := cName
-	else
-		::cSessionName := 'HRBSESSID' // SESSION_PREFIX
-	endif
 	
 	if ::lIs_Session
 	
@@ -129,7 +132,7 @@ METHOD InitSession( cName ) CLASS TWebSession
 	
 	//	Renovamos la cookie, cada vez que ejecutamos con el tiempo renovado...
 
-		SetCookie( ::cSessionName, ::cSID, SESSION_EXPIRED )		
+		SetCookie( ::cSessionName, ::cSID, ::nExpired )		
 
 retu nil
 
@@ -306,7 +309,7 @@ METHOD StrSession() CLASS TWebSession
 	
 	::hSession[ 'ip'     ] := AP_USERIP()			//	La Ip no es fiable. Pueden usar proxy
 	::hSession[ 'sid'    ] := ::cSID
-	::hSession[ 'expired'] := seconds() + SESSION_EXPIRED
+	::hSession[ 'expired'] := seconds() + ::nExpired
 	::hSession[ 'data'   ] := { => }
 
 retu nil

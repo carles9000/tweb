@@ -7,7 +7,7 @@ function Main()
 
 	//	Verifico que exista una session. Si no existe no esta autorizado.
 	
-		if  !Session()
+		if  ! Is_Session()
 			?? "<h3>Session doesn't exist. Please autenticate - <a href='test_session.prg'>test_session.prg</a></h3><hr>"
 			retu nil
 		endif

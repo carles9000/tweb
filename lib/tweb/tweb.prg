@@ -401,7 +401,14 @@ INIT PROCEDURE __TWebInit()
 		
 		endif 
 		
-		__TWebGlobal[ 'path_session' ] 	:= if( IsDirectory( cPath ), cPath, '' )
+		__TWebGlobal[ 'session_path' ] 	:= if( IsDirectory( cPath ), cPath, '' )
+		
+	//	Check Key Sessions...	
+
+		if  !empty( AP_GetEnv( 'SESSION_KEY' ) ) 	
+		
+			__TWebGlobal[ 'session_key' ] 	:=	if ( !empty( AP_GetEnv( 'SESSION_KEY' ) ), AP_GetEnv( 'SESSION_KEY' ), '' )
+		endif
 		
 	//	Check Path Sessions...
 	
@@ -428,6 +435,9 @@ INIT PROCEDURE __TWebInit()
 		endif 
 		
 		__TWebGlobal[ 'path_log' ] 	:= if( IsDirectory( cPath ), cPath, '' )	
+		
+	
+	
 		
 		
 	//	------------------------------------------------------------------------					
