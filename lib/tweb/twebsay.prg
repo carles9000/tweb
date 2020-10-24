@@ -2,13 +2,15 @@
 
 CLASS TWebSay FROM TWebControl
 
+	DATA cLink 						INIT '' 
+
 	METHOD New() 					CONSTRUCTOR
 	METHOD Activate()
 
 
 ENDCLASS 
 
-METHOD New( oParent, cId, cCaption, nGrid, cAlign, cClass, cFont ) CLASS TWebSay
+METHOD New( oParent, cId, cCaption, nGrid, cAlign, cClass, cFont, cLink ) CLASS TWebSay
 
 	DEFAULT cId TO ''
 	DEFAULT cCaption TO ''
@@ -16,6 +18,7 @@ METHOD New( oParent, cId, cCaption, nGrid, cAlign, cClass, cFont ) CLASS TWebSay
 	DEFAULT cAlign TO ''
 	DEFAULT cClass TO ''
 	DEFAULT cFont TO ''
+	DEFAULT cLink TO ''
 	
 	::oParent 		:= oParent
 	::cId			:= cId
@@ -24,6 +27,7 @@ METHOD New( oParent, cId, cCaption, nGrid, cAlign, cClass, cFont ) CLASS TWebSay
 	::cAlign 		:= lower( cAlign )
 	::cClass 		:= cClass
 	::cFont 		:= cFont
+	::cLink 		:= cLink
 
 	IF Valtype( oParent ) == 'O'	
 		oParent:AddControl( SELF )	
@@ -65,9 +69,17 @@ METHOD Activate() CLASS TWebSay
 	cHtml += '" '
 	cHtml += IF( ::oParent:lDessign, 'style="border:1px solid brown;"', '' ) 		
 	cHtml += ' >'
+	
+	if !empty( ::cLink )
+		cHtml += '<a href="' + ::cLink + '">'
+	endif
 
 	
 	cHtml += '<span id="' + ::cId + '">' + ::uValue + '</span>'
+	
+	if !empty( ::cLink )
+		cHtml += '</a>'
+	endif	
 
 	cHtml += '</div>'
 

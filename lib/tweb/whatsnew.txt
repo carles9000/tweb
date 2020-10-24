@@ -1,3 +1,9 @@
+24/10/2020
+==========
+New: Example sessions & autenticate with a easy app. See examples/sessions/app
+Enchanced: Command ROW. New clause TOP & BOTTOM. You can control margin-top and margin-bottom of row. See tutor8b.prg
+Enchanced: Command SAY. New clause LINK. See say-link.prg
+
 21/10/2020
 ==========
 New: Sessions system is ready !. 

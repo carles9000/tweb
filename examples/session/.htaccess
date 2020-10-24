@@ -1,0 +1,14 @@
+# -----------------------------------------------------
+# Impedir que lean los ficheros del directorio
+# -----------------------------------------------------
+Options All -Indexes
+
+# -----------------------------------------------------
+# Añadir extension si no se especifica
+# -----------------------------------------------------
+<IfModule mod_rewrite.c>
+	RewriteEngine on
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteCond %{REQUEST_FILENAME}.prg -f
+	RewriteRule ^(.*)$ $1.prg
+</IfModule>

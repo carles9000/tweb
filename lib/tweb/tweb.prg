@@ -9,7 +9,7 @@
 static __TWebGlobal 	
 
 
-#define TWEB_VERSION 			'TWeb 1.0d'
+#define TWEB_VERSION 			'TWeb 1.0g'
 #define TWEB_PATH 				'lib/tweb/'
 #define CRLF 					Chr(13)+Chr(10)
 
@@ -45,38 +45,32 @@ static __TWebGlobal
 
 function TWebVersion() ; RETU TWEB_VERSION
 
-function LoadTWeb( cPathPluggin )
+function LoadTWeb( cUrl )
 
-	LOCAL cHtml
+	DEFAULT cUrl TO __TWebGlobal[ 'url_tweb' ]
+
+retu  TWebLibs( cUrl )	
+
+
+function LoadTWebTables( cUrl )
+
+	LOCAL cHtml, lUNC, cSep
 	
-	DEFAULT cPathPluggin TO TWEB_PATH
+	DEFAULT cUrl TO __TWebGlobal[ 'url_tweb' ]
 	
-	if right( cPathPluggin, 1 ) != '/'
-		cPathPluggin += '/'
+	lUNC 		:= "/" $ cUrl
+	cSep 		:= If( lUNC, "/", "\" )
+	
+	if right( cUrl, 1 ) != cSep 
+		cUrl += cSep
 	endif
-	
-	cHtml := TWebLibs( cPathPluggin )	
+
+	cHtml := TWebLibs( cUrl )
+	cHtml += TWebLibsTables()	
 	
 retu cHtml
 
-function LoadTWebTables( cPathPluggin )
-
-	LOCAL cHtml
-	
-	DEFAULT cPathPluggin TO TWEB_PATH
-	
-	cHtml := TWebLibs( cPathPluggin )
-	cHtml += TWebLibsTables( cPathPluggin )	
-	
-retu cHtml
-
-function TWebLibs( cPathPluggin ) 	
-
-	DEFAULT cPathPluggin TO TWEB_PATH
-	
-	if right( cPathPluggin, 1 ) != '/'
-		cPathPluggin += '/'
-	endif	
+function TWebLibs( cUrl ) 	
 	
 return '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>' + CRLF + ;
 		'<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>' + CRLF + ;
@@ -86,14 +80,14 @@ return '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.m
 		'<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>' + CRLF + ;
 		'<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">' + CRLF + ;
 		'<link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css" rel="stylesheet">' + CRLF + ;
-		'<script src="' + cPathPluggin + 'lightbox/lightbox.js"></script>' + CRLF + ;
-		'<link href="'  + cPathPluggin + 'lightbox/css/lightbox.css" rel="stylesheet" >' + CRLF + ;		
-		'<script src="' + cPathPluggin + 'notify/bootstrap-notify.js' + '"></script>' + CRLF + ;
-		'<script src="' + cPathPluggin + 'bootbox/bootbox.all.min.js"></script>' + CRLF + ;
-		'<link href="'  + cPathPluggin + 'tweb.css' + '" rel="stylesheet">' + CRLF + ;		
-		'<script src="' + cPathPluggin + 'tweb.js' + '"></script>' + CRLF  
+		'<script src="' + cUrl + 'lightbox/lightbox.js"></script>' + CRLF + ;
+		'<link href="'  + cUrl + 'lightbox/css/lightbox.css" rel="stylesheet" >' + CRLF + ;		
+		'<script src="' + cUrl + 'notify/bootstrap-notify.js' + '"></script>' + CRLF + ;
+		'<script src="' + cUrl + 'bootbox/bootbox.all.min.js"></script>' + CRLF + ;
+		'<link href="'  + cUrl + 'tweb.css' + '" rel="stylesheet">' + CRLF + ;		
+		'<script src="' + cUrl + 'tweb.js' + '"></script>' + CRLF  
 		
-function TWebLibsTables( cPathPluggin ) 	
+function TWebLibsTables() 	
 
 return '<link href="https://unpkg.com/bootstrap-table@1.15.5/dist/bootstrap-table.min.css" rel="stylesheet">' + CRLF + ;
 		'<script src="https://unpkg.com/bootstrap-table@1.15.5/dist/bootstrap-table.js"></script>' + CRLF + ;
@@ -117,11 +111,15 @@ retu cHtml
 
 function TWebInclude( cPathPluggin )
 
-	local cFile, oError
+	local cPath, cFile, oError	
 
 	DEFAULT cPathPluggin TO TWEB_PATH
 	
-	cFile := HB_GetEnv( "PRGPATH" ) + '/' + cPathPluggin + 'tweb.ch'
+	cPath := HB_GetEnv( "PRGPATH" ) + '/' + cPathPluggin
+	
+	__TWebGlobal[ 'url_tweb' ] := cPathPluggin 
+	
+	cFile :=  cPath + 'tweb.ch'
 	
 	if ! File( cFile )
 		oError := ErrorNew()
@@ -272,16 +270,16 @@ CLASS TWeb
 	METHOD New() 					CONSTRUCTOR
 	METHOD Activate()
 	METHOD Html( cCode ) 			INLINE Aadd( ::aControls, cCode )
-	METHOD AddJs( cFile ) 			INLINE Aadd( ::aInclude, '<script src="' + cFile + '"></script>' )
-	METHOD AddCss( cFile ) 			INLINE Aadd( ::aInclude, '<link rel="stylesheet" href="' + cFile + '">' )
+	METHOD AddJs( cFile ) 		INLINE Aadd( ::aInclude, '<script src="' + cFile + '"></script>' )
+	METHOD AddCss( cFile ) 		INLINE Aadd( ::aInclude, '<link rel="stylesheet" href="' + cFile + '">' )
 
 ENDCLASS 
 
 METHOD New( cTitle, cIcon, lTables, cCharset, lInit ) CLASS TWeb
 
-	DEFAULT cTitle 			TO 'TWeb'
-	DEFAULT cIcon 			TO TWEB_PATH + 'images/tweb.png'
-	DEFAULT lTables			TO .F.
+	DEFAULT cTitle 		TO 'TWeb'
+	DEFAULT cIcon 			TO __TWebGlobal[ 'url_tweb' ] + 'images/tweb.png'
+	DEFAULT lTables		TO .F.
 	DEFAULT cCharSet		TO 'ISO-8859-1'
 	DEFAULT lInit 			TO .F.
 	
@@ -374,9 +372,22 @@ INIT PROCEDURE __TWebInit()
 
 	local cPath 	:= ''
 	local cEcho 	:= ''
+	local cUri, lUNC, cSep, n, cDirBase
 	
-	__TWebGlobal := {=>}	
+	__TWebGlobal 	:= {=>}	
 
+	//	Url Tweb default
+	
+		cUri 		:= AP_GetEnv( 'REQUEST_URI' )		
+		lUNC 		:= "/" $ cUri
+		cSep 		:= If( lUNC, "/", "\" )	
+		n 			:= RAt( cSep, cUri )		
+
+		cDirBase 	:= Substr( cUri, 1, n )   
+	
+		__TWebGlobal[ 'url_tweb' ] := cDirBase + TWEB_PATH						
+		
+	
 	//	Check Path Sessions...
 	
 		if  !empty( AP_GetEnv( 'SESSION_PATH' ) ) 

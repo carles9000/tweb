@@ -6,7 +6,7 @@ function main()
 
     LOCAL o, oFont
 	
-	DEFINE WEB oWeb TITLE 'Test Say Class' INIT	
+	DEFINE WEB oWeb TITLE 'Test Say Class/Font' INIT	
 	
     DEFINE FORM o 
 		//o:lDessign 	:= .T.	

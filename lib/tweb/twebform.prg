@@ -105,13 +105,15 @@ METHOD Col( nCol, cType, cClass ) CLASS TWebForm
 	
 RETU NIL
 
-METHOD Row( cVAlign, cHAlign, cClass ) CLASS TWebForm
+METHOD Row( cVAlign, cHAlign, cClass, cTop, cBottom ) CLASS TWebForm
 
 	local cHtml := ''
 
 	DEFAULT cVAlign TO 'center'
 	DEFAULT cHAlign TO 'left'
 	DEFAULT cClass TO ''
+	DEFAULT cTop TO ''
+	DEFAULT cBottom TO ''
 	
 	cVAlign 	:= lower( cVAlign )
 	cHAlign 	:= lower( cHAlign )
@@ -128,13 +130,32 @@ METHOD Row( cVAlign, cHAlign, cClass ) CLASS TWebForm
 		case cHAlign == 'right' 	;	cHAlign := 'justify-content-end'
 	endcase	
 	
-	cHtml += '<div class="row ' + cVAlign + ' ' + cHAlign 
+	
+	cHtml += '<div class="row ' + cVAlign + ' ' + cHAlign  
 	
 	if !empty( cClass )
 		cHtml += ' ' + cClass
-	endif
+	endif	
 	
-	cHtml += '" ' + IF( ::lDessign, 'style="border:1px solid red;"', '' ) + ' >' 
+	cHtml += '" ' 	//	End class
+	
+	cHtml += ' style="'
+	
+	cHtml += IF( ::lDessign, 'border:1px solid red;', '' )  
+
+	if !empty( cTop )
+		cTop := valtochar( cTop )
+		cTop := 'margin-top: ' + cTop + ';'		
+	endif	
+
+	if !empty( cBottom )
+		cBottom := valtochar( cBottom )
+		cBottom := 'margin-bottom: ' + cBottom + ';'		
+	endif		
+	
+	cHtml += cTop + cBottom + '" ' 	//	End Style 
+	
+	cHtml += '>' 
 	
 	::Html( cHtml )
 	

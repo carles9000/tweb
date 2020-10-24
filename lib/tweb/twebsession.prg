@@ -29,6 +29,15 @@
 #define SESSION_EXPIRED 		3600
 
 
+function Redirect( cUrl )
+
+	DEFAULT cUrl TO ''
+
+	?? "<script>window.location.replace( '" + cUrl + "');</script>"
+	
+retu nil
+
+
 function InitSession( cName, nExpired )
 
 	local o := TWebSession():New( cName, nExpired )
@@ -94,8 +103,7 @@ METHOD New( cName, nExpired ) CLASS TWebSession
 	::cDirTmp 		:= TWebGlobal( 'session_path' ) + if( "Linux" $ OS(), '\', '/' )
 	::cSeed 		:= if( !empty( TWebGlobal( 'session_key' ) ), TWebGlobal( 'session_key' ), ::cSeed )
 	::cSessionName := if( !empty( cName ), cName , SESSION_NAME )
-	::nExpired 	:= nExpired
-	
+	::nExpired 	:= nExpired	
 
 	if !::lInit 
 
