@@ -49,17 +49,17 @@ METHOD New( oParent, cId, nHeight, lSingleSelect, lMultiSelect, lClickSelect, lP
 	DEFAULT cAction		TO ''
 	DEFAULT cDblClick		TO ''
 
-	::cId 			:= cId
-	::nHeight 		:= nHeight
-	::lSingleSelect := lSingleSelect
+	::cId 				:= cId
+	::nHeight 			:= nHeight
+	::lSingleSelect 	:= lSingleSelect
 	::lMultiSelect 	:= lMultiSelect
 	::lClickSelect 	:= lClickSelect
-	::lPrint 		:= lPrint
-	::lExport 		:= lExport
-	::lSearch 		:= lSearch
-	::lTools 		:= lTools		
-	::cAction 		:= cAction
-	::cDblClick	:= cDblClick
+	::lPrint 			:= lPrint
+	::lExport 			:= lExport
+	::lSearch 			:= lSearch
+	::lTools 			:= lTools		
+	::cAction 			:= cAction
+	::cDblClick		:= cDblClick
 
 	IF Valtype( oParent ) == 'O'	
 		oParent:AddControl( SELF )	
@@ -67,7 +67,7 @@ METHOD New( oParent, cId, nHeight, lSingleSelect, lMultiSelect, lClickSelect, lP
 
 RETU SELF
 
-METHOD AddCol( cId, hCfg, cHead, nWidth, lSortable, cAlign, cFormatter ) CLASS TWebBrowse
+METHOD AddCol( cId, hCfg, cHead, nWidth, lSortable, cAlign, cFormatter, cClass ) CLASS TWebBrowse
 
 	LOCAL hDefCol	:= {=>}
 	
@@ -76,24 +76,27 @@ METHOD AddCol( cId, hCfg, cHead, nWidth, lSortable, cAlign, cFormatter ) CLASS T
 		HB_HCaseMatch( hCfg, .F. ) 
 
 		hDefCol[ 'head' ] 		:= HB_HGetDef( hCfg, 'head'		, cId ) 
-		hDefCol[ 'width' ] 		:= HB_HGetDef( hCfg, 'width'	, '' ) 
+		hDefCol[ 'width' ] 	:= HB_HGetDef( hCfg, 'width'	, '' ) 
 		hDefCol[ 'sortable' ] 	:= HB_HGetDef( hCfg, 'sortable'	, .F. ) 
 		hDefCol[ 'align' ]		:= HB_HGetDef( hCfg, 'align'	, '' ) 
 		hDefCol[ 'formatter' ]	:= HB_HGetDef( hCfg, 'formatter'	, '' ) 
+		hDefCol[ 'class' ]		:= HB_HGetDef( hCfg, 'class'	, '' ) 
 	
 	ELSE
 	
 		DEFAULT cHead 			TO cId
-		DEFAULT nWidth 			TO ''
+		DEFAULT nWidth 		TO ''
 		DEFAULT lSortable		TO .F.
 		DEFAULT cAlign			TO ''
 		DEFAULT cFormatter		TO ''
+		DEFAULT cClass			TO ''
 	
 		hDefCol[ 'head' ] 		:= cHead
-		hDefCol[ 'width' ] 		:= nWidth
+		hDefCol[ 'width' ] 	:= nWidth
 		hDefCol[ 'sortable' ] 	:= lSortable 	
 		hDefCol[ 'align' ]		:= cAlign
 		hDefCol[ 'formatter' ]	:= cFormatter
+		hDefCol[ 'class' ]		:= cClass 
 	
 	ENDIF
 	
@@ -163,9 +166,9 @@ METHOD Activate() CLASS TWebBrowse
 							
 								FOR n := 1 TO Len( ::hCols )
 								
-									aField 	:= HB_HPairAt( ::hCols, n )
+									aField 		:= HB_HPairAt( ::hCols, n )
 									cField		:= aField[1]
-									hDef 		:= aField[2]													
+									hDef 		:= aField[2]	
 									
 									cHtml += '<th data-field="' + cField + '" '
 									cHtml += 'data-width="' + valtochar(hDef[ 'width' ]) + '" '
