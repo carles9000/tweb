@@ -25,7 +25,7 @@
 #include 'hboo.ch'
 
 #define SESSION_NAME 	 		'HRBSESSID'
-#define SESSION_PREFIX  		'hb_'
+#define SESSION_PREFIX  		'sess_'
 #define SESSION_EXPIRED 		3600
 
 

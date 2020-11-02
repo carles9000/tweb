@@ -1,3 +1,7 @@
+02/11/2020
+==========
+New: Example switch control. See switch.prg
+
 24/10/2020
 ==========
 New: Example sessions & autenticate with a easy app. See examples/sessions/app

@@ -23,7 +23,7 @@ function main()
 		
 	INIT FORM o  			
 		
-		HTML o INLINE '<h3>Test Browse II</h3><hr>'
+		HTML o INLINE '<h3>Test Browse II</h3><hr>' 
 		
 		ROWGROUP o
 		

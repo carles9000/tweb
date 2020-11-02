@@ -26,7 +26,7 @@ function main()
 		   
 			SEPARATOR o LABEL 'Datos de Salida'
 
-			RADIO    oRadio  ID 'style1'  PROMPT 'Uno', 'Dos', 'Tres' VALUES  '1', '2', '3'  GRID 6  OF o
+			RADIO    oRadio  ID 'style1'  PROMPT 'Uno', 'Dos', 'Tres' VALUES  '1', '2', '3'  CHECKED '2' GRID 6  OF o
 			CHECKBOX oCheck1 ID 'accept1' LABEL 'Accept'  GRID 6  OF o
 
 		END o

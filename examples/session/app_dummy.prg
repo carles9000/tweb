@@ -25,7 +25,7 @@ function Main()
 
 	INIT FORM o  
 
-		HTML o INLINE '<h3>Dummy Screen</h3><hr>'		
+		HTML o INLINE '<h3>Dummy Screen</h3><hr>'
 		
 		
 	//	Podemos recuperar variables que tenemos almacenadas en la session	
