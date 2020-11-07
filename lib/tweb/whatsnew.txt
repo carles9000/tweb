@@ -1,6 +1,12 @@
+07/11/2020
+==========
+Enchanced: MsgLoading() Can show header.
+Example: browse-dblclick-edit.prg . Thanks Ralph del Castillo
+
 02/11/2020
 ==========
 New: Example switch control. See switch.prg
+Enchanced: MsgInfo accept any value
 
 24/10/2020
 ==========

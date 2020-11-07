@@ -267,9 +267,7 @@ METHOD Get_Session() CLASS TWebSession
 		
 		if File( cFile )
 
-			cSession := hb_Memoread( cFile )	
-			
-			
+			cSession := hb_Memoread( cFile )							
 		
 			//	Si hay contenido Deserializaremos...
 			

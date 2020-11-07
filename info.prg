@@ -47,8 +47,7 @@ BLOCKS PARAMS hRow
 		}
 
 
-		#mylogo {
-			width: 75px;
+		#mylogo {			
 			margin-right: 10px;
 			vertical-align: middle;
 			margin-top: -15px;
@@ -95,9 +94,9 @@ BLOCKS PARAMS hRow
 
 </style>
 
-		<div class="myhead">
-			<img id="mylogo" src="https://github.com/FiveTechSoft/screenshots/blob/master/harbour.png?raw=true">
-			<span>Information system</span>			
+		<div class="myhead">			
+			<img id="mylogo" src="images/harbour_mini.png">
+			<span>TWeb Information System</span>			
 			<hr>
 		</div>
 		
@@ -115,8 +114,7 @@ BLOCKS PARAMS hRow
 					<tr><td class="description">Compiler</td><td class="data">{{ hRow[ 'compiler' ] }}</td></tr>
 					<tr><td class="description">RDD</td><td class="data">{{ hRow[ 'rdd' ] }}</td></tr>
 
-					<tr><td class="description">Version MT</td><td class="data">{{ hRow[ 'hb_version_mt' ] }}</td></tr>
-					<tr><td class="description">Version Shared</td><td class="data">{{ hRow[ 'hb_version_shared' ] }}</td></tr>
+					<tr><td class="description">Version MT</td><td class="data">{{ hRow[ 'hb_version_mt' ] }}</td></tr>					
 					<tr><td class="description">Version Platform</td><td class="data">{{ hRow[ 'hb_version_platform' ] }}</td></tr>							
 					<tr><td class="description">Version TWeb</td><td class="data">{{ hRow[ 'tweb_version' ] }}</td></tr>							
 				</tbody>
