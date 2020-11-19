@@ -4,8 +4,9 @@ CLASS TWebGet FROM TWebControl
 
 	DATA cType		 				INIT 'text'
 	DATA cPlaceHolder 				INIT ''
-	DATA aBtnLabel 				INIT {}
+	DATA aBtnLabel 					INIT {}
 	DATA aBtnAction 				INIT {}
+	DATA aBtnId 					INIT {}
 	DATA uSource 					INIT ''
 	DATA cSelect 					INIT ''
 	DATA cLink 						INIT ''
@@ -17,7 +18,7 @@ CLASS TWebGet FROM TWebControl
 
 ENDCLASS 
 
-METHOD New( oParent, cId, uValue, nGrid, cLabel, cAlign, lReadOnly, cType, cPlaceHolder, aBtnLabel, aBtnAction, lRequired, uSource, cSelect, cChange, cClass, cFont, cFontLabel, cLink ) CLASS TWebGet
+METHOD New( oParent, cId, uValue, nGrid, cLabel, cAlign, lReadOnly, cType, cPlaceHolder, aBtnLabel, aBtnAction, aBtnId, lRequired, uSource, cSelect, cChange, cClass, cFont, cFontLabel, cLink ) CLASS TWebGet
 
 	DEFAULT cId TO ''
 	DEFAULT uValue TO ''
@@ -29,6 +30,7 @@ METHOD New( oParent, cId, uValue, nGrid, cLabel, cAlign, lReadOnly, cType, cPlac
 	DEFAULT cPlaceHolder TO ''
 	DEFAULT aBtnLabel TO {}
 	DEFAULT aBtnAction TO {}
+	DEFAULT aBtnId 		TO {}
 	DEFAULT lRequired TO .F.	
 	DEFAULT uSource TO ''
 	DEFAULT cSelect TO ''
@@ -47,9 +49,10 @@ METHOD New( oParent, cId, uValue, nGrid, cLabel, cAlign, lReadOnly, cType, cPlac
 	::lReadOnly		:= lReadOnly
 	::cType			:= cType
 	::cPlaceHolder := cPlaceHolder
-	::aBtnLabel	:= aBtnLabel
+	::aBtnLabel		:= aBtnLabel
 	::aBtnAction	:= aBtnAction	
-	::lRequired	:= lRequired
+	::aBtnId		:= aBtnId
+	::lRequired		:= lRequired
 	::uSource 		:= uSource
 	::cSelect 		:= cSelect
 	::cChange 		:= cChange
@@ -71,7 +74,7 @@ METHOD Activate() CLASS TWebGet
 	LOCAL cAlign 	 := ''
 	LOCAL cSizeLabel := 'col-form-label'
 	LOCAL cBtnSize 	 := ''
-	local nI, nBtn, cLabel, cAction
+	local nI, nBtn, cLabel, cAction, cBtnId
 	
 	DO CASE
 		CASE ::cAlign == 'center' ; cAlign := 'text-center'
@@ -104,7 +107,7 @@ METHOD Activate() CLASS TWebGet
 	
 	cHtml += '<div class="input-group">'
 	
-	cHtml += '<input type="' + ::cType + '" class="form-control ' + cSize + ' ' + cAlign
+	cHtml += '<input data-control="tget" type="' + ::cType + '" class="form-control ' + cSize + ' ' + cAlign
 	
 	if !empty( ::cClass )	
 		cHtml += ' ' + ::cClass
@@ -145,8 +148,13 @@ METHOD Activate() CLASS TWebGet
 		
 			cLabel  := ::aBtnLabel[nI]
 			
-			
-			cHtml += '<button id="btn_' + ::cId + '" class="btn btn-outline-secondary ' + cBtnSize + '" type="button" '
+			if len( ::aBtnId ) == nBtn 
+				cBtnId := ::aBtnId[nI] 
+			else
+				cBtnId := 'btn_' + ::cId + '_' + ltrim(str(nI))
+			endif
+
+			cHtml += '<button id="' + cBtnId + '" class="btn btn-outline-secondary ' + cBtnSize + '" type="button" '
 			
 			if empty( ::cLink )
 				cAction := ::aBtnAction[nI]

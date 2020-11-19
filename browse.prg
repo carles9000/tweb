@@ -24,7 +24,8 @@ function main()
 			ADD oCol TO oBrw ID 'id' 	HEADER 'Id.' 
 			ADD oCol TO oBrw ID 'name'	HEADER 'Name'  					
 
-		INIT BROWSE oBrw DATA aRows		
+		INIT BROWSE oBrw DATA aRows	
+
 	
 	END FORM o	
 	

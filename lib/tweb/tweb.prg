@@ -96,6 +96,7 @@ return '<link href="https://unpkg.com/bootstrap-table@1.15.5/dist/bootstrap-tabl
 		'<script src="https://unpkg.com/bootstrap-table@1.15.5/dist/extensions/export/bootstrap-table-export.min.js"></script>' + CRLF + ;
 		'<script src="https://unpkg.com/bootstrap-table@1.15.5/dist/bootstrap-table-locale-all.min.js"></script>' + CRLF 
 
+		//'<script src="https://unpkg.com/bootstrap-table@1.18.0/dist/extensions/toolbar/bootstrap-table-toolbar.min.js"></script>' + CRLF + ;
 
 function TWebCss( cPathPluggin ) 
 

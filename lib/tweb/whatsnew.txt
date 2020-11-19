@@ -1,3 +1,14 @@
+17/11/2020
+==========
+Modified: TWebGet Icon space
+Enchanced: TWebBrowse Toolbar
+Enchanced: TWebGet CLAUSE BTNID for identifier btn id
+New: Start TWebControl() for javascript. Not finish yet
+
+11/11/2020
+==========
+Enchanced: Combobox CLAUSE KeyValue. See combo-hash.prg
+
 07/11/2020
 ==========
 Enchanced: MsgLoading() Can show header.

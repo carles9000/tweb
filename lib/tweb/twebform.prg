@@ -33,6 +33,7 @@ CLASS TWebForm FROM TWebControl
 	METHOD Separator()
 	METHOD Small()
 	METHOD InitForm() 					
+	METHOD Div() 					
 	METHOD Col() 					
 	METHOD Row() 					
 	METHOD RowGroup() 					
@@ -76,6 +77,7 @@ METHOD Col( nCol, cType, cClass ) CLASS TWebForm
 	local cHtml := ''
 	local cPrefix := IF( empty(::cType), '', ::cType + '-' )
 	
+	
 	DEFAULT cType TO ''
 	DEFAULT cClass TO ''	
 	
@@ -105,10 +107,34 @@ METHOD Col( nCol, cType, cClass ) CLASS TWebForm
 	
 RETU NIL
 
-METHOD Row( cVAlign, cHAlign, cClass, cTop, cBottom ) CLASS TWebForm
+METHOD Div( cId, cClass ) CLASS TWebForm
 
 	local cHtml := ''
 
+	DEFAULT cId TO ''
+	DEFAULT cClass TO ''
+
+	cHtml += '<div id="' + cId + '" '
+	
+	if !empty( cClass )
+		cHtml += ' class="' + cClass + '" '
+	endif	
+	
+	if ::lDessign
+		cHtml += ' style="border:1px solid red;" '
+	endif
+	
+	cHtml += '>' 
+	
+	::Html( cHtml )
+	
+RETU NIL
+
+METHOD Row( cId, cVAlign, cHAlign, cClass, cTop, cBottom ) CLASS TWebForm
+
+	local cHtml := ''
+
+	DEFAULT cId TO ''
 	DEFAULT cVAlign TO 'center'
 	DEFAULT cHAlign TO 'left'
 	DEFAULT cClass TO ''
@@ -131,7 +157,7 @@ METHOD Row( cVAlign, cHAlign, cClass, cTop, cBottom ) CLASS TWebForm
 	endcase	
 	
 	
-	cHtml += '<div class="row ' + cVAlign + ' ' + cHAlign  
+	cHtml += '<div id="' + cId + '" class="row ' + cVAlign + ' ' + cHAlign  
 	
 	if !empty( cClass )
 		cHtml += ' ' + cClass

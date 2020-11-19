@@ -18,7 +18,7 @@ ENDCLASS
 METHOD New( oParent, cId, cLabel, cAction , cName, cValue, nGrid, cAlign, cIcon, lDisabled, lSubmit, cLink, cClass, cFont, lFiles  ) CLASS TWebButton
 
 	DEFAULT cId TO ''
-	DEFAULT cLabel TO 'Submit'
+	DEFAULT cLabel TO ''
 	DEFAULT cAction TO ''
 	DEFAULT cName TO ''
 	DEFAULT cValue TO ''
