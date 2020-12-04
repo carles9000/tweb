@@ -18,7 +18,7 @@ CLASS TWebGet FROM TWebControl
 
 ENDCLASS 
 
-METHOD New( oParent, cId, uValue, nGrid, cLabel, cAlign, lReadOnly, cType, cPlaceHolder, aBtnLabel, aBtnAction, aBtnId, lRequired, uSource, cSelect, cChange, cClass, cFont, cFontLabel, cLink ) CLASS TWebGet
+METHOD New( oParent, cId, uValue, nGrid, cLabel, cAlign, lReadOnly, cType, cPlaceHolder, aBtnLabel, aBtnAction, aBtnId, lRequired, uSource, cSelect, cChange, cClass, cFont, cFontLabel, cLink, cGroup, cDefault ) CLASS TWebGet
 
 	DEFAULT cId TO ''
 	DEFAULT uValue TO ''
@@ -39,6 +39,8 @@ METHOD New( oParent, cId, uValue, nGrid, cLabel, cAlign, lReadOnly, cType, cPlac
 	DEFAULT cFont TO ''
 	DEFAULT cFontLabel TO ''
 	DEFAULT cLink TO ''
+	DEFAULT cGroup TO ''
+	DEFAULT cDefault TO ''
 	
 	::oParent 		:= oParent
 	::cId			:= cId
@@ -60,6 +62,8 @@ METHOD New( oParent, cId, uValue, nGrid, cLabel, cAlign, lReadOnly, cType, cPlac
 	::cFont 		:= cFont
 	::cFontLabel	:= cFontLabel
 	::cLink 		:= cLink
+	::cGroup		:= cGroup
+	::cDefault		:= cDefault
 
 	IF Valtype( oParent ) == 'O'	
 		oParent:AddControl( SELF )			
@@ -107,7 +111,17 @@ METHOD Activate() CLASS TWebGet
 	
 	cHtml += '<div class="input-group">'
 	
-	cHtml += '<input data-control="tget" type="' + ::cType + '" class="form-control ' + cSize + ' ' + cAlign
+	cHtml += '<input data-control="tget" '
+	
+	if !empty( ::cGroup )
+		cHtml += 'data-group="' + ::cGroup + '" '
+	endif
+	
+	if !empty( ::cDefault )
+		cHtml += 'data-default="' + ::cDefault + '" '
+	endif	
+	
+	cHtml += ' type="' + ::cType + '" class="form-control ' + cSize + ' ' + cAlign
 	
 	if !empty( ::cClass )	
 		cHtml += ' ' + ::cClass
@@ -130,8 +144,8 @@ METHOD Activate() CLASS TWebGet
 	ENDIF	
 	
 	IF !empty( ::cChange )
-		//cHtml += ' onchange="' + ::cChange + '" '
-		cHtml += ' onfocusout="' + ::cChange + '" '
+		cHtml += ' onchange="' + ::cChange + '" '
+		//cHtml += ' onfocusout="' + ::cChange + '" '
 	ENDIF
 	
 	cHtml += ' value="' + ::uValue + '">'

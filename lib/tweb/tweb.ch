@@ -86,10 +86,10 @@
 	[ <rq: REQUIRED> ] [ AUTOCOMPLETE <uSource> [ SELECT <cSelect>] ] ;
 	[ <chg: ONCHANGE,VALID> <cChange> ];
 	[ CLASS <cClass> ] [ FONT <cFont> ] [ FONTLABEL <cFontLabel> ] ;
-	[ LINK <cLink> ] ;
+	[ LINK <cLink> ] [ GROUP <cGroup> ] [ DEFAULT <cDefault>] ;
 	OF <oForm> ;
 => ;
-	[<oGet> := ] TWebGet():New( <oForm>, [<cId>], [<uValue>], [<nGrid>], [<cLabel>], [<cAlign>], [<.ro.>], [<cType>], [<cPlaceHolder>], [\{<cButton>\}], [\{<cAction>\}], [\{<cBtnId>\}], [<.rq.>], [<uSource>], [<cSelect>], [<cChange>], [<cClass>], [<cFont>], [<cFontLabel>],[<cLink>] )
+	[<oGet> := ] TWebGet():New( <oForm>, [<cId>], [<uValue>], [<nGrid>], [<cLabel>], [<cAlign>], [<.ro.>], [<cType>], [<cPlaceHolder>], [\{<cButton>\}], [\{<cAction>\}], [\{<cBtnId>\}], [<.rq.>], [<uSource>], [<cSelect>], [<cChange>], [<cClass>], [<cFont>], [<cFontLabel>],[<cLink>], [<cGroup>], [<cDefault>] )
 	
 #xcommand GET [<oGetMemo>] MEMO [ ID <cId> ] [ VALUE <uValue> ] [ LABEL <cLabel> ] [ ALIGN <cAlign> ] [GRID <nGrid>] ;
 	[ <ro: READONLY> ] [ ROWS <nRows> ] ;	
@@ -154,10 +154,10 @@
 		[ <tabs: VALUES> <cValue,...> ] ;		
 		[ GRID <nGrid> ] ;
 		[ ONCHANGE  <cAction> ] ;
-		[ CLASS <cClass> ] [ FONT <cFont> ] ;			
+		[ CLASS <cClass> ] [ FONT <cFont> ]  [ GROUP <cGroup> ];			
 		OF <oForm> ;
 => ;
-	[ <oSelect> := ] TWebSelect():New( <oForm>, [<cId>], [<uValue>], [\{<cPrompt>\}], [\{<cValue>\}], [<aKeyValue>], [<nGrid>], [<cAction>], [<cLabel>], [<cClass>], [<cFont>]  )
+	[ <oSelect> := ] TWebSelect():New( <oForm>, [<cId>], [<uValue>], [\{<cPrompt>\}], [\{<cValue>\}], [<aKeyValue>], [<nGrid>], [<cAction>], [<cLabel>], [<cClass>], [<cFont>], <cGroup>  )
 	
 
 
@@ -183,7 +183,7 @@
 	[<click: CLICKSELECT>] [<lPrint: PRINT>] [<lExport: EXPORT>] [<lSearch: SEARCH>] [<lTools: TOOLS>] ;
 	[ ONCHANGE <cAction>  ] ;
 	[ DBLCLICK <cDblClick> ] ;
-	[ <edit: EDIT> [ WITH <cEditor>] [ TITLE <cTitle> ] [ POSTEDIT <cPostEdit> ] [ KEY <cKey>] ] ;
+	[ <edit: EDIT> [ WITH <cEditor>] [ TITLE <cTitle> ] [ POSTEDIT <cPostEdit> ] [ UNIQUEID <cKey>] ] ;
 	[ ROWSTYLE <cRowStyle> ] ;
 	[ TOOLBAR <cToolbar> ] ;
 	[ OF <oForm> ] ;
@@ -197,9 +197,10 @@
 		[ FORMATTER <cFormatter> ] ;
 		[ <lSort: SORT> ];
 		[ CLASS <cClass> ] ;
-		[ <lEdit: EDIT> [ TYPE <cEdit_Type> ] [ WITH <cEdit_With> ] ] ;
+		[ CLASSEVENT <cClassEvent> ] ;
+		[ <lEdit: EDIT> ] [ [ TYPE <cEdit_Type> ] [ WITH <cEdit_With> ] [ <lEscape: ESCAPE> ] ] ;
 	=> ;						
-		<oCol> := <oBrw>:AddCol( <cId>, nil, [<cHeader>], [<nWidth>], [<.lSort.>], [<cAlign>], [<cFormatter>], [<cClass>], [<.lEdit.>], [<cEdit_Type>], [<cEdit_With>] )
+		<oCol> := <oBrw>:AddCol( <cId>, nil, [<cHeader>], [<nWidth>], [<.lSort.>], [<cAlign>], [<cFormatter>], [<cClass>], [<.lEdit.>], [<cEdit_Type>], [<cEdit_With>], [<.lEscape.>], [<cClassEvent>] )
 
 #xcommand INIT BROWSE <oBrw> [ JAVASCRIPT <cVar> ] [ DATA <aRows> ] ;
 	=> ;
@@ -207,5 +208,12 @@
 		
 		
 //#xcommand END BROWSE <oBrw> => <oBrw>:Activate()
+
+#xcommand DEFINE BROWSE DATASET <o> ALIAS <cAlias> => <o> := TBrwDataset():New( <cAlias> )
+#xcommand FIELD <cField> [ <lUpdate: UPDATE,UPDATED> ] [ VALID <bValid> ] [ <lNoEscape: NOESCAPE> ] OF <o> => <o>:Field( <cField>, [<.lUpdate.>], [<bValid>], [!<.lNoEscape.>]  )
+
+
+
+
 
 

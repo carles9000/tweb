@@ -100,7 +100,7 @@ METHOD Activate() CLASS TWebFolder
 	
 	cHtml += '<div class="col-' + ltrim(str(::nGrid)) + ' tweb_folder" >'	
 	
-		cHtml += '<ul class="nav nav-tabs border-0">'	
+		cHtml += '<ul id="' + ::cId + '" class="nav nav-tabs border-0">'	
 		
 			FOR nI := 1 To len( ::aPrompts )
 			

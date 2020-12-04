@@ -1,3 +1,11 @@
+/*	Input border default */
+
+.form-control:focus {
+    border-color: #28a745;
+    box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
+} 
+
+
 .form_title {		
 	border-radius: 0px !important;
 }
@@ -125,3 +133,11 @@ legend.scheduler-border {
 	padding-left:20px;
 	padding-right:20px;
 }
+
+/*	No Zoom in IOS	*/	
+/*
+@media screen and (-webkit-min-device-pixel-ratio: 0)
+select:focus, textarea:focus, input:focus {
+    font-size: auto;
+}
+*/	

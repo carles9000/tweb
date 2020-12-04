@@ -84,6 +84,7 @@ METHOD Activate() CLASS TWebButton
 		::cName := ::cId
 	ENDIF
 
+
 	cHtml += '<div class="col-' + ltrim(str(::nGrid)) 
 	cHtml += IF( ::oParent:lDessign, ' tweb_dessign', '')  
 	
@@ -106,7 +107,7 @@ METHOD Activate() CLASS TWebButton
 	
 	
 	
-	cHtml += '<button type="' + cType + '" class="btn ' + ::cClass + ' ' + cSize 
+	cHtml += '<button type="' + cType + '" class="btn ' + cSize 
 	
 	
 	if !empty( ::cClass )	

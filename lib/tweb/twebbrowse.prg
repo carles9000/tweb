@@ -9,7 +9,7 @@ CLASS TWebBrowse FROM TWebControl
 	DATA hCols						INIT {=>}
 	DATA lAdd 						INIT .F.
 	DATA lEdit						INIT .F.
-	DATA cKey						INIT ''
+	DATA cUniqueId					INIT ''
 	DATA cEditor					INIT ''
 	DATA aBtn						INIT {}
 	DATA lPrint						INIT .F.
@@ -43,7 +43,7 @@ CLASS TWebBrowse FROM TWebControl
 
 ENDCLASS 
 
-METHOD New( oParent, cId, nHeight, lSingleSelect, lMultiSelect, lClickSelect, lPrint, lExport, lSearch, lTools, cAction, cDblClick, lEdit, cKey, cEditor, cTitle, cPostEdit, cRowStyle, cToolbar ) CLASS TWebBrowse
+METHOD New( oParent, cId, nHeight, lSingleSelect, lMultiSelect, lClickSelect, lPrint, lExport, lSearch, lTools, cAction, cDblClick, lEdit, cUniqueId, cEditor, cTitle, cPostEdit, cRowStyle, cToolbar ) CLASS TWebBrowse
 
 	DEFAULT cId 			TO cId
 	DEFAULT nHeight			TO 400
@@ -57,7 +57,7 @@ METHOD New( oParent, cId, nHeight, lSingleSelect, lMultiSelect, lClickSelect, lP
 	DEFAULT cAction			TO ''
 	DEFAULT cDblClick		TO ''
 	DEFAULT lEdit			TO .F.
-	DEFAULT cKey			TO ''
+	DEFAULT cUniqueId		TO ''
 	DEFAULT cEditor			TO ''
 	DEFAULT cTitle			TO ''
 	DEFAULT cPostEdit		TO ''
@@ -77,7 +77,7 @@ METHOD New( oParent, cId, nHeight, lSingleSelect, lMultiSelect, lClickSelect, lP
 	::cAction 			:= cAction
 	::cDblClick			:= cDblClick
 	::lEdit				:= lEdit
-	::cKey				:= cKey
+	::cUniqueId			:= cUniqueId
 	::cEditor			:= cEditor
 	::cTitle 			:= cTitle
 	::cPostEdit 		:= cPostEdit
@@ -87,10 +87,12 @@ METHOD New( oParent, cId, nHeight, lSingleSelect, lMultiSelect, lClickSelect, lP
 	IF Valtype( oParent ) == 'O'	
 		oParent:AddControl( SELF )	
 	ENDIF
+	
+
 
 RETU SELF
 
-METHOD AddCol( cId, hCfg, cHead, nWidth, lSortable, cAlign, cFormatter, cClass, lEdit, cEdit_Type, cEdit_With ) CLASS TWebBrowse
+METHOD AddCol( cId, hCfg, cHead, nWidth, lSortable, cAlign, cFormatter, cClass, lEdit, cEdit_Type, cEdit_With, lEdit_Escape, cClass_Event ) CLASS TWebBrowse
 
 	LOCAL hDefCol	:= {=>}
 	
@@ -108,6 +110,8 @@ METHOD AddCol( cId, hCfg, cHead, nWidth, lSortable, cAlign, cFormatter, cClass, 
 		hDefCol[ 'edit' ]		:= HB_HGetDef( hCfg, 'edit'		, .f. ) 
 		hDefCol[ 'edit_type' ]	:= HB_HGetDef( hCfg, 'edit_type', 'C' ) 
 		hDefCol[ 'edit_with' ]	:= HB_HGetDef( hCfg, 'edit_with', '' ) 
+		hDefCol[ 'edit_escape' ]:= HB_HGetDef( hCfg, 'edit_escape', .f. ) 
+		hDefCol[ 'class_event' ]:= HB_HGetDef( hCfg, 'class_event', '' ) 
 	
 	ELSE
 	
@@ -120,6 +124,8 @@ METHOD AddCol( cId, hCfg, cHead, nWidth, lSortable, cAlign, cFormatter, cClass, 
 		DEFAULT lEdit			TO .F.
 		DEFAULT cEdit_Type		TO 'C'
 		DEFAULT cEdit_With		TO ''
+		DEFAULT lEdit_Escape	TO .f.
+		DEFAULT cClass_Event	TO ''
 	
 		hDefCol[ 'id' ] 		:= cId
 		hDefCol[ 'head' ] 		:= cHead
@@ -131,9 +137,10 @@ METHOD AddCol( cId, hCfg, cHead, nWidth, lSortable, cAlign, cFormatter, cClass, 
 		hDefCol[ 'edit' ]		:= lEdit
 		hDefCol[ 'edit_type' ]	:= upper( cEdit_Type )
 		hDefCol[ 'edit_with' ]	:= cEdit_With
+		hDefCol[ 'edit_escape' ]:= lEdit_Escape
+		hDefCol[ 'class_event' ]:= cClass_Event 
 	
 	ENDIF
-
 	
 	::hCols[ cId ] := hDefCol		
 
@@ -171,6 +178,9 @@ METHOD Activate() CLASS TWebBrowse
 		cClass += ' ' + ::cClass
 	ENDIF	
 	
+
+	
+	
 //					data-multiple-select-row="{{ IF( oThis:lMultiSelect, 'true',  'false') }}"
 //					data-single-select="{{ IF( oThis:lSingleSelect, 'true',  'false') }}"
 //					data-toggle="{{ oThis:cId }}" 
@@ -181,12 +191,10 @@ METHOD Activate() CLASS TWebBrowse
 		data-single-select = true , only one check, sino multiselect			
 	*/	
 
-
-	
 	BLOCKS ADDITIVE cHtml PARAMS oThis, cClass
 	
 			<div class="col-12" style="padding:0px;">		<!-- //	ULL !!! Padding a pelo !!!!			-->
-				<table id="{{ oThis:cId }}" class="{{ cClass }}"  
+				<table id="{{ oThis:cId }}" class="{{ cClass }}"  				
 					data-single-select="{{ IF( oThis:lSingleSelect, 'true',  'false') }}"
 					data-multiple-select-row="{{ IF( oThis:lMultiSelect, 'true',  'false') }}"
 					data-click-to-select="{{ IF( oThis:lClickSelect, 'true',  'false') }}"
@@ -200,21 +208,27 @@ METHOD Activate() CLASS TWebBrowse
 					data-show-fullscreen="{{ IF( oThis:lTools, 'true',  'false') }}"
 					data-show-columns="{{ IF( oThis:lTools, 'true',  'false') }}"
 					data-show-print="{{ IF( oThis:lPrint, 'true',  'false') }}"
-					data-show-export="{{ IF( oThis:lExport, 'true',  'false') }}"	
-					data-unique-id="id"	
-					data-row-style="{{ oThis:cRowStyle }}"										
-					data-toolbar="{{ '#' + oThis:cToolbar }}"					
-					>
+					data-show-export="{{ IF( oThis:lExport, 'true',  'false') }}"						
+					data-row-style="{{ oThis:cRowStyle }}"																			
+	ENDTEXT														
+					if !empty( ::cToolbar ) 					
+						cHtml += 'data-toolbar="#' + ::cToolbar + '" '
+					endif
+					
+					if !empty( ::cUniqueId ) 					
+						cHtml += 'data-unique-id="' + ::cUniqueId + '" '
+					endif
+	
+	BLOCKS ADDITIVE cHtml
+				> 	<!-- end table -->
 
 					<thead  class="thead-dark">
-						<tr>
-							
-							<!--<th data-field="_keyno" data-width="70" data-align="center">Id</th>-->
-							
+						<tr>																					
 	ENDTEXT														
 								IF ::lMultiSelect .OR. ::lSingleSelect
 								
-									cHtml += '<th data-field="state" data-checkbox="true" name="btSelectItem"></th>'									
+									cHtml += '<th data-field="_st" data-checkbox="true" name="btSelectItem"></th>'									
+									//cHtml += '<th data-field="$index" data-checkbox="true" name="btSelectItem"></th>'									
 								
 								ENDIF
 								
@@ -289,10 +303,20 @@ METHOD Activate() CLASS TWebBrowse
 													cHtml += 'data-formatter="TWebBrwFormatterDate_' + ::cId + '" '
 													
 							
-												endif												
+												endif		
+
+											case  hDef[ 'edit_type' ] == 'B'
+
+												//if ! empty( hDef[ 'edit_action' ] ) .and. 
+													//cHtml += 'data-events="TWebOperateEvents" '
+												//endif
 											
 										endcase
 									
+									endif
+									
+									if !empty( hDef[ 'class_event' ] )
+										cHtml += 'data-events="TWebOperateEvents" '
 									endif
 									
 									cHtml += 'data-align="' + hDef[ 'align' ] + '" '
@@ -357,12 +381,12 @@ METHOD Activate() CLASS TWebBrowse
 */		
 	
 	ENDIF	
-
+/*
 	cHtml += "<script>"
 	cHtml += " var _oBrw = new TWebBrowse( '" + ::cId + "', null, false );"
 	cHtml += " _oBrw.SetCfgCols( JSON.parse( '" + hb_jsonencode(::hCols) + "' ) );"
-
 	cHtml += "</script>"
+*/	
 	
 
 	cHtml += ::cInit
@@ -378,42 +402,48 @@ METHOD Init( cVarJS, aRows ) CLASS TWebBrowse
 
 	IF cVarJS == NIL
 		cVarJS	:= '_' + ::cId
-	ENDIF	
-
- 
+	ENDIF	 
 	
 	::cInit += '<script>'													+ CRLF
 
 	::cInit += 'var ' + cVarJS + ' = new TWebBrowse( "' + ::cId + '", null, false );'	+ CRLF			
+	::cInit += cVarJS + ".SetCfgCols( JSON.parse( '" + hb_jsonencode(::hCols) + "' ) );"
+
 	::cInit += '$(document).ready(function () {	'							+ CRLF
 	
-	
+		if !Empty( ::cUniqueId ) 				
+			::cInit += cVarJS + ".Set( 'uniqueid', '" + ::cUniqueId  + "'); "
+		endif	
 		
 		if !Empty( ::cTitle ) 	
-			::cInit += cVarJS + ".cTitle = '" + ::cTitle + "'; "
+			//::cInit += cVarJS + ".cTitle = '" + ::cTitle + "'; "
+			::cInit += cVarJS + ".Set( 'title', '" + ::cTitle + "'); "
+			
 		endif
 		
 		if !Empty( ::cPostEdit ) 	
-			::cInit += cVarJS + ".bPostEdit = '" + ::cPostEdit + "'; "
+			::cInit += cVarJS + ".Set( 'postedit', '" + ::cPostEdit + "'); "		
 		endif
 		
 
-		if !Empty( ::cAction ) 	
-			::cInit += cVarJS + ".bClick = '" + ::cAction + "'; "
+		if !Empty( ::cAction ) 				
+			::cInit += cVarJS + ".Set( 'click', '" + ::cAction + "'); "		
 		endif
 		
 		if ::lEdit 
-		
-			::cInit += cVarJS + ".lEdit = true;" 							+ CRLF
+
+			::cInit += cVarJS + ".Set( 'edit', true ); "					+ CRLF 
 			
-			if !Empty( ::cEditor )
-				::cInit += cVarJS + ".bEditor = " + ::cEditor + "; "		+ CRLF						
+			if !Empty( ::cEditor )				
+				::cInit += cVarJS + ".Set( 'editor', '" + ::cEditor + "'); "	+ CRLF 
 			endif
 		
 		else 
 		
+			::cInit += cVarJS + ".Set( 'edit', false ); "					+ CRLF 
+			
 			if !Empty( ::cDblClick ) 	
-				::cInit += cVarJS + ".bDblClick = " + ::cDblClick + "; "
+				::cInit += cVarJS + ".Set( 'dblclick', '" + ::cDblClick + "'); "
 			endif		
 		
 		endif		
@@ -432,3 +462,361 @@ METHOD Init( cVarJS, aRows ) CLASS TWebBrowse
 	::cInit += '</script>'													+ CRLF
 
 RETU NIL 
+
+//	-------------------------------------------------------------------------------
+
+//	-----------------------------------------------------------------------------
+
+CLASS TBrwDataset
+
+	DATA cAlias						INIT ''
+	DATA aError						INIT {}
+	DATA aFields					INIT {}
+	DATA bBeforeSave				INIT NIL 
+
+	METHOD New( cAlias ) 					CONSTRUCTOR
+	METHOD Row()
+	METHOD Field( cField, cType )
+	METHOD Save( aRows )
+	METHOD SaveRow( aRows )	
+	METHOD ValidRow( hRow )	
+	METHOD ReadRow( hRow )
+	METHOD SetError( cError )	
+	METHOD GetError()				INLINE ::aError 
+	METHOD GetErrorString()	
+	
+ENDCLASS
+
+METHOD New( cAlias ) CLASS TBrwDataset 
+
+	DEFAULT cAlias TO ''
+
+	::cAlias := cAlias 		
+	
+RETU Self 
+
+METHOD Field( cField, lUpdate, bValidate, lEscape ) CLASS TBrwDataset 
+
+	local oItem 	:= {=>}
+	
+	
+	DEFAULT lUpdate TO .F.
+	DEFAULT lEscape TO .T.
+	
+	oItem[ 'field' ] 		:= cField 	
+	oItem[ 'field_pos' ] 	:= (::cAlias)->( FIELDPOS( cField ) )
+	oItem[ 'field_type' ] 	:= ValType(FieldGet( (::cAlias)->( FIELDPOS( cField ) )))
+	oItem[ 'update' ] 		:= lUpdate
+	oItem[ 'validate' ] 	:= bValidate
+	oItem[ 'escape' ] 		:= lEscape
+	
+	
+	Aadd( ::aFields, oItem )
+
+RETU nil
+
+METHOD Row() CLASS TBrwDataset 
+
+	local hRow := {=>}
+	local nLen := len( ::aFields )
+	local nI, cField, cField_Type,  uValue
+	local cFormat := Set( _SET_DATEFORMAT, 'YYYY-MM-DD' )
+
+	
+	hRow[ '_recno' ] := (::cAlias)->( Recno() )
+	
+	for nI := 1 to nLen  
+	
+		cField 		 	:= ::aFields[nI][ 'field' ]
+		cField_Type 	:= ::aFields[nI][ 'field_type' ]		
+		
+		do case
+			//case cField_Type == 'C'  ; uValue := alltrim((::cAlias)->( FieldGet( ::aFields[nI][ 'field_pos' ] ) ))
+			case cField_Type == 'C'  
+				uValue := alltrim((::cAlias)->( FieldGet( ::aFields[nI][ 'field_pos' ] ) )) 
+				
+				if ::aFields[nI][ 'escape' ]
+					uValue := UHtmlEncode( uValue )
+				endif
+				
+			case cField_Type == 'D'  ; uValue := DToC( (::cAlias)->( FieldGet( ::aFields[nI][ 'field_pos' ] ) ) )
+			otherwise
+				uValue := (::cAlias)->( FieldGet( ::aFields[nI][ 'field_pos' ] ) )
+		endcase
+		
+		hRow[ cField ] := uValue 
+	
+	next
+	
+	Set( _SET_DATEFORMAT, cFormat )
+
+RETU hRow 
+
+METHOD Save( aRows ) CLASS TBrwDataset 
+
+	local nRows 		:= len( aRows )
+	local nUpdated 		:= 0
+	local aRowsUpdated 	:= {}
+	local cFormat 		:= Set( _SET_DATEFORMAT, 'YYYY-MM-DD' )
+	local nI, cAction, hRow, lValid, lUpdated, cId, nRecno  
+
+	for nI := 1 to nRows 
+
+		cAction := aRows[ nI ][ 'action' ]
+		cId 	:= aRows[ nI ][ 'id' ]
+		hRow 	:= aRows[ nI ][ 'row' ]
+		nRecno  := 0
+		
+		lValid		:= .T.
+
+		if valtype( ::bBeforeSave ) == 'B' 	
+			lValid := eval( ::bBeforeSave, Self, hRow )
+		endif
+		
+		if lValid 
+		
+			lUpdated := .F. 
+		
+			do case
+			
+				case cAction == 'A' 
+				
+					::ReadRow( hRow )
+				
+					if ::ValidRow( hRow ) 
+				
+						(::cAlias)->( DbAppend() )
+					
+						lUpdated := ::SaveRow( hRow )
+						
+						if lUpdated 
+							nRecno := (::cAlias)->( Recno() )
+						endif
+						
+					endif
+					
+				case cAction == 'U'
+				
+					::ReadRow( hRow )
+				
+					if ::ValidRow( hRow ) 				
+				
+						(::cAlias)->( DbGoTo( hRow[ '_recno' ] ) )
+						
+						if (::cAlias)->( DbRlock() )
+							lUpdated := ::SaveRow( hRow )
+							
+							if lUpdated 
+								nRecno := (::cAlias)->( Recno() )
+							endif
+							
+						endif
+						
+					endif 
+					
+				case cAction == 'D'
+				
+					(::cAlias)->( DbGoTo( hRow[ '_recno' ] ) )
+					
+					if (::cAlias)->( DbRlock() )				
+						(::cAlias)->( DbDelete() )				
+						lUpdated := .T.				
+					endif															
+			
+			endcase 
+			
+			if lUpdated
+				nUpdated++
+				Aadd( aRowsUpdated, { 'id' => cId, 'action' => cAction, 'value' => nRecno } )
+			endif
+
+		endif 
+	
+	next
+	
+	Set( _SET_DATEFORMAT, cFormat )
+
+RETU aRowsUpdated
+
+METHOD SaveRow( hRow ) CLASS TBrwDataset 
+
+	local nLen := len( ::aFields )
+	local hValues 	:= {=>}
+	local lValid 	:= .t.
+	local nI, cField, cField_Type, nField_Pos, uValue, lUpdate, bValid
+	LOCAL bErrorHandler, bLastHandler 
+	
+	//	Recojemos valores
+	
+	for nI := 1 to nLen  
+	
+		cField 			:= ::aFields[nI][ 'field' ]
+		cField_Type 	:= ::aFields[nI][ 'field_type' ]
+		nField_Pos 		:= ::aFields[nI][ 'field_pos' ]
+		lUpdate 		:= ::aFields[nI][ 'update' ]						
+
+		if lUpdate .and. HB_HHasKey( hRow, cField )
+			
+			do case 
+				case cField_Type == 'C'
+					::aFields[nI][ 'value' ] := hRow[ cField ] 
+				case cField_Type == 'D'
+					if valtype( hRow[ cField ] ) == 'C'															
+						::aFields[nI][ 'value' ] := CToD( hRow[ cField ] )
+					else
+						::aFields[nI][ 'value' ] := CToD( '  -  -  ' )						
+					endif				
+				case cField_Type == 'N'
+					if valtype( hRow[ cField ] ) != 'N' 
+						::aFields[nI][ 'value' ] := Val(hRow[ cField ])
+					else
+						::aFields[nI][ 'value' ] := hRow[ cField ]										
+					endif
+				otherwise				
+					::aFields[nI][ 'value' ] :=  hRow[ cField ]
+			endcase			
+			
+		endif
+		
+	next
+	
+	// 	Validate Data 
+	
+		lValid	:= ::ValidRow( hRow )
+			
+	
+	// Save data
+	
+	if lValid 
+	
+		bErrorHandler 	:= {|oError| DoBreak(oError) }  
+		bLastHandler 	:= ErrorBlock(bErrorHandler)
+	
+		for nI := 1 to nLen  
+		
+			cField 			:= ::aFields[nI][ 'field' ]		
+			nField_Pos 		:= ::aFields[nI][ 'field_pos' ]
+			lUpdate 		:= ::aFields[nI][ 'update' ]						
+
+			if lUpdate .and. HB_HHasKey( hRow, cField )
+			
+				(::cAlias)->( FieldPut( nField_Pos, ::aFields[nI][ 'value' ] ) )					
+				
+			endif
+			
+		next
+
+		ErrorBlock(bLastHandler)		
+	
+	endif	
+
+RETU lValid
+
+METHOD ReadRow( hRow ) CLASS TBrwDataset 
+
+	local nLen := len( ::aFields )
+	local nI, cField, cField_Type, nField_Pos, lUpdate	
+	
+	//	Recojemos valores
+	
+	for nI := 1 to nLen  
+	
+		cField 			:= ::aFields[nI][ 'field' ]
+		cField_Type 	:= ::aFields[nI][ 'field_type' ]
+		nField_Pos 		:= ::aFields[nI][ 'field_pos' ]
+		lUpdate 		:= ::aFields[nI][ 'update' ]						
+
+		if lUpdate .and. HB_HHasKey( hRow, cField )
+			
+			do case 
+				case cField_Type == 'C'
+					::aFields[nI][ 'value' ] := hRow[ cField ] 
+				case cField_Type == 'D'
+					if valtype( hRow[ cField ] ) == 'C'															
+						::aFields[nI][ 'value' ] := CToD( hRow[ cField ] )
+					else
+						::aFields[nI][ 'value' ] := CToD( '  -  -  ' )						
+					endif				
+				case cField_Type == 'N'
+					if valtype( hRow[ cField ] ) != 'N' 
+						::aFields[nI][ 'value' ] := Val(hRow[ cField ])
+					else
+						::aFields[nI][ 'value' ] := hRow[ cField ]										
+					endif
+				otherwise				
+					::aFields[nI][ 'value' ] :=  hRow[ cField ]
+			endcase			
+			
+		endif
+		
+	next
+
+RETU nil
+
+METHOD ValidRow( hRow ) CLASS TBrwDataset 
+
+	local nLen 		:= len( ::aFields )
+	local lValid 	:= .t.
+	local nI, cField, nField_Pos, lUpdate, bValid
+	
+	// Validate Data 
+	
+	for nI := 1 to nLen  
+	
+		cField 			:= ::aFields[nI][ 'field' ]		
+		nField_Pos 		:= ::aFields[nI][ 'field_pos' ]
+		lUpdate 		:= ::aFields[nI][ 'update' ]				
+		bValid 			:= ::aFields[nI][ 'validate' ]
+
+		if lUpdate .and. valtype( bValid ) == 'B'  .and. HB_HHasKey( hRow, cField ) 
+		
+			if ! eval( bValid, Self, ::aFields[nI][ 'value' ], hRow )
+				lValid := .f.
+			endif
+			
+		endif
+		
+	next				
+
+RETU lValid
+
+METHOD SetError( cError ) CLASS TBrwDataset 
+
+	Aadd( ::aError, cError )
+
+RETU NIL
+
+METHOD GetErrorString() CLASS TBrwDataset 
+
+	local cError  := ''
+	local nI
+	
+	for nI := 1 to len( ::aError )
+	
+		cError += valtochar(::aError[nI]) + '<br>' 
+		
+	next
+
+RETU cError
+
+static function DoBreak(oError) 
+
+	local cError := '<pre>'
+	local n
+	
+	cError += '<b>Operation:</b> ' + oError:Operation + '<br>'
+	cError += '<b>Description:</b> ' + oError:description + '<br>'
+	cError += '<b>System:</b> ' + oError:subsystem + '/' + valtochar( oError:subcode) + '<br>'
+	cError += '<b>Args:</b><br>'
+	
+	for n = 1 to len(oError:args)
+		cError += Replicate( '&nbsp;', 5 ) + ltrim(str(n)) + ' => ' + valtochar( oError:args[n] ) + '<br>'
+	next
+
+	cError += '</pre>'
+	
+	?? cError
+	
+	Break
+	
+retu nil

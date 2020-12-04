@@ -210,9 +210,7 @@ METHOD RowGroup( cVAlign, cHAlign, cClass ) CLASS TWebForm
 		case cHAlign == 'center'	;	cHAlign := 'justify-content-center'
 		case cHAlign == 'right' 	;	cHAlign := 'justify-content-end'
 	endcase	
-	
 
-	//::Html( '<div class="form-group row ' + cVAlign + ' ' + cHAlign + '" ' + IF( ::lDessign, 'style="border:1px solid red;"', '' ) + ' >' )
 
 	cHtml += '<div class="form-group row ' + cVAlign + ' ' + cHAlign 
 	

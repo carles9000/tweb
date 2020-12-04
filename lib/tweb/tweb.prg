@@ -9,7 +9,7 @@
 static __TWebGlobal 	
 
 
-#define TWEB_VERSION 			'TWeb 1.0g'
+#define TWEB_VERSION 			'TWeb 1.2'
 #define TWEB_PATH 				'lib/tweb/'
 #define CRLF 					Chr(13)+Chr(10)
 
@@ -66,7 +66,7 @@ function LoadTWebTables( cUrl )
 	endif
 
 	cHtml := TWebLibs( cUrl )
-	cHtml += TWebLibsTables()	
+	cHtml += TWebLibsTables( cUrl )	
 	
 retu cHtml
 
@@ -87,16 +87,18 @@ return '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.m
 		'<link href="'  + cUrl + 'tweb.css' + '" rel="stylesheet">' + CRLF + ;		
 		'<script src="' + cUrl + 'tweb.js' + '"></script>' + CRLF  
 		
-function TWebLibsTables() 	
+function TWebLibsTables( cUrl ) 	
 
+// Casca Delete	'<script src="https://unpkg.com/bootstrap-table@1.15.5/dist/bootstrap-table.js"></script>' + CRLF + ;
+// OK -> '<script src="' + cUrl + 'bootstrap-table.test/bootstrap-table.js"></script>' + CRLF + ;
 return '<link href="https://unpkg.com/bootstrap-table@1.15.5/dist/bootstrap-table.min.css" rel="stylesheet">' + CRLF + ;
 		'<script src="https://unpkg.com/bootstrap-table@1.15.5/dist/bootstrap-table.js"></script>' + CRLF + ;
 		'<script src="https://unpkg.com/bootstrap-table@1.15.5/dist/extensions/print/bootstrap-table-print.min.js"></script>' + CRLF + ;
 		'<script src="https://unpkg.com/tableexport.jquery.plugin/tableExport.min.js"></script>' + CRLF + ;
 		'<script src="https://unpkg.com/bootstrap-table@1.15.5/dist/extensions/export/bootstrap-table-export.min.js"></script>' + CRLF + ;
+		'<script src="https://unpkg.com/bootstrap-table@1.18.0/dist/extensions/toolbar/bootstrap-table-toolbar.min.js"></script>' + CRLF + ;
 		'<script src="https://unpkg.com/bootstrap-table@1.15.5/dist/bootstrap-table-locale-all.min.js"></script>' + CRLF 
 
-		//'<script src="https://unpkg.com/bootstrap-table@1.18.0/dist/extensions/toolbar/bootstrap-table-toolbar.min.js"></script>' + CRLF + ;
 
 function TWebCss( cPathPluggin ) 
 
