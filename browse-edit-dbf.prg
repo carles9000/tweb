@@ -51,23 +51,7 @@ function main()
 					padding: 5px;
 					border-bottom: 1px solid black;
 					border-right: 1px solid black;				
-				}
-	
-/*
-.form-control:focus {
-  border-color: #FF0000;
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0, 0.6);
-}	
-*/
-.form-control:focus {
-    border-color: #28a745;
-    box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
-} 
-
-@media screen and (-webkit-min-device-pixel-ratio: 0)
-select:focus, textarea:focus, input:focus {
-    font-size: auto;
-}				
+				}				
 				
 			</style>
 		
@@ -122,15 +106,9 @@ select:focus, textarea:focus, input:focus {
 		
 			<script>
 
-				var oBrw = new TWebBrowse( 'ringo' )
-					//oBrw.lEdit 	= true
-					//oBrw.bClick = 'MyChange2'
-					//oBrw.bPostEdit = 'TestPostEdit'
+				var oBrw = new TWebBrowse( 'ringo' )				
 					
-					
-				function Load() {
-					
-					//oWnd = MsgLoading( 'Cargando Dbf...') 									
+				function Load() {						
 					
 					oBrw.Loading( true )					
 
@@ -144,8 +122,7 @@ select:focus, textarea:focus, input:focus {
 				
 					console.log( dat )
 			
-					oBrw.Loading( false )
-					//oWnd.modal('hide');									
+					oBrw.Loading( false )				
 
 					oBrw.SetData( dat.rows ) 						
 				}
@@ -237,7 +214,6 @@ select:focus, textarea:focus, input:focus {
 				
 					
 					if ( typeof value == 'string' && value.substring(0, 1) == '$' ) {
-						//return '<i class="far fa-plus-square"></i>'
 						return '<i class="far fa-edit"></i>'
 						//return '<img src="images/ " />'
 					} else
