@@ -5,16 +5,6 @@
 function main()
 
     local o, oCol, oBrw
-	//local aRows 	:= LoadData()	
-	local hCars 	:= {=>}
-
-	hCars[ ''  ] := '' 
-	hCars[ 'V' ] := 'Volvo' 
-	hCars[ 'R' ] := 'Renault'	
-	hCars[ 'F' ] := 'Ferrari'	
-	hCars[ 'S' ] := 'Seat'	
-	hCars[ 'T' ] := 'Toyota' 	
-	hCars[ 'C' ] := 'Citroen'		
 
 	DEFINE WEB oWeb TITLE 'CRUD Browse - Edit Dbf' TABLES INIT
 	
@@ -68,7 +58,7 @@ function main()
 		DIV o ID 'bar' CLASS 'btn-group'
 			BUTTON LABEL ' New' 	ICON '<i class="far fa-plus-square"></i>' 		ACTION 'Add()' 			CLASS 'btn-secondary mybtnbar' GRID 0 OF o
 			BUTTON LABEL ' Edit' 	ICON '<i class="far fa-edit"></i>' 				ACTION 'Edit()' 		CLASS 'btn-secondary mybtnbar' GRID 0 OF o
-			BUTTON LABEL ' Delete' ICON '<i class="far fa-trash-alt"></i>' 		ACTION 'Delete()' 		CLASS 'btn-secondary mybtnbar' GRID 0 OF o
+			BUTTON LABEL ' Delete' 	ICON '<i class="far fa-trash-alt"></i>' 		ACTION 'Delete()' 		CLASS 'btn-secondary mybtnbar' GRID 0 OF o
 			BUTTON LABEL ' Save' 	ICON '<i class="far fa-save"></i>' 				ACTION 'Save()' 		CLASS 'btn-secondary mybtnbar' GRID 0 OF o
 		END o 
 
@@ -82,6 +72,7 @@ function main()
 			//oBrw:lDark = .t.
 			//oBrw:lStripped := .t.
 			oBrw:cLocale := 'es-ES'
+			oBrw:lVirtualScroll := .t.
 
 			ADD oCol TO oBrw ID '_recno'	HEADER 'Recno' 		ALIGN 'center' SORT WIDTH 80 FORMATTER 'MyId' CLASS 'MyCssId'   			
 			ADD oCol TO oBrw ID 'first'	    HEADER 'First' 		EDIT SORT
@@ -95,11 +86,11 @@ function main()
 		INIT BROWSE oBrw // DATA aRows	
 		
 		ROW o 	TOP '50px' CLASS 'mycustombar' 
-			BUTTON LABEL 'Changes' ACTION 'Changes()'  GRID 0 CLASS "btn btn-secondary mybtnbar" OF o			
-			BUTTON LABEL 'Reset Changes' ACTION 'ResetChanges()'  GRID 0 CLASS "btn btn-secondary mybtnbar" OF o			
-			BUTTON LABEL 'GetRow' ACTION 'GetRow()'  GRID 0 CLASS "btn btn-secondary mybtnbar" OF o			
-			BUTTON LABEL 'Insert My Row' ACTION 'InsMyRow()'  GRID 0 CLASS "btn btn-secondary mybtnbar" OF o			
-			BUTTON LABEL 'Reset' ACTION 'Reset()'  GRID 0 CLASS "btn btn-secondary mybtnbar"  OF o			
+			BUTTON LABEL 'Changes' 			ACTION 'Changes()'  	GRID 0 CLASS "btn btn-secondary mybtnbar" OF o			
+			BUTTON LABEL 'Reset Changes' 	ACTION 'ResetChanges()' GRID 0 CLASS "btn btn-secondary mybtnbar" OF o			
+			BUTTON LABEL 'GetRow' 			ACTION 'GetRow()'  		GRID 0 CLASS "btn btn-secondary mybtnbar" OF o			
+			BUTTON LABEL 'Insert My Row' 	ACTION 'InsMyRow()'  	GRID 0 CLASS "btn btn-secondary mybtnbar" OF o			
+			BUTTON LABEL 'Reset' 			ACTION 'Reset()'  		GRID 0 CLASS "btn btn-secondary mybtnbar"  OF o			
 		END o			
 		
 		HTML o 
@@ -249,5 +240,3 @@ function main()
 	END FORM o	
 	
 retu nil
-
-{% LoadFile( 'loaddata.prg' ) %} 

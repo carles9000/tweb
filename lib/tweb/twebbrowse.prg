@@ -18,6 +18,7 @@ CLASS TWebBrowse FROM TWebControl
 	DATA lMultiSelect				INIT .F.
 	DATA lSingleSelect				INIT .F.
 	DATA lClickSelect				INIT .F.
+	DATA lVirtualScroll				INIT .F.
 	DATA lTools						INIT .F.
 	DATA lSmall						INIT .T.
 	DATA lStripped					INIT .F.
@@ -210,7 +211,10 @@ METHOD Activate() CLASS TWebBrowse
 					data-show-print="{{ IF( oThis:lPrint, 'true',  'false') }}"
 					data-show-export="{{ IF( oThis:lExport, 'true',  'false') }}"						
 					data-row-style="{{ oThis:cRowStyle }}"																			
-	ENDTEXT														
+					data-virtual-scroll="{{ IF( oThis:lVirtualScroll, 'true',  'false') }}"																			
+	ENDTEXT					
+
+			
 					if !empty( ::cToolbar ) 					
 						cHtml += 'data-toolbar="#' + ::cToolbar + '" '
 					endif
