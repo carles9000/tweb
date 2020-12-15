@@ -41,7 +41,7 @@
 
 	
 #xcommand CAPTION <oForm> LABEL <cLabel> [ GRID <nGrid> ] => <oForm>:Caption( <cLabel>, <nGrid> )
-#xcommand SEPARATOR <oForm> LABEL <cLabel> => <oForm>:Separator( <cLabel> )
+#xcommand SEPARATOR <oForm>  [ ID <cId> ] LABEL <cLabel> [ CLASS <cClass> ] => <oForm>:Separator( [<cId>], <cLabel>, [<cClass>] )
 #xcommand SMALL <oForm> [ ID <cId> ] [ LABEL <cLabel> ] [ GRID <nGrid> ] => <oForm>:Small( <cId>, <cLabel>, <nGrid> )
 
 #xcommand ROW <oForm> [ ID <cId> ] [ VALIGN <cVAlign> ] [ HALIGN <cHAlign> ] [ CLASS <cClass> ] [ TOP <cTop> ] [ BOTTOM <cBottom>] ;

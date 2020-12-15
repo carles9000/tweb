@@ -10,8 +10,10 @@ function main()
 	
     DEFINE FORM o 
 		o:lDessign 	:= .f.
+		o:cSizing   := 'sm'
 			
 		HTML o INLINE '<h3>Test Get Font</h3><hr>'	
+
 		
 		DEFINE FONT NAME 'MyFontSay' COLOR 'blue' BOLD SIZE 18 OF o
 		DEFINE FONT NAME 'MyFontGet' COLOR 'green' ITALIC SIZE 18 OF o

@@ -282,9 +282,27 @@ METHOD Caption( cTitle, nGrid ) CLASS TWebForm
 RETU NIL
 
 
-METHOD Separator( cTitle ) CLASS TWebForm
+METHOD Separator( cId , cTitle, cClass ) CLASS TWebForm
 
-	LOCAL cHtml := '<div class="col-12 form_separator"' + IF( ::lDessign, 'style="border:1px solid blue;"', '' ) + '>'
+	LOCAL cHtml 
+	
+	DEFAULT cId TO ''
+	DEFAULT cClass TO ''
+	
+	cHtml := '<div '
+	
+	if !empty( cId )	
+		cHtml += ' id="' + cId + '" ' 
+	endif
+	
+	cHtml += 'class="col-12 form_separator '
+	
+	if !empty( cClass)
+		cHtml += cClass 
+	endif
+	
+	cHtml += '" ' + IF( ::lDessign, 'style="border:1px solid blue;"', '' ) + '>'
+	
 	
 	DEFAULT cTitle TO ''
 	
