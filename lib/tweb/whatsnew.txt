@@ -1,3 +1,7 @@
+19/12/2020
+==========
+Enchanced: TWebBrwSelect() has enchanced. See example brwselect2.prg
+
 07/12/2020
 ==========
 Enchanced: Add virtual-scroll. brwfast.prg 
