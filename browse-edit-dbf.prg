@@ -71,8 +71,8 @@ function main()
 			
 			//oBrw:lDark = .t.
 			//oBrw:lStripped := .t.
-			oBrw:cLocale := 'es-ES'
 			oBrw:lVirtualScroll := .t.
+			oBrw:cLocale := 'es-ES'
 
 			ADD oCol TO oBrw ID '_recno'	HEADER 'Recno' 		ALIGN 'center' SORT WIDTH 80 FORMATTER 'MyId' CLASS 'MyCssId'   			
 			ADD oCol TO oBrw ID 'first'	    HEADER 'First' 		EDIT SORT
@@ -90,7 +90,7 @@ function main()
 			BUTTON LABEL 'Reset Changes' 	ACTION 'ResetChanges()' GRID 0 CLASS "btn btn-secondary mybtnbar" OF o			
 			BUTTON LABEL 'GetRow' 			ACTION 'GetRow()'  		GRID 0 CLASS "btn btn-secondary mybtnbar" OF o			
 			BUTTON LABEL 'Insert My Row' 	ACTION 'InsMyRow()'  	GRID 0 CLASS "btn btn-secondary mybtnbar" OF o			
-			BUTTON LABEL 'Reset' 			ACTION 'Reset()'  		GRID 0 CLASS "btn btn-secondary mybtnbar"  OF o			
+			BUTTON LABEL 'Reset' 			ACTION 'Reset()'  		GRID 0 CLASS "btn btn-secondary mybtnbar" OF o			
 		END o			
 		
 		HTML o 
@@ -201,8 +201,7 @@ function main()
 					*/
 				}	
 
-				function MyId( value ) {									
-				
+				function MyId( value ) {													
 					
 					if ( typeof value == 'string' && value.substring(0, 1) == '$' ) {
 						return '<i class="far fa-edit"></i>'
@@ -225,11 +224,6 @@ function main()
 						console.log( 'Rows Updated', rows )
 						MsgNotify( 'Row modified, but not saved !' )
 					}									
-				}
-
-				function MyEscape( value ) {
-				
-					return value
 				}
 		
 			</script>

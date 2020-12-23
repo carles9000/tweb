@@ -473,20 +473,21 @@ RETU NIL
 
 CLASS TBrwDataset
 
-	DATA cAlias						INIT ''
-	DATA aError						INIT {}
-	DATA aFields					INIT {}
-	DATA bBeforeSave				INIT NIL 
-
-	METHOD New( cAlias ) 					CONSTRUCTOR
-	METHOD Row()
-	METHOD Field( cField, cType )
-	METHOD Save( aRows )
-	METHOD SaveRow( aRows )	
-	METHOD ValidRow( hRow )	
-	METHOD ReadRow( hRow )
-	METHOD SetError( cError )	
-	METHOD GetError()				INLINE ::aError 
+	DATA cAlias							INIT ''
+	DATA aError							INIT {}
+	DATA aFields						INIT {}
+	DATA bBeforeSave					INIT NIL 
+	
+	METHOD New( cAlias ) 				CONSTRUCTOR
+	METHOD Alias()						INLINE ::cAlias
+	METHOD Row()	
+	METHOD Field( cField, cType )	
+	METHOD Save( aRows )	
+	METHOD SaveRow( aRows )		
+	METHOD ValidRow( hRow )		
+	METHOD ReadRow( hRow )	
+	METHOD SetError( cError )		
+	METHOD GetError()					INLINE ::aError 
 	METHOD GetErrorString()	
 	
 ENDCLASS

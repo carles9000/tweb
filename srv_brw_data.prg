@@ -5,7 +5,7 @@
 
 function main()
 
-	local hParam 		:= GetMsgServer()	
+	local hParam := GetMsgServer()	
 
 	do case
 	
@@ -24,70 +24,70 @@ retu NIL
 
 function LoadData() 
 
+	local oDataset		:= Open()
+	local cAlias 		:= oDataset:Alias()
 	local aRows     	:= {}
-	local cDbf			:= PATH_DATA + 'test.dbf'
-	local cAlias, hResponse 		
-	local o
+	local hResponse 	
 
-	USE (cDbf) SHARED NEW VIA 'DBFCDX'
-	cAlias := Alias()
+	//	Process data...
 	
-	o := MyDataset( cAlias )
+		WHILE (cAlias)->( !Eof() )
+		
+			Aadd( aRows, oDataset:Row() )
+		
+			(cAlias)->( DbSkip() )
+		END		
 	
-	SET DATE FORMAT TO 'YYYY-MM-DD'
-	SET DELETED ON
+	//	Response...
 	
-	WHILE (cAlias)->( !Eof() )
-	
-		Aadd( aRows, o:Row() )
-	
-		(cAlias)->( DbSkip() )
-	END
-	
-	(cAlias)->( DbCloseArea() )
-	
-	AP_SetContentType( "application/json" )
-	
-	hResponse := { 'rows' => aRows, 'len' => len( aRows) }
-	
-	?? hb_jsonEncode( hResponse ) 
+		AP_SetContentType( "application/json" )
+		
+		hResponse := { 'rows' => aRows }
+		
+		?? hb_jsonEncode( hResponse ) 
 
 retu nil 
 
 function SaveData( aData ) 
 
-	local cDbf			:= PATH_DATA + 'test.dbf'	
-	local nRows 		:= len( aData )
-	local nI, cAction, hRow 
-	local cAlias, hResponse 
-	local o, nUpdated := 0
-	local aUpdated := 0
+	local oDataset		:= Open()
+	local nUpdated 		:= 0
+	local aUpdated 		:= 0
+	local hResponse 
 	
+	//	Process data...	
+	
+		aUpdated := oDataset:Save( aData )
+		nUpdated := len( aUpdated )	
+	
+	//	Response...	
+
+		AP_SetContentType( "application/json" )	
+		
+		hResponse := { 'success' => .T., 'updated' => nUpdated, 'rows_updated' => aUpdated, 'error' => oDataset:GetError(), 'errortxt' => oDataset:GetErrorString() }
+		
+		?? hb_jsonEncode( hResponse ) 	
+
+retu nil
+
+function Open() 
+
+	local cDbf			:= PATH_DATA + 'test.dbf'	
+	local oDataset
 
 	USE (cDbf) SHARED NEW VIA 'DBFCDX'
 	cAlias := Alias()
 	
 	SET DATE FORMAT TO 'YYYY-MM-DD'
 	SET DELETED ON	
-
-	o := MyDataset( cAlias )
 	
-	aUpdated := o:Save( aData )
-	nUpdated := len( aUpdated )
+	oDataset := MyDataset( cAlias )
 	
-	//(cAlias)->( DbCommit() )
-	//(cAlias)->( DbCloseArea() )
-
-	AP_SetContentType( "application/json" )	
-	
-	hResponse := { 'success' => .T., 'updated' => nUpdated, 'rows_updated' => aUpdated, 'error' => o:GetError(), 'errortxt' => o:GetErrorString() }
-	
-	?? hb_jsonEncode( hResponse ) 	
-
-retu nil
+retu oDataset
 
 
-function MyDataset( cAlias, cDbf ) 
+
+function MyDataset( cAlias ) 
 
 	local o 
 	
@@ -102,13 +102,13 @@ function MyDataset( cAlias, cDbf )
 		FIELD 'hiredate'  	UPDATE 	OF o
 		FIELD 'married'  	UPDATE 	OF o
 		FIELD 'age'    		UPDATE 	VALID {|o, uValue, hRow| MaxAge( o, uValue, hRow ) } OF o
-		//FIELD 'salary'  		OF o
 		FIELD 'notes'  		UPDATE	NOESCAPE OF o	
+		//FIELD 'salary'  		OF o		//	we can't use this field. Top secret ! 
 	
 	
-//	o:bBeforeSave := {|cAlias, uValue, hRow| MaxAge( cAlias, uValue, hRow ) }
+	//	o:bBeforeSave := {|cAlias, uValue, hRow| MaxAge( cAlias, uValue, hRow ) }
 	
-	//o:Field( 'virtual', nil, {|cAlias, row| Virtual(cAlias, row) } )
+	//	o:Field( 'virtual', nil, {|cAlias, row| Virtual(cAlias, row) } )
 	
 retu o
 
@@ -122,7 +122,7 @@ function MaxAge( o, uValue, hRow )
 		//o:SetError( { 'recno' => hRow['_recno'], 'msg' => '<b>Age</b> Value out of range: ' + valtochar( uValue ) }  )
 	endif	
 
-return lValid
+retu  lValid
 
 function NoPPP( o, uValue, hRow) 
 
@@ -134,4 +134,4 @@ function NoPPP( o, uValue, hRow)
 		lValid := .f.
 	endif	
 	
-return lValid
+retu  lValid
