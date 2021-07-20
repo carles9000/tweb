@@ -19,7 +19,7 @@ function main()
 		
 			GET ID 'myid' LABEL 'Id.' VALUE '' COL 6 OF oForm
 			
-		END oForm		
+		ENDROW oForm		
 	
 		HTML oForm
 		

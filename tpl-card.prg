@@ -21,7 +21,7 @@ function main()
 						 'name' => 'John Kocinsky',;
 						 'photo' => 'images/user.jpg' }
 				
-		END o
+		ENDROW o
 
 	END FORM o	
 	

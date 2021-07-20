@@ -17,18 +17,18 @@ function main()
 		ROWGROUP o
 			SAY LABEL 'Default' OF o
 			GETNUMBER ID 'qty' VALUE '123' OF o		
-		END o	
+		ENDROW o	
 		
 		ROWGROUP o
 		
 			SAY VALUE 'Test ONCHANGE' OF o
 			GETNUMBER ID 'qty2' VALUE '123' ONCHANGE 'Notify()' OF o		
-		END o
+		ENDROW o
 
 		ROWGROUP o
 			SAY LABEL 'Test FONT' OF o
 			GETNUMBER ID 'qty3' VALUE '123' FONT 'MyFontGet' OF o		
-		END o		
+		ENDROW o		
 
 		HTML o
 			<script>

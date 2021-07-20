@@ -16,7 +16,7 @@ function main()
         
             GET ID 'myid' VALUE '' GRID 6 LABEL 'Id.' ONCHANGE 'MyValid()' OF o
         
-        END o		
+        ENDROW o		
 		
 		HTML o
 			<script>

@@ -20,19 +20,19 @@ function main()
             SEPARATOR o LABEL 'Align top'
             SELECT oSelect  LABEL 'Cars' PROMPT aTxt VALUES aKey  GRID 6  OF o
             SELECT oSelect               PROMPT aTxt VALUES aKey  GRID 6  OF o            
-        END o
+        ENDROW o
 		
         ROWGROUP o VALIGN 'center'
             SEPARATOR o LABEL 'Align center'
             SELECT oSelect  LABEL 'Cars' PROMPT aTxt VALUES aKey  GRID 6  OF o
             SELECT oSelect               PROMPT aTxt VALUES aKey  GRID 6  OF o             
-        END o		
+        ENDROW o		
 		
         ROWGROUP o VALIGN 'bottom'
             SEPARATOR o LABEL 'Test bottom'
             SELECT oSelect  LABEL 'Cars' PROMPT aTxt VALUES aKey  GRID 6  OF o
             SELECT oSelect               PROMPT aTxt VALUES aKey  GRID 6  OF o              
-        END o		
+        ENDROW o		
 		
     END FORM o	
 	

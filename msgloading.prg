@@ -16,12 +16,12 @@ function main()
 	
 		ROWGROUP o
 			BUTTON LABEL 'MsgLoading()' GRID 4 ACTION 'MsgLoading()' OF o        			
-		END o
+		ENDROW o
 		
 		
 		ROWGROUP o
 			BUTTON LABEL 'MsgLoading() with Title' GRID 4 ACTION "MsgLoading( 'Process...', 'App', null , true )" OF o        			
-		END o
+		ENDROW o
 					
 			
     END FORM o	

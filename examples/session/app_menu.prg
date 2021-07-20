@@ -46,7 +46,7 @@ function Main()
 		ROW o
 			SAY LABEL 'User: ' + Session( 'user' ) GRID 5 OF o
 			SAY LABEL 'Entrada a las ' + Session( 'in' ) GRID 7 OF o
-		END o 
+		ENDROW o 
 
 	END FORM o		
 		

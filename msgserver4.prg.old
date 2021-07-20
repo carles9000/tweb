@@ -1,0 +1,45 @@
+//	{% LoadHrb( 'lib/tweb/tweb.hrb' ) %}
+
+#include {% TWebInclude() %}
+
+function main()
+
+    LOCAL o
+
+	DEFINE WEB oWeb TITLE 'MsgServer()' INIT
+
+    DEFINE FORM o 
+		
+        HTML o INLINE '<h3>System information...</h3><hr>'
+
+    INIT FORM o  		
+       
+        GET ID 'recno' 			VALUE '123' GRID 12 LABEL 'Id.' BUTTON 'Go Recno' ACTION 'GetRecno()' OF o			
+
+		HTML o
+		
+			<script>
+			
+				function GetRecno() {				
+					var cId 	= $('#recno').val() 					
+					//var oPar 	= { 'id' : cId }
+					//var oPar 	= { 'value' : cId }
+					var oPar 	= new Object()
+						oPar[ 'id'] = cId
+						oPar[ 'dummy'] = 'Charly'
+						oPar[ 'num'] = 123
+						oPar[ 'logic'] = true
+					
+					//MsgServer( 'msgserver4_go.prg', oPar )
+					MsgServer( 'msgserver4_go.prg', 123)
+					//TWeb_Redirect( 'msgserver4_go.prg', oPar )
+					//TWeb_Redirect( 'msgserver4_go.prg', true )
+				}			
+				
+			</script>	
+			
+		ENDTEXT
+		
+    END FORM o	
+	
+retu nil

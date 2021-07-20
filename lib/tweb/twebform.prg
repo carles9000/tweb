@@ -57,11 +57,13 @@ METHOD New( cId, cAction, cMethod ) CLASS TWebForm
 
 RETU SELF
 
-METHOD InitForm() CLASS TWebForm
+METHOD InitForm( cClass ) CLASS TWebForm
 
-	LOCAL cClass := IF( ::lFluid, 'container-fluid', 'container' )
+	LOCAL cClassForm := IF( ::lFluid, 'container-fluid', 'container' )
+	
+	DEFAULT cClass TO ''
 
-	::Html( '<div class="' + cClass + '" ' + IF( ::lDessign, 'style="border:2px solid green;"', '' ) + '>'  )
+	::Html( '<div class="' + cClassForm + ' ' + cClass + '" ' + IF( ::lDessign, 'style="border:2px solid green;"', '' ) + '>'  )
 	
 	IF !empty( ::cAction )
 	
@@ -265,14 +267,22 @@ METHOD Activate( fOnInit ) CLASS TWebForm
 RETU cHtml
 
 
-METHOD Caption( cTitle, nGrid ) CLASS TWebForm
+METHOD Caption( cTitle, nGrid, cClass ) CLASS TWebForm
 
 	LOCAL cHtml := ''		
 	
 	DEFAULT cTitle TO ''
 	DEFAULT nGrid TO 12
+	DEFAULT cClass TO ''
 	
-	cHtml := '<div class="col-' + ltrim(str(nGrid)) + '">'
+	cHtml := '<div class="col-' + ltrim(str(nGrid)) + ' '
+	
+	if !empty( cClass )
+		cHtml += cClass 
+	endif
+	
+	cHtml += '">'
+	
 	
 	cHtml += '<small>' + cTitle + '</small>'
 	cHtml += '</div>'
@@ -313,16 +323,24 @@ METHOD Separator( cId , cTitle, cClass ) CLASS TWebForm
 
 RETU NIL
 
-METHOD Small( cId, cText, nGrid  ) CLASS TWebForm
+METHOD Small( cId, cText, nGrid, cClass ) CLASS TWebForm
 	LOCAL cHtml := ''
 	
 	DEFAULT cId	TO ''
 	DEFAULT cText 	TO ''
 	DEFAULT nGrid 	TO 6
+	DEFAULT cClass 	TO ''
 	
-	cHtml := '<div class="col-' + ltrim(str(nGrid)) + IF( ::lDessign, ' tweb_dessign', '')  + '" ' + IF( ::lDessign, 'style="border:1px solid blue;"', '' )   + ' >'
+	cHtml := '<div class="col-' + ltrim(str(nGrid)) + IF( ::lDessign, ' tweb_dessign', '')  + ' '
+	
+	if !empty( cClass )
+		cHtml += cClass 
+	endif
+	
+	cHtml += '" ' + IF( ::lDessign, 'style="border:1px solid blue;"', '' )   + ' >'
 	
 	cHtml += '<small id="' + cId + '" class="text-muted">'	
+	
 	cHtml += cText
 	cHtml += '</small>'
 	cHtml += '</div>'	

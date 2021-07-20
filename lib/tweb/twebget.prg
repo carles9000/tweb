@@ -10,6 +10,8 @@ CLASS TWebGet FROM TWebControl
 	DATA uSource 					INIT ''
 	DATA cSelect 					INIT ''
 	DATA cLink 						INIT ''
+	DATA aSpan						INIT {}
+	DATA aSpanId 					INIT {}
 
 
 	METHOD New() 					CONSTRUCTOR
@@ -18,7 +20,7 @@ CLASS TWebGet FROM TWebControl
 
 ENDCLASS 
 
-METHOD New( oParent, cId, uValue, nGrid, cLabel, cAlign, lReadOnly, cType, cPlaceHolder, aBtnLabel, aBtnAction, aBtnId, lRequired, uSource, cSelect, cChange, cClass, cFont, cFontLabel, cLink, cGroup, cDefault ) CLASS TWebGet
+METHOD New( oParent, cId, uValue, nGrid, cLabel, cAlign, lReadOnly, cType, cPlaceHolder, aBtnLabel, aBtnAction, aBtnId, lRequired, uSource, cSelect, cChange, cClass, cFont, cFontLabel, cLink, cGroup, cDefault, aSpan, aSpanId ) CLASS TWebGet
 
 	DEFAULT cId TO ''
 	DEFAULT uValue TO ''
@@ -40,7 +42,9 @@ METHOD New( oParent, cId, uValue, nGrid, cLabel, cAlign, lReadOnly, cType, cPlac
 	DEFAULT cFontLabel TO ''
 	DEFAULT cLink TO ''
 	DEFAULT cGroup TO ''
-	DEFAULT cDefault TO ''
+	DEFAULT cDefault TO ''	
+	DEFAULT aSpan TO {}
+	DEFAULT aSpanId TO {}
 	
 	::oParent 		:= oParent
 	::cId			:= cId
@@ -64,6 +68,8 @@ METHOD New( oParent, cId, uValue, nGrid, cLabel, cAlign, lReadOnly, cType, cPlac
 	::cLink 		:= cLink
 	::cGroup		:= cGroup
 	::cDefault		:= cDefault
+	::aSpan			:= aSpan
+	::aSpanId		:= aSpanId
 
 	IF Valtype( oParent ) == 'O'	
 		oParent:AddControl( SELF )			
@@ -78,7 +84,7 @@ METHOD Activate() CLASS TWebGet
 	LOCAL cAlign 	 := ''
 	LOCAL cSizeLabel := 'col-form-label'
 	LOCAL cBtnSize 	 := ''
-	local nI, nBtn, cLabel, cAction, cBtnId
+	local nI, nBtn, cLabel, cAction, cBtnId, nSpan
 	
 	DO CASE
 		CASE ::cAlign == 'center' ; cAlign := 'text-center'
@@ -150,6 +156,29 @@ METHOD Activate() CLASS TWebGet
 	
 	cHtml += ' value="' + ::uValue + '">'
 
+	
+	nSpan := len( ::aSpan )
+	
+	if nSpan > 0 
+	
+		cHtml += '<div class="input-group-append">'	
+		
+		for nI := 1 to nSpan 
+		
+			cHtml += '<span'
+			
+			if Len( ::aSpanId ) == len( ::aSpan )			
+				cHtml += ' id="' + ::aSpanId[ nI ] + '" ' 
+			endif
+				
+			cHtml += ' class="input-group-text" >' + ::aSpan[nI] + '</span>'
+			
+		next
+		
+		cHtml += '</div>'	
+		
+	endif
+	
 	
 	nBtn := len( ::aBtnLabel )
 

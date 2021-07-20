@@ -22,7 +22,7 @@ function main()
 	
 		ROW o HALIGN 'center'			
 			HTML o INLINE '<div id="my_camera" style="overflow: hidden;"></div>'					
-		END o 
+		ENDROW o 
 
 		ROW o HALIGN 'center'
 		
@@ -30,7 +30,7 @@ function main()
 			BUTTON LABEL 'Unfreeze' GRID 4 ALIGN 'center' ACTION 'UnFreeze()' OF o
 			BUTTON LABEL 'Save' GRID 4 ALIGN 'center' ACTION 'Save()' OF o
 		
-		END o 			
+		ENDROW o 			
 		
 		HTML o
 			<script>

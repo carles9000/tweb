@@ -43,7 +43,7 @@ function main()
 				
 				SMALL o ID 'ppp' LABEL cTxt GRID 12
 				
-			END o
+			ENDCOL o
 			
 			COL o GRID 4
 		
@@ -51,7 +51,7 @@ function main()
 				
 				GET oGet ID 'dni' VALUE '39690754L' LABEL 'Código' GRID 8 OF o
 				
-			END o
+			ENDCOL o
 			
 			COL o GRID 4
 		
@@ -62,9 +62,9 @@ function main()
 				SWITCH ID 'xxx' LABEL 'OnOff'  GRID 6 OF o
 				SWITCH ID 'zzz' LABEL 'OnOff'  GRID 6 OF o
 				
-				END o
+				ENDROW o
 				
-			END o                
+			ENDCOL o                
 		
 		ENDROW o  
 		

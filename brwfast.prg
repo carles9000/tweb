@@ -37,7 +37,7 @@ function main()
 			BUTTON LABEL ' New' 	ICON '<i class="far fa-plus-square"></i>' 		ACTION 'oBrw.AddRow()' 	CLASS 'btn-secondary mybtnbar' GRID 0 OF o
 			BUTTON LABEL ' Edit' 	ICON '<i class="far fa-edit"></i>' 				ACTION 'oBrw.Edit()' 	CLASS 'btn-secondary mybtnbar' GRID 0 OF o
 			BUTTON LABEL ' Delete' 	ICON '<i class="far fa-trash-alt"></i>' 		ACTION 'MyDelete()' 	CLASS 'btn-secondary mybtnbar' GRID 0 OF o
-		END o 
+		ENDDIV o 
 
 		DEFINE BROWSE oBrw ID 'ringo' MULTISELECT CLICKSELECT HEIGHT 400 ;
 			EDIT UNIQUEID '_recno' TITLE '<i class="fas fa-recycle"></i> My ABM...' POSTEDIT 'MySave' ;
@@ -63,7 +63,7 @@ function main()
 		ROW o 	TOP '50px' CLASS 'mycustombar' 
 			BUTTON LABEL 'Load Data' 	ACTION 'Load()' 	CLASS 'btn btn-secondary mybtnbar' GRID 0 OF o
 			BUTTON LABEL 'Reset' 		ACTION 'Reset()'  	CLASS "btn btn-secondary mybtnbar" GRID 0  OF o			
-		END o			
+		ENDROW o			
 		
 		HTML o 
 		

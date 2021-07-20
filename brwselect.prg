@@ -17,7 +17,7 @@ function main()
 			
 		ROWGROUP o
 			BUTTON LABEL 'Test TWebBrwSelect()' GRID 6 ACTION 'Test()' OF o      			
-		END o
+		ENDROW o
 		
 		HTML o
 		

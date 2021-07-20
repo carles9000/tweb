@@ -43,7 +43,7 @@ including versions of Lorem Ipsum.
 				
 				GET oGet MEMO LABEL 'Text Area...' VALUE cTxt GRID 12 OF o
 				
-			END o
+			ENDCOL o
 			
 			COL o GRID 6
 		
@@ -51,7 +51,7 @@ including versions of Lorem Ipsum.
 				
 				 SMALL o  LABEL cTxt GRID 12
 				
-			END o
+			ENDCOL o
 		
 		ENDROW o
 	

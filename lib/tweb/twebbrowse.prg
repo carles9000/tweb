@@ -17,8 +17,9 @@ CLASS TWebBrowse FROM TWebControl
 	DATA lSearch					INIT .F.
 	DATA lMultiSelect				INIT .F.
 	DATA lSingleSelect				INIT .F.
+	DATA lRadio						INIT .F.
 	DATA lClickSelect				INIT .F.
-	DATA lVirtualScroll				INIT .F.
+	DATA lVirtualScroll				INIT .F.	//	if .T. can flickering with vertical scrollbar
 	DATA lTools						INIT .F.
 	DATA lSmall						INIT .T.
 	DATA lStripped					INIT .F.
@@ -28,10 +29,15 @@ CLASS TWebBrowse FROM TWebControl
 	DATA cData						INIT ''
 	DATA cInit						INIT ''
 	DATA cTitle						INIT ''
+	DATA cPreEdit					INIT ''
 	DATA cPostEdit					INIT ''
 	DATA cRowStyle					INIT ''
 	DATA cToolbar					INIT ''
-
+	
+	DATA cPag_Url					INIT ''	
+	DATA lPag_UseIntermediate		INIT .F.
+	
+	
 
 	METHOD New() 					CONSTRUCTOR
 	METHOD SetData( aData )
@@ -44,46 +50,57 @@ CLASS TWebBrowse FROM TWebControl
 
 ENDCLASS 
 
-METHOD New( oParent, cId, nHeight, lSingleSelect, lMultiSelect, lClickSelect, lPrint, lExport, lSearch, lTools, cAction, cDblClick, lEdit, cUniqueId, cEditor, cTitle, cPostEdit, cRowStyle, cToolbar ) CLASS TWebBrowse
+METHOD New( oParent, cId, nHeight, lSingleSelect, lRadio, lMultiSelect, lClickSelect, lPrint, lExport, lSearch, lTools, cAction, cDblClick, lEdit, cUniqueId, cEditor, cTitle, cPreEdit, cPostEdit, cRowStyle, cToolbar, cPag_Url, lPag_UseIntermediate ) CLASS TWebBrowse
 
-	DEFAULT cId 			TO cId
-	DEFAULT nHeight			TO 400
-	DEFAULT lSingleSelect	TO .F.
-	DEFAULT lMultiSelect	TO .F.
-	DEFAULT lClickSelect	TO .F.
-	DEFAULT lPrint			TO .T.
-	DEFAULT lExport			TO .F.
-	DEFAULT lSearch			TO .F.
-	DEFAULT lTools			TO .F.
-	DEFAULT cAction			TO ''
-	DEFAULT cDblClick		TO ''
-	DEFAULT lEdit			TO .F.
-	DEFAULT cUniqueId		TO ''
-	DEFAULT cEditor			TO ''
-	DEFAULT cTitle			TO ''
-	DEFAULT cPostEdit		TO ''
-	DEFAULT cRowStyle		TO ''
-	DEFAULT cToolbar		TO ''
+	DEFAULT cId 					TO cId
+	DEFAULT nHeight				TO 400
+	DEFAULT lSingleSelect			TO .F.
+	DEFAULT lRadio					TO .F.
+	DEFAULT lMultiSelect			TO .F.
+	DEFAULT lClickSelect			TO .F.
+	DEFAULT lPrint					TO .T.
+	DEFAULT lExport				TO .F.
+	DEFAULT lSearch				TO .F.
+	DEFAULT lTools					TO .F.
+	DEFAULT cAction				TO ''
+	DEFAULT cDblClick				TO ''
+	DEFAULT lEdit					TO .F.
+	DEFAULT cUniqueId				TO ''
+	DEFAULT cEditor				TO ''
+	DEFAULT cTitle					TO ''
+	DEFAULT cPreEdit				TO ''
+	DEFAULT cPostEdit				TO ''
+	DEFAULT cRowStyle				TO ''
+	DEFAULT cToolbar				TO ''
+	DEFAULT cPag_Url				TO ''	
+	DEFAULT lPag_UseIntermediate	TO .F.
 
 
-	::cId 				:= cId
-	::nHeight 			:= nHeight
-	::lSingleSelect 	:= lSingleSelect
-	::lMultiSelect 		:= lMultiSelect
-	::lClickSelect 		:= lClickSelect
-	::lPrint 			:= lPrint
-	::lExport 			:= lExport
-	::lSearch 			:= lSearch
-	::lTools 			:= lTools		
-	::cAction 			:= cAction
-	::cDblClick			:= cDblClick
-	::lEdit				:= lEdit
-	::cUniqueId			:= cUniqueId
-	::cEditor			:= cEditor
-	::cTitle 			:= cTitle
-	::cPostEdit 		:= cPostEdit
-	::cRowStyle 		:= cRowStyle
-	::cToolbar 			:= cToolbar
+
+	::cId 							:= cId
+	::nHeight 						:= nHeight
+	::lSingleSelect 				:= lSingleSelect
+	::lRadio 						:= lRadio
+	::lMultiSelect 				:= lMultiSelect
+	::lClickSelect 				:= lClickSelect
+	::lPrint 						:= lPrint
+	::lExport 						:= lExport
+	::lSearch 						:= lSearch
+	::lTools 						:= lTools		
+	::cAction 						:= cAction
+	::cDblClick					:= cDblClick
+	::lEdit							:= lEdit
+	::cUniqueId					:= cUniqueId
+	::cEditor						:= cEditor
+	::cTitle 						:= cTitle
+	::cPreEdit 					:= cPreEdit
+	::cPostEdit 					:= cPostEdit
+	::cRowStyle 					:= cRowStyle
+	::cToolbar 					:= cToolbar
+	::cPag_Url						:= cPag_Url				
+	::lPag_UseIntermediate    	:= lPag_UseIntermediate
+	
+	
 
 	IF Valtype( oParent ) == 'O'	
 		oParent:AddControl( SELF )	
@@ -101,18 +118,19 @@ METHOD AddCol( cId, hCfg, cHead, nWidth, lSortable, cAlign, cFormatter, cClass, 
 
 		HB_HCaseMatch( hCfg, .F. ) 
 
-		hDefCol[ 'id' ] 		:= HB_HGetDef( hCfg, 'id'		, cId ) 
-		hDefCol[ 'head' ] 		:= HB_HGetDef( hCfg, 'head'		, cId ) 
-		hDefCol[ 'width' ] 		:= HB_HGetDef( hCfg, 'width'	, '' ) 
-		hDefCol[ 'sortable' ] 	:= HB_HGetDef( hCfg, 'sortable'	, .F. ) 
-		hDefCol[ 'align' ]		:= HB_HGetDef( hCfg, 'align'	, '' ) 
-		hDefCol[ 'formatter' ]	:= HB_HGetDef( hCfg, 'formatter'	, '' ) 
-		hDefCol[ 'class' ]		:= HB_HGetDef( hCfg, 'class'	, '' ) 
-		hDefCol[ 'edit' ]		:= HB_HGetDef( hCfg, 'edit'		, .f. ) 
-		hDefCol[ 'edit_type' ]	:= HB_HGetDef( hCfg, 'edit_type', 'C' ) 
-		hDefCol[ 'edit_with' ]	:= HB_HGetDef( hCfg, 'edit_with', '' ) 
-		hDefCol[ 'edit_escape' ]:= HB_HGetDef( hCfg, 'edit_escape', .f. ) 
-		hDefCol[ 'class_event' ]:= HB_HGetDef( hCfg, 'class_event', '' ) 
+		hDefCol[ 'id' ] 			:= HB_HGetDef( hCfg, 'id'		, cId ) 
+		hDefCol[ 'head' ] 			:= HB_HGetDef( hCfg, 'head'		, cId ) 
+		hDefCol[ 'width' ] 			:= HB_HGetDef( hCfg, 'width'	, '' ) 
+		hDefCol[ 'sortable' ] 		:= HB_HGetDef( hCfg, 'sortable'	, .F. ) 
+		hDefCol[ 'align' ]			:= HB_HGetDef( hCfg, 'align'	, '' ) 
+		hDefCol[ 'formatter' ]		:= HB_HGetDef( hCfg, 'formatter'	, '' ) 
+		hDefCol[ 'class' ]			:= HB_HGetDef( hCfg, 'class'	, '' ) 
+		hDefCol[ 'edit' ]			:= HB_HGetDef( hCfg, 'edit'		, .f. ) 
+		hDefCol[ 'edit_type' ]		:= HB_HGetDef( hCfg, 'edit_type', 'C' ) 
+		hDefCol[ 'edit_with' ]		:= HB_HGetDef( hCfg, 'edit_with', '' ) 
+		hDefCol[ 'edit_escape' ]	:= HB_HGetDef( hCfg, 'edit_escape', .f. ) 
+		hDefCol[ 'class_event' ]	:= HB_HGetDef( hCfg, 'class_event', '' ) 
+		
 	
 	ELSE
 	
@@ -127,6 +145,7 @@ METHOD AddCol( cId, hCfg, cHead, nWidth, lSortable, cAlign, cFormatter, cClass, 
 		DEFAULT cEdit_With		TO ''
 		DEFAULT lEdit_Escape	TO .f.
 		DEFAULT cClass_Event	TO ''
+		
 	
 		hDefCol[ 'id' ] 		:= cId
 		hDefCol[ 'head' ] 		:= cHead
@@ -140,6 +159,7 @@ METHOD AddCol( cId, hCfg, cHead, nWidth, lSortable, cAlign, cFormatter, cClass, 
 		hDefCol[ 'edit_with' ]	:= cEdit_With
 		hDefCol[ 'edit_escape' ]:= lEdit_Escape
 		hDefCol[ 'class_event' ]:= cClass_Event 
+		
 	
 	ENDIF
 	
@@ -162,6 +182,7 @@ METHOD Activate() CLASS TWebBrowse
 	local n, cField, hDef, aField
 	local u 
 	local lCombo, lLogic, lDate
+	local lSelect 			:= .F. 
 	
 	if ::lSmall
 		cClass += 'table-sm '
@@ -185,17 +206,25 @@ METHOD Activate() CLASS TWebBrowse
 //					data-multiple-select-row="{{ IF( oThis:lMultiSelect, 'true',  'false') }}"
 //					data-single-select="{{ IF( oThis:lSingleSelect, 'true',  'false') }}"
 //					data-toggle="{{ oThis:cId }}" 
-//					data-multiple-select-row="false"
+
 
 	/*
 		Si data-multiple-select-row = true ->  Multiple select with ctrl-key/shift-key
-		data-single-select = true , only one check, sino multiselect			
+		data-single-select = true , only one check, sino multiselect	+ toglee	
 	*/	
+	
+	if  oThis:lMultiSelect .and. oThis:lSingleSelect 
+		oThis:lSingleSelect   := .F.
+		oThis:lMultiSelect 	:= .F.
+		lSelect 				:= .T.
+	endif 			
+	
 
-	BLOCKS ADDITIVE cHtml PARAMS oThis, cClass
+	BLOCKS ADDITIVE cHtml PARAMS oThis, cClass, lSelect
 	
 			<div class="col-12" style="padding:0px;">		<!-- //	ULL !!! Padding a pelo !!!!			-->
-				<table id="{{ oThis:cId }}" class="{{ cClass }}"  				
+				<table id="{{ oThis:cId }}" class="{{ cClass }}"  
+					data-toggle="{{ oThis:cId }}"				
 					data-single-select="{{ IF( oThis:lSingleSelect, 'true',  'false') }}"
 					data-multiple-select-row="{{ IF( oThis:lMultiSelect, 'true',  'false') }}"
 					data-click-to-select="{{ IF( oThis:lClickSelect, 'true',  'false') }}"
@@ -222,6 +251,44 @@ METHOD Activate() CLASS TWebBrowse
 					if !empty( ::cUniqueId ) 					
 						cHtml += 'data-unique-id="' + ::cUniqueId + '" '
 					endif
+
+					
+	//	Pagination 
+	
+		/*
+		
+			var options = { 
+				url: "srv_brw_pag.prg", 
+				sidePagination: "server",
+				pagination: true,
+				queryParams: MyQuery,
+				queryParamsType: 'limit',
+				pageList : [10, 25, 50, 100],	//	[10, 25, 50, 100, 200, 'All'],
+				paginationUseIntermediate: true,
+				//paginationParts: []
+			}	
+
+			$table.bootstrapTable('refreshOptions', options )	
+		
+		*/
+
+		if !empty( ::cPag_Url ) 
+		
+			cHtml += 'data-url="' + ::cPag_Url  + '" '
+			cHtml += 'data-side-pagination="server" '
+			cHtml += 'data-pagination="true" '
+			
+			//if !empty( ::cPag_Query ) 
+			//	cHtml += 'data-query-params="' + ::cPag_Query + '" '
+			//endif
+			
+			if ::lPag_UseIntermediate		
+				cHtml += 'data-pagination-use-intermediate="true" '
+			endif 
+			
+		endif
+				
+				
 	
 	BLOCKS ADDITIVE cHtml
 				> 	<!-- end table -->
@@ -229,9 +296,10 @@ METHOD Activate() CLASS TWebBrowse
 					<thead  class="thead-dark">
 						<tr>																					
 	ENDTEXT														
-								IF ::lMultiSelect .OR. ::lSingleSelect
+								IF ::lMultiSelect .OR. ::lSingleSelect .OR. lSelect 																
 								
-									cHtml += '<th data-field="_st" data-checkbox="true" name="btSelectItem"></th>'									
+									cHtml += '<th data-field="_st" data-checkbox="true" data-radio="' + If( ::lRadio, 'true', 'false' ) + '" name="btSelectItem"></th>'
+									
 									//cHtml += '<th data-field="$index" data-checkbox="true" name="btSelectItem"></th>'									
 								
 								ENDIF
@@ -250,10 +318,13 @@ METHOD Activate() CLASS TWebBrowse
 									cHtml += '<th data-field="' + cField + '" '
 									cHtml += 'data-width="' + valtochar(hDef[ 'width' ]) + '" '
 									cHtml += 'data-sortable="' + IF( hDef[ 'sortable' ], 'true', 'false' ) + '" '
+									//cHtml += 'data-escape="false" '
 									
 									if !empty( hDef[ 'class' ] )										
 										cHtml += 'data-cell-style="' + hDef[ 'class' ] + '" '
 									endif
+									
+								
 									
 									if !empty( hDef[ 'formatter' ] )	
 									
@@ -323,6 +394,7 @@ METHOD Activate() CLASS TWebBrowse
 										cHtml += 'data-events="TWebOperateEvents" '
 									endif
 									
+									
 									cHtml += 'data-align="' + hDef[ 'align' ] + '" '
 											
 									
@@ -353,8 +425,12 @@ METHOD Activate() CLASS TWebBrowse
 								if lDate 
 									?? '<script>'
 									?? 'function TWebBrwFormatterDate_' + ::cId + '( value, a, b, cFieldName ) {'								
-									?? "    var newDate = value.split('-').reverse().join('/'); "								
-									?? '    return (newDate);'
+									?? '    if ( value ) {'								
+									?? "      var newDate = value.split('-').reverse().join('/'); "								
+									?? '      return (newDate);'
+									?? '    } else {'
+									?? "      return '';"
+									?? '    }'
 									?? '}'
 									?? '</script>'
 								endif
@@ -371,6 +447,7 @@ METHOD Activate() CLASS TWebBrowse
 			</div>					
 
 	ENDTEXT 
+
 	
 	IF !Empty( ::cData )
 /*
@@ -412,6 +489,13 @@ METHOD Init( cVarJS, aRows ) CLASS TWebBrowse
 
 	::cInit += 'var ' + cVarJS + ' = new TWebBrowse( "' + ::cId + '", null, false );'	+ CRLF			
 	::cInit += cVarJS + ".SetCfgCols( JSON.parse( '" + hb_jsonencode(::hCols) + "' ) );"
+	
+	if !empty( ::cPag_Url )  
+		::cInit += 'function _tweb_query(params){ ' + CRLF
+		::cInit += '  params.search=""; ' + CRLF
+		::cInit += '  return params; ' + CRLF
+		::cInit += '}' + CRLF
+	endif
 
 	::cInit += '$(document).ready(function () {	'							+ CRLF
 	
@@ -424,6 +508,10 @@ METHOD Init( cVarJS, aRows ) CLASS TWebBrowse
 			::cInit += cVarJS + ".Set( 'title', '" + ::cTitle + "'); "
 			
 		endif
+		
+		if !Empty( ::cPreEdit ) 	
+			::cInit += cVarJS + ".Set( 'preedit', '" + ::cPreEdit + "'); "		
+		endif		
 		
 		if !Empty( ::cPostEdit ) 	
 			::cInit += cVarJS + ".Set( 'postedit', '" + ::cPostEdit + "'); "		
@@ -455,6 +543,7 @@ METHOD Init( cVarJS, aRows ) CLASS TWebBrowse
 		//	----------------------------------------
 
 	::cInit += cVarJS + '.Init();'									+ CRLF
+
 
 	IF Valtype( aRows ) == 'A'
 		cRows 	:=  hb_jsonencode(aRows)
@@ -568,14 +657,14 @@ METHOD Save( aRows ) CLASS TBrwDataset
 	for nI := 1 to nRows 
 
 		cAction := aRows[ nI ][ 'action' ]
-		cId 	:= aRows[ nI ][ 'id' ]
-		hRow 	:= aRows[ nI ][ 'row' ]
+		cId 	 := aRows[ nI ][ 'id' ]
+		hRow 	 := aRows[ nI ][ 'row' ]
 		nRecno  := 0
 		
 		lValid		:= .T.
 
 		if valtype( ::bBeforeSave ) == 'B' 	
-			lValid := eval( ::bBeforeSave, Self, hRow )
+			lValid := eval( ::bBeforeSave, Self, hRow, cAction )
 		endif
 		
 		if lValid 
@@ -728,7 +817,7 @@ METHOD ReadRow( hRow ) CLASS TBrwDataset
 	
 		cField 			:= ::aFields[nI][ 'field' ]
 		cField_Type 	:= ::aFields[nI][ 'field_type' ]
-		nField_Pos 		:= ::aFields[nI][ 'field_pos' ]
+		nField_Pos 	:= ::aFields[nI][ 'field_pos' ]
 		lUpdate 		:= ::aFields[nI][ 'update' ]						
 
 		if lUpdate .and. HB_HHasKey( hRow, cField )
@@ -825,3 +914,196 @@ static function DoBreak(oError)
 	Break
 	
 retu nil
+
+//	----------------------------------------------------------------	//
+
+function XBrowse( o, cId, uData, cUniqueId, hCfg, hCols )
+
+	local oBrw, oCol
+	local cId_BtnBar, n, aPair, cKey, hCfgCol, nLen , cType, lEdit
+	
+	DEFAULT cId TO 'ringo'
+	DEFAULT cUniqueId TO ''
+	DEFAULT hCfg TO {=>}
+	DEFAULT hCols TO {=>}
+	
+	HB_HCaseMatch(	hCfg, .f. )																
+	
+	if( !HB_HHasKey( hCfg, 'btnadd' ) , HB_HSet( hCfg, 'btnadd' , '_XBrwAdd()' ), nil )
+	if( !HB_HHasKey( hCfg, 'btnedit' ), HB_HSet( hCfg, 'btnedit', '_XBrwEdit()' ), nil )
+	if( !HB_HHasKey( hCfg, 'btndel' ) , HB_HSet( hCfg, 'btndel' , '_XBrwDel()' ), nil )
+	if( !HB_HHasKey( hCfg, 'btnsave' ), HB_HSet( hCfg, 'btnsave', '_XBrwSave()' ), nil )
+	
+	if( !HB_HHasKey( hCfg, 'print' )  , HB_HSet( hCfg, 'print'  , .t. ), nil )
+	if( !HB_HHasKey( hCfg, 'export' ) , HB_HSet( hCfg, 'export' , .t. ), nil )
+	if( !HB_HHasKey( hCfg, 'search' ) , HB_HSet( hCfg, 'search' , .t. ), nil )
+	if( !HB_HHasKey( hCfg, 'tools' )  , HB_HSet( hCfg, 'tools'  , .t. ), nil )
+	
+	
+	if( !HB_HHasKey( hCfg, 'edit_title' ), HB_HSet( hCfg, 'edit_title', '<i class="far fa-edit"></i> Update row' ), nil )
+	if( !HB_HHasKey( hCfg, 'lang' )      , HB_HSet( hCfg, 'lang', 'es-ES' ), nil )
+	if( !HB_HHasKey( hCfg, 'dark' )      , HB_HSet( hCfg, 'dark', .f. ), nil )
+	if( !HB_HHasKey( hCfg, 'stripped' )  , HB_HSet( hCfg, 'stripped', .f. ), nil )
+	if( !HB_HHasKey( hCfg, 'height' )  	 , HB_HSet( hCfg, 'height', 400 ), nil )
+	
+	DIV o 
+	
+		//HTML o INLINE '<div style="border:1px solid red;">Hola Div</div>'
+		
+		HTML o
+		
+			<style>				
+			
+				._xbrwbtnbar {
+					border-radius:0px;
+				}						
+				
+			</style>
+			
+		ENDTEXT 	
+
+		cId_BtnBar := '_xBrw_Bar_' + cId 	
+	
+		DIV o ID cId_BtnBar CLASS 'btn-group'
+			BUTTON LABEL ' New' 	ICON '<i class="far fa-plus-square"></i>' 	ACTION hCfg[ 'btnadd'] 	CLASS 'btn-secondary _xbrwbtnbar' GRID 0 OF o
+			BUTTON LABEL ' Edit' 	ICON '<i class="far fa-edit"></i>' 			ACTION hCfg[ 'btnedit'] 	CLASS 'btn-secondary _xbrwbtnbar' GRID 0 OF o
+			BUTTON LABEL ' Delete' ICON '<i class="far fa-trash-alt"></i>' 		ACTION hCfg[ 'btndel'] 	CLASS 'btn-secondary _xbrwbtnbar' GRID 0 OF o
+			BUTTON LABEL ' Save' 	ICON '<i class="far fa-save"></i>' 			ACTION hCfg[ 'btnsave'] 	CLASS 'btn-secondary _xbrwbtnbar' GRID 0 OF o
+		ENDDIV o 	
+		
+	//	#xcommand DEFINE BROWSE [<oBrw>] [ ID <cId> ] [HEIGHT <nHeight>] [ <s: SELECT> [ <rd: RADIO> ] ] [ <ms: MULTISELECT> ];
+	//				[<click: CLICKSELECT>] [<lPrint: PRINT>] [<lExport: EXPORT>] [<lSearch: SEARCH>] [<lTools: TOOLS>] ;
+	//				[ ONCHANGE <cAction>  ] ;
+	//				[ DBLCLICK <cDblClick> ] ;
+	//				[ <edit: EDIT> [ WITH <cEditor>] [ TITLE <cTitle> ] [ PREEDIT <cPreEdit> ] [ POSTEDIT <cPostEdit> ] [ UNIQUEID <cKey>] ] ;
+	//				[ ROWSTYLE <cRowStyle> ] ;
+	//				[ TOOLBAR <cToolbar> ] ;
+	//				[ PAGINATION URL <cPag_Url> [ <ui: USERINTERMEDIATE> ] ] ;
+	//				[ OF <oForm> ] 
+		
+	//	TWebBrowse():New( <oForm>, [<cId>], <nHeight>, <.s.>, <.rd.>, <.ms.>, <.click.>, <.lPrint.>, <.lExport.>,
+	//						<.lSearch.>, <.lTools.>, [<cAction>], [<cDblClick>], [<.edit.>], [<cKey>], [<cEditor>],
+	//						[<cTitle>], [<cPreEdit>], [<cPostEdit>], [<cRowStyle>], [<cToolbar>], [<cPag_Url>],
+	//						[<.ui.>] )
+	
+		lEdit := if( !empty(cUniqueId), .t., .f. )
+	
+	
+		oBrw := TWebBrowse():New( o, cId, hCfg[ 'height'], nil, nil, .t., .t., hCfg[ 'print'],  hCfg[ 'export'],  hCfg[ 'search'],  hCfg[ 'tools'],;
+									nil, nil, lEdit, cUniqueId, nil,  hCfg[ 'edit_title'], nil, nil,nil, cId_BtnBar )
+		
+		
+/*
+		DEFINE BROWSE oBrw ID cId MULTISELECT CLICKSELECT HEIGHT 400 ;
+			EDIT UNIQUEID 'id' TITLE '<i class="fas fa-recycle"></i> My ABM...' POSTEDIT 'TestPostEdit' ;
+			TOOLBAR "bar" ;
+			SEARCH TOOLS EXPORT PRINT  ;
+			OF o
+*/			
+
+			oBrw:lDark 		:= hCfg[ 'dark']
+			oBrw:lStripped 	:= hCfg[ 'stripped']
+			oBrw:cLocale 	:= hCfg[ 'lang' ]		
+			
+			if !empty( hCols )
+			
+				nLen := len( hCols )				
+				
+				for n := 1 to nLen 
+				
+					aPair		:= HB_HPairAt( hCols, n ) 
+					cKey 		:= aPair[1]
+					hCfgCol 	:= aPair[2] 
+	
+					/*	
+					#xcommand ADD <oCol> TO <oBrw> ID <cId> ;
+							[ HEADER <cHeader> ] ;		
+							[ WIDTH <nWidth> ] ;
+							[ ALIGN <cAlign> ] ;
+							[ FORMATTER <cFormatter> ] ;
+							[ <lSort: SORT> ];
+							[ CLASS <cClass> ] ;
+							[ CLASSEVENT <cClassEvent> ] ;		
+							[ <lEdit: EDIT> ] [ [ TYPE <cEdit_Type> ] [ WITH <cEdit_With> ] [ <lEscape: ESCAPE> ] ] ;
+						=> ;						
+							<oCol> := <oBrw>:AddCol( <cId>, nil, [<cHeader>], [<nWidth>], [<.lSort.>], [<cAlign>], [<cFormatter>], [<cClass>], [<.lEdit.>], [<cEdit_Type>], [<cEdit_With>], [<.lEscape.>], [<cClassEvent>] )
+					*/
+					
+					//cHeader := cKey	
+
+					HB_HCaseMatch(	hCfgCol, .f. )
+
+					if( !HB_HHasKey( hCfgCol, 'header'), 	HB_HSet( hCfgCol, 'header', cKey)			, nil )
+					if( !HB_HHasKey( hCfgCol, 'align' ),		HB_HSet( hCfgCol, 'align', nil )		, nil )
+					if( !HB_HHasKey( hCfgCol, 'class' ), 	HB_HSet( hCfgCol, 'class', nil )		, nil )
+					if( !HB_HHasKey( hCfgCol, 'edit'  ), 	HB_HSet( hCfgCol, 'edit', .f. )		, nil )
+					if( !HB_HHasKey( hCfgCol, 'edit_type' ),HB_HSet( hCfgCol, 'edit_type', 'C' )	, nil )
+					if( !HB_HHasKey( hCfgCol, 'edit_with' ),HB_HSet( hCfgCol, 'edit_with', nil )	, nil )
+					if( !HB_HHasKey( hCfgCol, 'width' ), 	HB_HSet( hCfgCol, 'width', nil )		, nil )
+					if( !HB_HHasKey( hCfgCol, 'sort' ), 	HB_HSet( hCfgCol, 'sort', .f. )		, nil )
+					if( !HB_HHasKey( hCfgCol, 'edit_escape' ), 	HB_HSet( hCfgCol, 'edit_escape', .f.  )	, nil )
+					if( !HB_HHasKey( hCfgCol, 'formatter' ),HB_HSet( hCfgCol, 'formatter', nil  )	, nil )
+
+					oBrw:AddCol( cKey, nil, ;									
+									hCfgCol[ 'header' ],;
+									hCfgCol[ 'width' ],;
+									hCfgCol[ 'sort' ],;
+									hCfgCol[ 'align' ],;
+									hCfgCol[ 'formatter' ],;
+									hCfgCol[ 'class' ],;
+									hCfgCol[ 'edit' ],;
+									hCfgCol[ 'edit_type' ],;
+									hCfgCol[ 'edit_with' ],;									
+									hCfgCol[ 'edit_escape' ]; 
+									)				
+				next 	
+				
+			else 
+			
+				nLen := len( uData[1] )
+				
+				for n := 1 to nLen 
+				
+					aPair		:= HB_HPairAt( uData[1], n ) 
+					cKey 		:= aPair[1]
+					cType 		:= ValType( aPair[2] )				
+					
+					if ! lEdit 
+					
+						ADD oCol TO oBrw ID cKey 	HEADER cKey	 
+						
+					else 
+					
+						if !empty( cUniqueId ) .and. cKey ==  cUniqueId
+							ADD oCol TO oBrw ID cKey 	HEADER cKey	EDIT TYPE 'V'	//	Type View					
+						else 
+							ADD oCol TO oBrw ID cKey 	HEADER cKey EDIT TYPE cType				
+						endif
+					endif
+				
+				next 
+		
+			endif
+
+		INIT BROWSE oBrw DATA uData			
+
+	ENDDIV o 
+	
+	HTML o PARAMS cId 
+		
+		<script>
+		
+			var _oBrw_<$ cId $> 	= new TWebBrowse( '<$ cId $>' )					
+
+			function _XBrwEdit() 	{ _oBrw_<$ cId $>.Edit() }	
+			function _XBrwAdd()  	{ _oBrw_<$ cId $>.AddRow() }	
+			function _XBrwDel() 	{ _oBrw_<$ cId $>.DeleteRow() }
+			function _XBrwSave() 	{ MsgInfo( 'Action not defined' ) }	
+
+		</script>
+		
+	ENDTEXT							
+
+retu nil
+
+

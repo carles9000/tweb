@@ -29,34 +29,34 @@ function main()
 
 				INIT BROWSE oBrw DATA aRows
 		
-			END o
+			ENDCOL o
 			
 			COL o GRID 6
 			
 				ROWGROUP o
 					GET ID 'city' VALUE '' GRID 12  LABEL 'City' OF o
-				END o
+				ENDROW o
 				
 				ROWGROUP o
 					GET ID 'st'   VALUE '' GRID 4 LABEL 'State' OF o
 					GET ID 'zip'  VALUE '' GRID 6 LABEL 'Zip'   OF o
-				END o
+				ENDROW o
 				
 				ROWGROUP o
 					GET ID 'hiredate' VALUE '' GRID 6 LABEL 'Hiredate' OF o
-				END o  
+				ENDROW o  
 				
 				ROWGROUP o
 					CHECKBOX ID 'married' LABEL 'Married' GRID 6 OF o					
-				END o  					
+				ENDROW o  					
 					
 				ROWGROUP o
 					GET ID 'notes' VALUE '' GRID 12 LABEL 'Notes' OF o
-				END o				
+				ENDROW o				
 
-			END o
+			ENDCOL o
 
-		END o
+		ENDROW o
 
 		HTML o 
 		

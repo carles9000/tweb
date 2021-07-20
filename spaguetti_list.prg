@@ -69,7 +69,7 @@ function main()
 				LINK 'spaguetti.prg' ;
 				OF o        
 
-        END o 		
+        ENDROW o 		
 
 		HTML o 
 		

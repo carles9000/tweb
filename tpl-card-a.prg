@@ -28,7 +28,7 @@ function main()
 				
 			HTML o FILE 'templates/card-a.tpl' PARAMS 'Helluu', 'Form example'					
 				
-		END o
+		ENDROW o
 			
 		/*
 		FOR nJ := 1 to 3
@@ -45,7 +45,7 @@ function main()
 				
 				NEXT
 			
-			END o
+			ENDROW o
 		
 		next
 		*/

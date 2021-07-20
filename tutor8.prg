@@ -17,7 +17,7 @@ function main()
 		ROW o HALIGN 'center'
 			SAY VALUE 'Hello' GRID 4 ALIGN 'right' OF o
 			SAY VALUE 'Bye'   GRID 2 OF o			
-		END o
+		ENDROW o
 		
     END FORM o	
 	

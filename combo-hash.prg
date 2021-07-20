@@ -34,7 +34,7 @@ function main()
 
 			SELECT oSelect  ID 'cars' KEYVALUE hKeyValue GRID 6  ONCHANGE 'Select()' OF o
 			
-		END o
+		ENDROW o
 
 		HTML o
 		

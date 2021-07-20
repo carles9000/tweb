@@ -17,11 +17,11 @@ function main()
 		ROWGROUP o	HALIGN 'center'		
 			GET ID 'user' 	VALUE 'demo' GRID 4 LABEL 'User'  	OF o
 			GET ID 'psw'	VALUE '1234' GRID 4 LABEL 'Password' TYPE 'password'	OF o			
-		END o		
+		ENDROW o		
 		
 		ROWGROUP o HALIGN 'center'	
 			BUTTON LABEL 'Enviar' ALIGN 'center' GRID 8 SUBMIT OF o      
-		END o					
+		ENDROW o					
 		
     END FORM o	
 	

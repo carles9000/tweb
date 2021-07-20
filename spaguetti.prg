@@ -91,7 +91,7 @@ function main()
             GET ID 'alias'  VALUE hData[ 'alias'] GRID 4 PLACEHOLDER 'Entra tu alias...'  LABEL 'Alias'   REQUIRED  OF o
             GET ID 'name'   VALUE hData[ 'name' ] GRID 8 PLACEHOLDER 'Entra tu nombre...' LABEL 'Nombre'  REQUIRED  OF o
 			
-        END o
+        ENDROW o
         
         ROWGROUP o
 		
@@ -99,7 +99,7 @@ function main()
 			GET ID 'mail'   VALUE hData[ 'mail' ] GRID 4 PLACEHOLDER 'Entra tu mail...'   LABEL 'Mail de contacto'     TYPE 'email' REQUIRED OF o
 			SELECT oSelect  ID 'class'  VALUE  hData[ 'class' ] LABEL 'Clase de Bono' PROMPT 'Normal', 'Premium', 'Excelent' VALUES  'N', 'P', 'E'  GRID 4  OF o            
 
-        END o          
+        ENDROW o          
         
         cLoren := "En la indústria editorial i en disseny gràfic, lorem ipsum és un text de farciment que s'usa habitualment per a mostrar els elements gràfics d'un document, com ara la tipografia o la composició."
 		
@@ -108,7 +108,7 @@ function main()
 			SMALL o ID 'chofer_data' Label cLoren  GRID 6
             SWITCH ID 'accept' VALUE hData[ 'accept' ] LABEL 'Acepto condiciones' OF o
 
-        END o          
+        ENDROW o          
         
         ROWGROUP o
 
@@ -116,7 +116,7 @@ function main()
             BUTTON ID 'btn2' LABEL 'List'   GRID 3 ICON '<i class="fas fa-th-list"></i> ' 		CLASS 'btn-outline-primary' LINK 'spaguetti_list.prg' OF o
 			
 
-        END o           
+        ENDROW o           
 		
     END FORM o	
 

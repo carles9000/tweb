@@ -18,7 +18,7 @@ function main()
 			SAY VALUE 'Hello' GRID 6 ALIGN 'right' OF o
 			SAY VALUE 'Hello' GRID 4 OF o
 			SAY VALUE 'Hello' GRID 2 ALIGN 'center' OF o
-		END o
+		ENDROW o
 		
     END FORM o	
 	

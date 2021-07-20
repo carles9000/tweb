@@ -14,7 +14,7 @@ function main()
 	
 		ROW o
 			SAY VALUE 'Say-Font example' LINK 'say-font.prg' GRID 6  OF o
-		END o
+		ENDROW o
 		
     END FORM o	
 	

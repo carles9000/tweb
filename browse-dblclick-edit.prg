@@ -30,9 +30,9 @@ function main()
 
                                 INIT BROWSE oBrw DATA aRows
 
-                        END o
+                        ENDCOL o
 
-                END o
+                ENDROW o
 
                 HTML o
 
@@ -50,13 +50,13 @@ function main()
 
                  ENDTEXT
                               ROWGROUP o
-                              GET oGet ID 'edit-first' VALUE '' LABEL 'First' READONLY OF o
-                              GET oGet ID 'edit-last' VALUE '' LABEL 'Last' READONLY OF o
-                              END o
+								  GET oGet ID 'edit-first' VALUE '' LABEL 'First' READONLY OF o
+								  GET oGet ID 'edit-last' VALUE '' LABEL 'Last' READONLY OF o
+                              ENDROW o
                               ROWGROUP o
-                              SAY VALUE 'Age' OF o
-                              GETNUMBER oGet ID 'edit-age' VALUE '' OF o
-                              END o
+								  SAY VALUE 'Age' OF o
+								  GETNUMBER oGet ID 'edit-age' VALUE '' OF o
+                              ENDROW o
                  HTML o
 
                           </div>

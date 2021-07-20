@@ -24,21 +24,21 @@ function main()
 				ROWGROUP o HALIGN 'center'        
 					SAY VALUE 'User' ALIGN 'right' GRID 5 OF o
 					GET ID 'user'  VALUE '' ALIGN 'right' GRID 5 OF o
-				END o
+				ENDROW o
 				
 				
 				ROWGROUP o HALIGN 'center'        
 					SAY VALUE 'Password' ALIGN 'right' GRID 5 OF o
 					GET ID 'psw'  TYPE 'password' VALUE 'police' GRID 5 OF o
-				END o
+				ENDROW o
 
 				ROWGROUP o HALIGN 'center'		
 					BUTTON LABEL ' Login' ACTION "Login()" GRID 10 ALIGN 'center' ICON '<i class="fas fa-key"></i>' OF o
-				END o				
+				ENDROW o				
 				
 			HTML o FILE 'templates/mycard_end.tpl' 			
 			
-		END o						
+		ENDROW o						
 		
 		HTML o
 			<script>

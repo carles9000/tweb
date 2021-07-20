@@ -17,7 +17,7 @@ function main()
 			GET ID 'myid' VALUE '123' GRID 12 LABEL 'Id.' ;				
 				BUTTON 'Go' LINK 'https://modharbour.app/compass'  OF o				
 		
-		END o	
+		ENDROW o	
 		
     END FORM o	
 	

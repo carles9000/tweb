@@ -32,7 +32,7 @@ function main()
 
 			SELECT oSelect  ID 'cars' PROMPT aValue  VALUES aKey GRID 6  ONCHANGE 'Select()' OF o
 			
-		END o
+		ENDROW	o
 
 		HTML o
 		

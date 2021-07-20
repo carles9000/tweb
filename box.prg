@@ -26,25 +26,25 @@ function main()
 						SAY VALUE 'Ep!' GRID 4 OF oBox
 						SAY VALUE 'Bye' GRID 2 ALIGN 'center' OF oBox
 					
-					END oBox	
+					ENDROW oBox	
 
 					ROW oBox
 					
 						SAY VALUE 'Bon dia!' GRID 12 ALIGN 'center' OF oBox
 					
-					END oBox
+					ENDROW oBox
 
 					ROW oBox HALIGN 'right'	
 
 						SAY VALUE 'Right' GRID 4 ALIGN 'center' OF oBox
 					
-					END oBox					
+					ENDROW oBox					
 				
 				ENDBOX oBox
 				
-			END o		
+			ENDCOL o		
 		
-		END o
+		ENDROW o
 	
 	END FORM o			
 	

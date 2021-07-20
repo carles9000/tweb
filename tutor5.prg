@@ -29,22 +29,22 @@ function main()
 			ROWGROUP o  
 				SAY VALUE 'Id:' ALIGN 'right' OF o
 				GET VALUE '' OF o
-			END o
+			ENDROW o
 
 			ROWGROUP o  
 				SAY VALUE 'Phone:' ALIGN 'right' OF o
 				GET VALUE '' PLACEHOLDER "Enter phone number" OF o
-			END o
+			ENDROW o
 			
 			ROWGROUP o			
 
 				BUTTON LABEL ' Test Button' ACTION "alert( 'Hi!' )" GRID 8  ALIGN 'right' ICON '<i class="fas fa-clipboard-check"></i>' CLASS 'btn-danger btnticket' OF o
 
-			END o			
+			ENDROW o			
 
 			ROWGROUP o
 				SAY VALUE cLoren GRID 12 OF o			
-			END o		
+			ENDROW o		
 		
     END FORM o	
 	

@@ -9,7 +9,7 @@ function main()
 	USE (cDbf) SHARED NEW VIA 'DBFCDX'		
 	
 	GOTO nRecno
-
+	
 	?? FIELD->first + ' ' + FIELD->last  + CRLF
 	?? FIELD->street + ' ' + FIELD->city + ' ' + FIELD->state + CRLF
 	?? FIELD->notes

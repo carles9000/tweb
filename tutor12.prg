@@ -15,11 +15,11 @@ function main()
 			ROWGROUP o			
 				GET ID 'myid' 		VALUE '123' GRID 4 LABEL 'Id.'   OF o
 				GET ID 'myphone'	VALUE '567' GRID 4 LABEL 'Phone' OF o			
-			END o		
+			ENDROW o		
 			
 			ROWGROUP o
 				BUTTON LABEL 'Enviar' GRID 4 SUBMIT OF o      
-			END o					
+			ENDROW o					
 		
     END FORM o	
 	

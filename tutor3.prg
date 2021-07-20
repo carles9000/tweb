@@ -16,12 +16,12 @@ function main()
 		ROWGROUP o 
 			SAY VALUE 'Id:' ALIGN 'right' OF o
 			GET VALUE '123' OF o
-		END o	
+		ENDROW o	
 
 		ROWGROUP o 
 			SAY VALUE 'Phone:' ALIGN 'right' OF o
 			GET VALUE '' OF o
-		END o		
+		ENDROW o		
 		
     END FORM o	
 	

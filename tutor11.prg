@@ -18,11 +18,11 @@ function main()
 				PLACEHOLDER 'User Id.' ;
 				BUTTON 'GetId' ACTION 'GetId()' OF o
 		
-		END o		
+		ENDROW o		
 		
 		ROWGROUP o
 			BUTTON ID 'mybtn'	LABEL 'Test' GRID 4 ACTION 'TestBtn()' OF o        
-		END o		
+		ENDROW o		
 		
 		HTML o
 			<script>

@@ -51,13 +51,13 @@ function main()
 					ROWGROUP oFld
 						GET oGet ID 'aaa' VALUE 'aaa' GRID 4 PLACEHOLDER 'Test aaa' BUTTON '<i class="fas fa-search"></i>'  OF oFld
 						GET oGet ID 'bbb' VALUE 'bbb' GRID 8 PLACEHOLDER 'Test bbb' BUTTON '<i class="fas fa-search"></i>'  OF oFld                             
-					END oFld
+					ENDROW oFld
 					
 					
 				ENDTAB oFld					
 				
-			END oFld
-		END o
+			ENDFOLDER oFld
+		ENDROW o
 	END FORM o    
 	
 retu nil

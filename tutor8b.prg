@@ -16,11 +16,11 @@ function main()
 	
 		ROW o HALIGN 'center' TOP '30%' BOTTOM '50px'
 			SAY VALUE 'Hello' GRID 4 ALIGN 'center' OF o	
-		END o
+		ENDROW o
 		
 		ROW o HALIGN 'center' 
 			SAY VALUE 'darling...' GRID 4 ALIGN 'center' OF o	
-		END o		
+		ENDROW o		
 		
     END FORM o	
 	

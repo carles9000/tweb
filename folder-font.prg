@@ -48,8 +48,8 @@ function main()
 
 				ENDTAB oFld					
 				
-			END oFld
-		END o
+			ENDFOLDER oFld
+		ENDROW o
 	END FORM o    
 	
 retu nil

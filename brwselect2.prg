@@ -17,7 +17,7 @@ function main()
 			
 		ROWGROUP o
 			BUTTON LABEL 'Test TWebBrwSelect()' GRID 6 ACTION 'Test()' OF o      			
-		END o
+		ENDROW o
 		
 		HTML o
 		
@@ -43,6 +43,7 @@ function main()
 					var oOptions = new Object()
 						oOptions[ 'search' ] = false 
 						oOptions[ 'height' ] = 200 
+						//oOptions[ 'select' ] = false
 					
 					TWebBrwSelect( headers, rows, myfunc, '<i class="fas fa-user-friends"></i> My Customers', oOptions )
 				}

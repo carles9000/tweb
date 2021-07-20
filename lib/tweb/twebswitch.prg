@@ -46,11 +46,15 @@ METHOD Activate() CLASS TWebSwitch
 	cHtml += ' onclick="' + ::cAction + '" ' 
 	cHtml += '>' 
 	
-	IF !empty( ::cLabel )
 	
-		cHtml += '<label class="custom-control-label" for="' + ::cId + '">' + ::cLabel + '</label>'
 	
-	ENDIF	
+	IF empty( ::cLabel )
+		::cLabel := '&nbsp;'
+	endif
+	
+	cHtml += '<label class="custom-control-label" for="' + ::cId + '">' + ::cLabel + '</label>'
+	
+
 
 	cHtml += '</div>'
 

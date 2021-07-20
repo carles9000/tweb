@@ -16,11 +16,11 @@ function main()
 
 		ROWGROUP o
 			BUTTON ID 'myupload' LABEL ' Upload' GRID 6 FILES ACTION 'UploadFile()' ICON '<i class="fas fa-cloud-upload-alt"></i>'  OF o 		
-		END o
+		ENDROW o
 		
 		ROWGROUP o
 			SAY ID 'log' VALUE '<h5>Log</h5><hr>' BORDER GRID 12 OF o			
-		END o			
+		ENDROW o			
 		
 		HTML o
 			<script>

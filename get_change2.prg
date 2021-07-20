@@ -17,7 +17,7 @@ function main()
             GET ID 'total' VALUE '' GRID 6 LABEL 'Total' VALID 'Test(this)' PLACEHOLDER "Value < 100" OF o		
             GET ID 'id'    VALUE '' GRID 6 LABEL 'Id.'   OF o		
         
-        END o		
+        ENDROW o		
 		
 		HTML o
 			<script>

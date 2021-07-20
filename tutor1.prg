@@ -16,7 +16,7 @@ function main()
 	
 		ROW o
 			SAY VALUE 'Hello' ALIGN 'right' OF o
-		END o
+		ENDROW o
 		
     END FORM o	
 	

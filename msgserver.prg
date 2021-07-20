@@ -11,7 +11,7 @@ function main()
 	
     DEFINE FORM o 
 		
-        HTML o INLINE '<h3>System information...</h3><hr>'	
+        HTML o INLINE '<h3>MsgServer() - AJAX request</h3><hr>'	
 
         INIT FORM o
         
@@ -21,23 +21,23 @@ function main()
 			
 					ROWGROUP o                        
                         GET ID 'mytext' VALUE 'James Brown...'   GRID 6 LABEL 'String' BUTTON 'Test String' ACTION 'TestString()' OF o             
-                    END o
+                    ENDROW o
                     
                     ROWGROUP o                        
                         GET ID 'mynumber' VALUE '1234.56'   GRID 6 LABEL 'Number' BUTTON 'Test Number' ACTION 'TestNumber()' OF o             
-                    END o    
+                    ENDROW o    
 
                     ROWGROUP o                                                
 						SWITCH ID 'mylogic' LABEL 'OnOff'  ACTION 'TestLogic()' GRID 6 OF o						
-                    END o  					
+                    ENDROW o  					
                     
                     ROWGROUP o
 						BUTTON ID 'btn'  LABEL 'Send All' GRID 0 ACTION 'TestAll()' OF o    
-                    END o 				
+                    ENDROW o 				
                 
-                END o
+                ENDCOL o
             
-            END o        
+            ENDROW o        
 	
 		HTML o
 		

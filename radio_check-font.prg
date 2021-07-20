@@ -31,7 +31,7 @@ function main()
 			RADIO    oRadio  ID 'style1'  PROMPT 'Uno', 'Dos', 'Tres' VALUES  '1', '2', '3'  FONT 'MyFont' GRID 6  OF o
 			CHECKBOX oCheck1 ID 'accept1' LABEL 'Accept'  GRID 6  FONT 'MyFont' OF o
 
-		END o		
+		ENDROW o		
 	
 	END FORM o
 	

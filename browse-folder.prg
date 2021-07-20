@@ -43,26 +43,26 @@ function main()
 					ROWGROUP oFld
 						GET ID 'city' VALUE '' GRID 9 LABEL 'City' OF oFld
 						GET ID 'st'   VALUE '' GRID 3 LABEL 'State' OF oFld
-					END oFld
+					ENDROW oFld
 					
 					ROWGROUP oFld
 						GET ID 'zip'  		VALUE '' GRID 6 LABEL 'Zip'   OF oFld
 						GET ID 'hiredate' 	VALUE '' GRID 6 LABEL 'Hiredate' OF oFld
-					END oFld
+					ENDROW oFld
 					
 					ROWGROUP oFld
 						CHECKBOX ID 'married' LABEL 'Married' GRID 6 OF oFld
-					END oFld
+					ENDROW oFld
 						
 					ROWGROUP oFld
 						GET ID 'notes' VALUE '' GRID 12 LABEL 'Notes' OF oFld
-					END oFld
+					ENDROW oFld
 				
 				ENDTAB oFld
 			
-			END oFld
+			ENDFOLDER oFld
 		
-		END o 
+		ENDROW o 
 
 		HTML o 
 		

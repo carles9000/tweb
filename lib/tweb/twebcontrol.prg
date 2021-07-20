@@ -19,6 +19,7 @@ CLASS TWebControl
 	DATA cAction					INIT ''
 	DATA cDblClick					INIT ''
 	DATA cClass						INIT ''	
+	DATA cSrc						INIT ''	
 	DATA cIcon						INIT ''
 	DATA cChange					INIT ''
 	DATA cGroup						INIT ''

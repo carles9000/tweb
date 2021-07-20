@@ -31,7 +31,7 @@ function main()
 
 			SELECT oSelect  ID 'cars' PROMPT 'Volvo', 'Seat', 'Renault' VALUES  'V', 'S', 'R'  GRID 6  FONT 'MyFont' OF o
 			
-		END o
+		ENDROW o
       
 	
 	END FORM o

@@ -32,7 +32,7 @@ function main()
 			SAY VALUE 'Hello' GRID 6 ALIGN 'right'  FONT 'MyFont' OF o
 			SAY VALUE 'Hello' GRID 4 OF o
 			SAY VALUE 'Hello' GRID 2 ALIGN 'center' CLASS 'MySay' FONT 'MyFont' OF o
-		END o
+		ENDROW o
 		
     END FORM o	
 	

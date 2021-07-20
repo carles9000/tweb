@@ -45,14 +45,14 @@ function main()
 
             SMALL o ID 'chofer_data' Label 'Test...' GRID 6
         
-        END o
+        ENDROW o
         
         
         ROWGROUP o
            
             GET ID 'chofer' VALUE '22' GRID 6 PLACEHOLDER 'Id.' LABEL 'Chofer'  BUTTON '<i class="fas fa-search"></i>' ACTION 'GetChofer()' OF o
 
-        END o
+        ENDROW o
         
         ROWGROUP o VALIGN 'bottom'
 
@@ -65,7 +65,7 @@ function main()
 			
             SWITCH ID 'onoff' VALUE .T. LABEL 'Ready' OF o		
 
-        END o          
+        ENDROW o          
         
         cLoren := "Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. "
 
@@ -82,24 +82,24 @@ function main()
         
                     SWITCH ID 'onoff3' VALUE .T. LABEL 'Ready' GRID 6 OF o
                 
-                END o
+                ENDCOL o
             
-            END o
+            ENDCOL o
             
             COL o GRID 4
                 ROWGROUP o
                      SMALL o ID 'chofer_data' Label cLoren  GRID 12
-                END o
-            END o            
+                ENDROW o
+            ENDCOL o            
 
-        END o                   	
+        ENDROW o                   	
 		
 		
         ROW o VALIGN 'bottom'
             SEPARATOR o LABEL 'Test bottom'
             SELECT oSelect  ID 'cars'  LABEL 'Cars' PROMPT 'Volvo', 'Seat', 'Renault' VALUES  'V', 'S', 'R'  GRID 6  ONCHANGE 'Select()' OF o
             SELECT oSelect  ID 'cars2'              PROMPT 'Volvo', 'Seat', 'Renault' VALUES  'V', 'S', 'R'  GRID 6  OF o            
-        END o		
+        ENDROW o		
 		
 		HTML o
 			<script>

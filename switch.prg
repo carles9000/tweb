@@ -15,7 +15,7 @@ function main()
 
 		ROW o TOP '40%'
 			SWITCH ID 'myswitch' VALUE .F. LABEL 'Accept' ONCHANGE 'Test()'OF o
-		END o 
+		ENDROW o 
 		
 	
 	HTML o 

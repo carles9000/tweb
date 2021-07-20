@@ -20,10 +20,12 @@
 
 
 #xcommand DEFINE FORM <oForm> [ID <cId> ] [ACTION <cAction>] [METHOD <cMethod>] => <oForm> := TWebForm():New([<cId>], [<cAction>], [<cMethod>] )
-#xcommand INIT FORM <oForm> => <oForm>:InitForm()
+#xcommand INIT FORM <oForm> [ CLASS <cClass>] => <oForm>:InitForm( [<cClass> ] )
 #xcommand END FORM <oForm> [ START <fOnInit> ]=> ?? <oForm>:Activate( <fOnInit> )
 #xcommand END FORM <oForm> RETURN =>  return <oForm>:Activate()
-#xcommand CSS <oForm> => #pragma __cstream| <oForm>:Html( '<style>' + %s + '</style>' )
+
+//	Prepro crash...
+//#xcommand CSS <oForm> => #pragma __cstream| <oForm>:Html( '<style>' + %s + '</style>' )
 
 
 #xcommand HTML <o> => #pragma __cstream| <o>:Html( %s )
@@ -40,9 +42,9 @@
 
 
 	
-#xcommand CAPTION <oForm> LABEL <cLabel> [ GRID <nGrid> ] => <oForm>:Caption( <cLabel>, <nGrid> )
+#xcommand CAPTION <oForm> LABEL <cLabel> [ GRID <nGrid> ]  [ CLASS <cClass> ] => <oForm>:Caption( <cLabel>, <nGrid>, [<cClass>] )
 #xcommand SEPARATOR <oForm>  [ ID <cId> ] LABEL <cLabel> [ CLASS <cClass> ] => <oForm>:Separator( [<cId>], <cLabel>, [<cClass>] )
-#xcommand SMALL <oForm> [ ID <cId> ] [ LABEL <cLabel> ] [ GRID <nGrid> ] => <oForm>:Small( <cId>, <cLabel>, <nGrid> )
+#xcommand SMALL <oForm> [ ID <cId> ] [ LABEL <cLabel> ] [ GRID <nGrid> ] [ CLASS <cClass> ] => <oForm>:Small( <cId>, <cLabel>, <nGrid>, [<cClass>] )
 
 #xcommand ROW <oForm> [ ID <cId> ] [ VALIGN <cVAlign> ] [ HALIGN <cHAlign> ] [ CLASS <cClass> ] [ TOP <cTop> ] [ BOTTOM <cBottom>] ;
 => ;
@@ -51,12 +53,13 @@
 #xcommand ROWGROUP <oForm> [ VALIGN <cVAlign> ] [ HALIGN <cHAlign> ] [ CLASS <cClass> ] => <oForm>:RowGroup( <cVAlign>, <cHAlign>, <cClass> )
 
 #xcommand DIV <oForm> [ ID <cId> ] [ CLASS <cClass> ] => <oForm>:Div( [<cId>], [<cClass>] )
-	
+#xcommand ENDDIV <oForm> => <oForm>:End()	
 
 #xcommand COL <oForm> [GRID <nGrid>] [TYPE <cType>]  [ CLASS <cClass> ] => <oForm>:Col( [<nGrid>], [<cType>], [<cClass>] )
 #xcommand ENDROW <oForm> => <oForm>:End()
 #xcommand ENDCOL <oForm> => <oForm>:End()
-#xcommand END <oForm> => <oForm>:End()
+
+//#xcommand END <oForm> => <oForm>:End()
 
 
 #xcommand DEFINE FONT [<oFont>] NAME <cId> ;
@@ -87,9 +90,10 @@
 	[ <chg: ONCHANGE,VALID> <cChange> ];
 	[ CLASS <cClass> ] [ FONT <cFont> ] [ FONTLABEL <cFontLabel> ] ;
 	[ LINK <cLink> ] [ GROUP <cGroup> ] [ DEFAULT <cDefault>] ;
+	[ <spn: SPAN> <cSpan,...> ] [ <spnid: SPANID> <cSpanId,...> ] ;
 	OF <oForm> ;
 => ;
-	[<oGet> := ] TWebGet():New( <oForm>, [<cId>], [<uValue>], [<nGrid>], [<cLabel>], [<cAlign>], [<.ro.>], [<cType>], [<cPlaceHolder>], [\{<cButton>\}], [\{<cAction>\}], [\{<cBtnId>\}], [<.rq.>], [<uSource>], [<cSelect>], [<cChange>], [<cClass>], [<cFont>], [<cFontLabel>],[<cLink>], [<cGroup>], [<cDefault>] )
+	[<oGet> := ] TWebGet():New( <oForm>, [<cId>], [<uValue>], [<nGrid>], [<cLabel>], [<cAlign>], [<.ro.>], [<cType>], [<cPlaceHolder>], [\{<cButton>\}], [\{<cAction>\}], [\{<cBtnId>\}], [<.rq.>], [<uSource>], [<cSelect>], [<cChange>], [<cClass>], [<cFont>], [<cFontLabel>],[<cLink>], [<cGroup>], [<cDefault>], [\{<cSpan>\}], [\{<cSpanId>\}]  )
 	
 #xcommand GET [<oGetMemo>] MEMO [ ID <cId> ] [ VALUE <uValue> ] [ LABEL <cLabel> ] [ ALIGN <cAlign> ] [GRID <nGrid>] ;
 	[ <ro: READONLY> ] [ ROWS <nRows> ] ;	
@@ -113,9 +117,10 @@
 	[ ICON <cIcon> ] [ <ds: DISABLED> ] [ <sb: SUBMIT> ] [ LINK <cLink> ] ;
 	[ CLASS <cClass> ] [ FONT <cFont> ] ;
 	[ <files: FILES> ] ;
+	[ WIDTH <cWidth> ] ;
 	OF <oForm> ;
 => ;
-	[ <oBtn> := ] TWebButton():New( <oForm>, [<cId>], <cLabel>, <cAction>, <cName>, <cValue>, <nGrid>, <cAlign>, <cIcon>, [<.ds.>], [<.sb.>], [<cLink>], [<cClass>], [<cFont>], [<.files.>]  )	
+	[ <oBtn> := ] TWebButton():New( <oForm>, [<cId>], <cLabel>, <cAction>, <cName>, <cValue>, <nGrid>, <cAlign>, <cIcon>, [<.ds.>], [<.sb.>], [<cLink>], [<cClass>], [<cFont>], [<.files.>], [<cWidth>]   )	
 	
 	
 #xcommand BOX [<oBox>] [ ID <cId> ]  ;
@@ -159,6 +164,10 @@
 => ;
 	[ <oSelect> := ] TWebSelect():New( <oForm>, [<cId>], [<uValue>], [\{<cPrompt>\}], [\{<cValue>\}], [<aKeyValue>], [<nGrid>], [<cAction>], [<cLabel>], [<cClass>], [<cFont>], <cGroup>  )
 	
+#xcommand ICON [<oIcon>] [ ID <cId> ] [ <prm: IMAGE,SRC> <cSrc> ] [ ALIGN <cAlign> ] ;
+	[GRID <nGrid>] [ CLASS <cClass> ] [ FONT <cFont> ] [ LINK <cLink> ] OF <oForm> ;
+=> ;
+	[<oIcon> := ] TWebIcon():New( <oForm>, [<cId>], [<cSrc>], [<nGrid>], [<cAlign>], [<cClass>], [<cFont>], [<cLink>] )
 
 
 		 
@@ -175,20 +184,21 @@
 
 #xcommand DEFINE TAB <cId> [ <lFocus: FOCUS> ] [ CLASS <cClass> ] OF <oFld> => <oFld>:AddTab( <cId>, [<.lFocus.>], [<cClass>] )
 #xcommand ENDTAB <oFld> => <oFld>:End()
-#xcommand ENDFOLDER <oFld> => <oFld>:Activate()
+#xcommand ENDFOLDER <oFld> => <oFld>:End()
 	
 //	------------------------------------------------------------------------	//
 
-#xcommand DEFINE BROWSE [<oBrw>] [ ID <cId> ] [HEIGHT <nHeight>] [ <s: SELECT> ] [ <ms: MULTISELECT> ];
+#xcommand DEFINE BROWSE [<oBrw>] [ ID <cId> ] [HEIGHT <nHeight>] [ <s: SELECT> [ <rd: RADIO> ] ] [ <ms: MULTISELECT> ];
 	[<click: CLICKSELECT>] [<lPrint: PRINT>] [<lExport: EXPORT>] [<lSearch: SEARCH>] [<lTools: TOOLS>] ;
 	[ ONCHANGE <cAction>  ] ;
 	[ DBLCLICK <cDblClick> ] ;
-	[ <edit: EDIT> [ WITH <cEditor>] [ TITLE <cTitle> ] [ POSTEDIT <cPostEdit> ] [ UNIQUEID <cKey>] ] ;
+	[ <edit: EDIT> [ WITH <cEditor>] [ TITLE <cTitle> ] [ PREEDIT <cPreEdit> ] [ POSTEDIT <cPostEdit> ] [ UNIQUEID <cKey>] ] ;
 	[ ROWSTYLE <cRowStyle> ] ;
 	[ TOOLBAR <cToolbar> ] ;
+	[ PAGINATION URL <cPag_Url> [ <ui: USERINTERMEDIATE> ] ] ;
 	[ OF <oForm> ] ;
 => ;
-	[ <oBrw> := ] TWebBrowse():New( <oForm>, [<cId>], <nHeight>, <.s.>, <.ms.>, <.click.>, <.lPrint.>, <.lExport.>, <.lSearch.>, <.lTools.>, [<cAction>], [<cDblClick>], [<.edit.>], [<cKey>], [<cEditor>], [<cTitle>], [<cPostEdit>], [<cRowStyle>], [<cToolbar>] )
+	[ <oBrw> := ] TWebBrowse():New( <oForm>, [<cId>], <nHeight>, <.s.>, <.rd.>, <.ms.>, <.click.>, <.lPrint.>, <.lExport.>, <.lSearch.>, <.lTools.>, [<cAction>], [<cDblClick>], [<.edit.>], [<cKey>], [<cEditor>], [<cTitle>], [<cPreEdit>], [<cPostEdit>], [<cRowStyle>], [<cToolbar>], [<cPag_Url>], [<.ui.>] )
 	
 #xcommand ADD <oCol> TO <oBrw> ID <cId> ;
 		[ HEADER <cHeader> ] ;		
@@ -197,7 +207,7 @@
 		[ FORMATTER <cFormatter> ] ;
 		[ <lSort: SORT> ];
 		[ CLASS <cClass> ] ;
-		[ CLASSEVENT <cClassEvent> ] ;
+		[ CLASSEVENT <cClassEvent> ] ;		
 		[ <lEdit: EDIT> ] [ [ TYPE <cEdit_Type> ] [ WITH <cEdit_With> ] [ <lEscape: ESCAPE> ] ] ;
 	=> ;						
 		<oCol> := <oBrw>:AddCol( <cId>, nil, [<cHeader>], [<nWidth>], [<.lSort.>], [<cAlign>], [<cFormatter>], [<cClass>], [<.lEdit.>], [<cEdit_Type>], [<cEdit_With>], [<.lEscape.>], [<cClassEvent>] )
@@ -206,6 +216,9 @@
 	=> ;
 		<oBrw>:Init( [<cVar>], [<aRows>] )
 		
+#xcommand DEFINE BROWSE [ ID <cId> ] [ DATA <aRows> ] [ UNIQUEID <cUniqueId> ] [ CONFIG <hCfgBrw> ] [ COLS <hCols> ] OF <oForm> ;
+	=> ;
+		XBrowse( <oForm>, [<cId>], [<aRows>], [<cUniqueId>], [<hCfgBrw>], [<hCols>] )
 		
 //#xcommand END BROWSE <oBrw> => <oBrw>:Activate()
 

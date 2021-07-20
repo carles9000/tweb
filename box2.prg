@@ -43,7 +43,7 @@ function main()
 							SAY VALUE 'Hello' GRID 4 OF oBox
 							SAY VALUE 'Hello' GRID 2 ALIGN 'center' OF oBox
 						
-						END oBox	
+						ENDROW oBox	
 
 						ROW oBox
 						
@@ -51,7 +51,7 @@ function main()
 							SAY VALUE 'Hello' GRID 4 OF oBox
 							SAY VALUE 'Hello' GRID 2 ALIGN 'center' OF oBox
 						
-						END oBox						
+						ENDROW oBox						
 					
 					ENDBOX oBox
 					
@@ -62,15 +62,15 @@ function main()
 							SAY VALUE 'Bye' GRID 4 ALIGN 'right' OF oBox
 							SAY VALUE 'Bye' GRID 8 OF oBox						
 						
-						END oBox						
+						ENDROW oBox						
 					
 					ENDBOX oBox
 				
-				END o
+				ENDROW o
 				
-			END o		
+			ENDCOL o		
 		
-		END o
+		ENDROW o
 	
 	END FORM o
 	

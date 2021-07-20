@@ -20,7 +20,7 @@ function main()
 		
 		ROWGROUP o  
 			GET VALUE 'ABC-3546' LABEL 'Identifica' FONT 'MyFontGet' FONTLABEL 'MyFontSay' OF o
-		END o		
+		ENDROW o		
 		
     END FORM o	
 	

@@ -19,7 +19,7 @@ function main()
             GET ID 'birds' VALUE '' GRID 6 LABEL 'Source: Server' AUTOCOMPLETE 'srv_get_auto.prg' ;
 				PLACEHOLDER 'ex: Charles, Chris, Irene,... ' OF o
         
-        END o	
+        ENDROW o	
 		
     END FORM o	
 	

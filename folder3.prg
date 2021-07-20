@@ -41,9 +41,9 @@ function main()
 					
 				ENDTAB oFld			
 			
-			END oFld
+			ENDFOLDER oFld
 
-		END o
+		ENDROW o
 		
 	END FORM o    
 	

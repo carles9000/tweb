@@ -43,7 +43,7 @@ function main()
         
             GET ID 'myid'  VALUE '' GRID 6 LABEL 'Source: Array' AUTOCOMPLETE aLang OF o
             
-        END o
+        ENDROW o
 		
         ROWGROUP o        
             
@@ -51,7 +51,7 @@ function main()
 				AUTOCOMPLETE 'srv_get_auto.prg' SELECT 'MySelect' ;
 				PLACEHOLDER 'ex: Charles, Chris, Irene,... ' OF o
         
-        END o	
+        ENDROW o	
 		
 		
 		HTML o

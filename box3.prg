@@ -45,29 +45,29 @@ function main()
 					
 						ROWGROUP oBox 
 							SAY VALUE '<h3>Autentication</h3><hr>' GRID 12 ALIGN 'center' OF oBox
-						END oBox
+						ENDROW oBox
 						
 						ROWGROUP oBox  HALIGN 'center'
 							SAY VALUE '<i class="fas fa-user"></i> User' ALIGN 'right' GRID 4 OF oBox
 							GET VALUE '' GRID 6 OF oBox
-						END oBox
+						ENDROW oBox
 
 						ROWGROUP oBox  HALIGN 'center'
 							SAY VALUE '<i class="fas fa-key"></i> Password' GRID 4 ALIGN 'right' OF oBox
 							GET VALUE '' TYPE 'password' GRID 6 OF oBox
-						END oBox
+						ENDROW oBox
 						
 						ROWGROUP oBox HALIGN 'center'
 							BUTTON LABEL ' Login' ACTION "MsgInfo( 'Logged!')" GRID 8  ALIGN 'center' ICON '<i class="fas fa-sign-in-alt"></i>' CLASS 'btn-primary' OF oBox
-						END oBox
+						ENDROW oBox
 					
 					ENDBOX oBox
 
-				END o
+				ENDROW o
 				
-			END o		
+			ENDCOL o		
 		
-		END o
+		ENDROW o
 	
 	END FORM o
 	

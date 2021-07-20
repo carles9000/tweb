@@ -24,12 +24,12 @@ function main()
 		ROWGROUP o  
 			SAY VALUE 'Id' ALIGN 'right' OF o
 			GET VALUE '' OF o
-		END o
+		ENDROW o
 		
 		ROWGROUP o  
 			SAY VALUE 'Id' ALIGN 'right' FONT 'MyFontSay' OF o
 			GET VALUE 'ABC-3546' FONT 'MyFontGet' OF o
-		END o		
+		ENDROW o		
 		
     END FORM o	
 	

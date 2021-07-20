@@ -38,6 +38,7 @@ METHOD New( oParent, cId, uValue, aItems, aValues, aKeyValue, nGrid, cAction, cL
 	::cClass 		:= cClass
 	::cFont 		:= cFont	
 	::cGroup 		:= cGroup
+
 	
 	if valtype( aKeyValue ) == 'H' 
 		::lParKeyValue 	:= .t.
@@ -90,6 +91,7 @@ METHOD Activate() CLASS TWebSelect
 	LOCAL nI
 	LOCAL cSize := ''
 	local aPar
+	local lArrayPar := .f.
 	
 	DO CASE
 		CASE upper(::oParent:cSizing) == 'SM' ; cSize := 'form-control-sm'
@@ -129,12 +131,14 @@ METHOD Activate() CLASS TWebSelect
 	
 	cHtml += '" ' + IF( ::oParent:lDessign, 'style="border:1px solid blue;"', '' ) + ' id="' + ::cId + '" name="' + ::cId + '" onchange="' + ::cAction + '" >'
 
+
 	FOR nI := 1 TO len( ::aValues )
 	
 		if ::lParKeyValue 
 			aPar := HB_HPairAt( ::aValues, nI ) 
 		else
 			aPar := { ::aValues[nI], ::aItems[nI] }
+
 		endif
 
 		cHtml += '<option value="' + aPar[1] + '" ' 			

@@ -17,22 +17,22 @@ function main()
 		ROWGROUP o
 			SAY VALUE "MsgYesNo( cMsg )" GRID 6 ALIGN 'right' OF o
 			BUTTON LABEL 'Test' GRID 4 ACTION "MsgYesNo( 'Confirm ?', null, null, MyFunc )"  OF o        			
-		END o
+		ENDROW o
 		
 		ROWGROUP o
 			SAY VALUE "MsgYesNo( cMsg, cTitle )" GRID 6 ALIGN 'right' OF o
 			BUTTON LABEL 'Test' GRID 4 ACTION "Test2()"  OF o        			
-		END o	
+		ENDROW o	
 
 		ROWGROUP o
 			SAY VALUE "MsgYesNo( cMsg, cTitle, Icon )" GRID 6 ALIGN 'right' OF o
 			BUTTON LABEL 'Test' GRID 4 ACTION "Test3()"  OF o        			
-		END o	
+		ENDROW o	
 
 		ROWGROUP o
 			SAY VALUE "MsgYesNo( cMsg, cTitle, Icon, cFunc )" GRID 6 ALIGN 'right' OF o
 			BUTTON LABEL 'Test' GRID 4 ACTION "Test4()"  OF o        			
-		END o		
+		ENDROW o		
 
 		
 		HTML o

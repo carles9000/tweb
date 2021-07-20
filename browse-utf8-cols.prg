@@ -46,7 +46,7 @@ function main()
 
 				INIT BROWSE oBrw DATA aRows		
 		
-			END o
+			ENDCOL o
 			
 			COL o GRID 6
 
@@ -58,9 +58,9 @@ function main()
 
 				INIT BROWSE oBrw DATA aRows		
 		
-			END o			
+			ENDCOL o			
 			
-		END o
+		ENDROW o
 	
 	END FORM o	
 	

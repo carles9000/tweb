@@ -15,7 +15,7 @@ CLASS TWebButton FROM TWebControl
 
 ENDCLASS 
 
-METHOD New( oParent, cId, cLabel, cAction , cName, cValue, nGrid, cAlign, cIcon, lDisabled, lSubmit, cLink, cClass, cFont, lFiles  ) CLASS TWebButton
+METHOD New( oParent, cId, cLabel, cAction , cName, cValue, nGrid, cAlign, cIcon, lDisabled, lSubmit, cLink, cClass, cFont, lFiles, nWidth  ) CLASS TWebButton
 
 	DEFAULT cId TO ''
 	DEFAULT cLabel TO ''
@@ -32,6 +32,7 @@ METHOD New( oParent, cId, cLabel, cAction , cName, cValue, nGrid, cAlign, cIcon,
 	DEFAULT cClass TO ''
 	DEFAULT cFont TO ''		
 	DEFAULT lFiles TO .F.
+	DEFAULT nWidth TO ''
 	
 	if empty( cClass ) 
 		cClass := if( ::lOutline, 'btn-outline-primary' , 'btn-primary')	
@@ -54,6 +55,7 @@ METHOD New( oParent, cId, cLabel, cAction , cName, cValue, nGrid, cAlign, cIcon,
 	::cClass 		:= cClass
 	::cFont 		:= cFont	
 	::lFiles 		:= lFiles
+	::nWidth 		:= nWidth
 
 	IF Valtype( oParent ) == 'O'	
 		oParent:AddControl( SELF )		
@@ -125,6 +127,11 @@ METHOD Activate() CLASS TWebButton
 	*/
 	
 	cHtml += '" ' 
+	
+	if !empty( ::nWidth )
+		cHtml += 'style="width: '  + ::nWidth + '; " '
+	endif
+		
 
 	
 	IF !empty( ::cAction )

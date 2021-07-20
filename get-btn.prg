@@ -16,21 +16,21 @@ function main()
 		
 			GET VALUE '123' GRID 12 OF o
 		
-		END o	
+		ENDROW o	
 	   
 		ROWGROUP o
 		
 			GET ID 'myid' 		VALUE '123' GRID 12 LABEL 'Id.' ;				
 				BUTTON 'GetId' ACTION 'GetId()' OF o
 		
-		END o	
+		ENDROW o	
 
 		ROWGROUP o
 		
 			GET ID 'myid' 		VALUE '123' GRID 12 LABEL 'Id.' ;				
 				BUTTON 'GetId', 'Test' ACTION 'GetId()', 'TestBtn()' OF o
 		
-		END o	
+		ENDROW o	
 
 		ROWGROUP o
 		
@@ -38,7 +38,7 @@ function main()
 				BUTTON 'GetId', 'Test', '<i class="fas fa-search"></i>' ;
 				ACTION 'GetId()', 'TestBtn()', "MsgInfo(' Search...')" OF o
 		
-		END o			
+		ENDROW o			
 		
 		HTML o
 			<script>

@@ -20,7 +20,7 @@ function main()
 				AUTOCOMPLETE 'srv_get_auto.prg' SELECT 'MySelect' ;
 				PLACEHOLDER 'ex: Charles, Chris, Irene,... ' OF o
         
-        END o	
+        ENDROW o	
 		
 		
 		HTML o

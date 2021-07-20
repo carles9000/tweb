@@ -50,7 +50,7 @@ retu nil
 
 function SaveData( aData ) 
 
-	local oDataset		:= Open()
+	local oDataset			:= Open()
 	local nUpdated 		:= 0
 	local aUpdated 		:= 0
 	local hResponse 

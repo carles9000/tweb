@@ -75,14 +75,14 @@ function main()
 		
 			GET ID 'dummy' LABEL 'Dummy Field' VALUE '' GRID 6 OF o 
 		
-		END o
+		ENDROW o
 
 		DIV o ID 'bar' CLASS 'btn-group'
 			BUTTON LABEL ' New' 	ICON '<i class="far fa-plus-square"></i>' 	ACTION 'Add()' 		CLASS 'btn-secondary mybtnbar' GRID 0 OF o
 			BUTTON LABEL ' Edit' 	ICON '<i class="far fa-edit"></i>' 			ACTION 'Edit()' 	CLASS 'btn-secondary mybtnbar' GRID 0 OF o
-			BUTTON LABEL ' Delete' 	ICON '<i class="far fa-trash-alt"></i>' 	ACTION 'Delete()' 	CLASS 'btn-secondary mybtnbar' GRID 0 OF o
+			BUTTON LABEL ' Delete' ICON '<i class="far fa-trash-alt"></i>' 	ACTION 'Delete()' 	CLASS 'btn-secondary mybtnbar' GRID 0 OF o
 			BUTTON LABEL ' Save' 	ICON '<i class="far fa-save"></i>' 			ACTION 'Save()' 	CLASS 'btn-secondary mybtnbar' GRID 0 OF o
-		END o 
+		ENDDIV o 
 
 		DEFINE BROWSE oBrw ID 'ringo' MULTISELECT CLICKSELECT HEIGHT 400 ;
 			EDIT UNIQUEID 'id' TITLE '<i class="fas fa-recycle"></i> My ABM...' POSTEDIT 'TestPostEdit' ;
@@ -113,7 +113,7 @@ function main()
 			BUTTON LABEL 'GetRow' 			ACTION 'GetRow()'  		CLASS 'btn-secondary mybtnbar' GRID 0 OF o			
 			BUTTON LABEL 'GetAll'			ACTION 'GetAll()'  		CLASS 'btn-secondary mybtnbar' GRID 0 OF o			
 			BUTTON LABEL 'Insert My Row'	ACTION 'InsMyRow()'  	CLASS 'btn-secondary mybtnbar' GRID 0 OF o			
-		END o			
+		ENDROW o			
 		
 		HTML o 
 		
@@ -128,7 +128,7 @@ function main()
 
 				function Edit() 	{ oBrw.Edit() }	
 				function Add()  	{ oBrw.AddRow() }	
-				function Delete() 	{ oBrw.DeleteRow() }
+				function Delete() { oBrw.DeleteRow() }
 				function Save() 	{ 
 					MsgInfo( 'Not yet' )
 				}

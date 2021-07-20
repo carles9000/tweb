@@ -29,7 +29,7 @@ function main()
 			RADIO    oRadio  ID 'style1'  PROMPT 'Uno', 'Dos', 'Tres' VALUES  '1', '2', '3'  CHECKED '2' GRID 6  OF o
 			CHECKBOX oCheck1 ID 'accept1' LABEL 'Accept'  GRID 6  OF o
 
-		END o
+		ENDROW o
 		
 		ROWGROUP o
 		   
@@ -38,7 +38,7 @@ function main()
 			RADIO    oRadio  ID 'st1' PROMPT 'Soltero', 'Casado' VALUES  'S', 'C'  GRID 6  INLINE ONCHANGE 'Status1()' OF o
 			CHECKBOX oCheck2 ID 'st2' LABEL 'Accept 2' GRID 6 ON ACTION 'Status2()' OF o
 		
-		END o   
+		ENDROW o   
 
 		HTML o
 			<script>

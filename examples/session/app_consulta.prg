@@ -31,7 +31,7 @@ function main()
 		
 			SELECT oSelect  ID 'state' LABEL 'States' PROMPT '', 'NY', 'IL', 'WY', 'NE', 'NK', 'MT'  GRID 6  ONCHANGE 'LoadState()' OF o		
 			
-		END o 
+		ENDROW o 
 		
 		ROWGROUP o		   			
 			
@@ -41,7 +41,7 @@ function main()
             		ADD oCol TO oBrw ID 'first'	HEADER 'First'  SORT
             		ADD oCol TO oBrw ID 'street' 	HEADER 'Street' SORT
             		ADD oCol TO oBrw ID 'age' 	    HEADER 'Age'    WIDTH 70 ALIGN 'center' FORMATTER 'ageFormatter'	   
-		END o
+		ENDROW o
 		
 		HTML o
 			<script>

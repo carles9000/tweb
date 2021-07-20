@@ -38,21 +38,21 @@ function main()
 						GET ID 'xxx' VALUE '12,34' GRID 7 ALIGN 'center'  ;
 							BUTTON '<i class="fas fa-wrench"></i>' ;
 							ACTION "alert('modifica')" OF oFld
-					END oFld
+					ENDROW oFld
 					
 					ROWGROUP oFld  
 						SAY VALUE 'Etiqueta' GRID 5 ALIGN 'right' OF oFld
 						GET ID 'xxx' VALUE '9416015' GRID 7 ALIGN 'center' ;
 							BUTTON '<i class="fas fa-wrench"></i>' ;
 							ACTION "alert('etiqueta')" OF oFld
-					END oFld
+					ENDROW oFld
 
 					ROWGROUP oFld  
 						SAY VALUE 'Ubicacion' GRID 5 ALIGN 'right' OF oFld
 						GET ID 'xxx' VALUE '1234567890' GRID 7 ALIGN 'center' ;
 							BUTTON '<i class="fas fa-wrench"></i>' ;
 							ACTION "alert('ubicacion')" OF oFld
-					END oFld			
+					ENDROW oFld			
 				
 				ENDTAB oFld
 				
@@ -64,9 +64,9 @@ function main()
 					
 				ENDTAB oFld			
 			
-			END oFld
+			ENDFOLDER oFld
 
-		END o
+		ENDROW o
 		
 	END FORM o    
 	

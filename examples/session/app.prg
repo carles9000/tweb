@@ -14,7 +14,7 @@ function main()
 	   
 		ROW o HALIGN 'center' TOP '20%' 		
 			SAY LABEL '<h3>Welcome to App !</h3>' ALIGN 'center' GRID 10 LINK 'app_menu.prg' OF o
-		END o
+		ENDROW o
 		
     END FORM o	
 	

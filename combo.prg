@@ -29,7 +29,7 @@ function main()
 
 			SELECT oSelect  ID 'cars' PROMPT 'Volvo', 'Seat', 'Renault' VALUES  'V', 'S', 'R'  GRID 6  ONCHANGE 'Select()' OF o
 			
-		END o
+		ENDROW o
 
 		HTML o
 		

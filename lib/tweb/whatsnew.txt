@@ -1,3 +1,51 @@
+20/06/2021
+==========
+New:       New xBrowse. One line of code for create a browse. See xBrowse.prg
+
+22/04/2021
+==========
+Enchanced: Browse select+multiselect. See browse-select.prg
+
+16/04/2021
+==========
+New: 	   MsgGet() Function. See msgget.prg
+
+13/04/2021
+==========
+Enchance: SMALL Clause CLASS. See Test10b.prg
+
+12/02/2021
+==========
+Enchance: Button clause WIDTH. See button-width.prg
+
+10/02/2021
+==========
+Enchanced: Browse clause SELECT RADIO. See browse-select-radio.prg
+
+09/02/2021
+==========
+New:      TWebIcon. See example icon.prg
+
+07/02/2021
+==========
+Enchanced Browse: Pagination is ready!. See browse-ajax-pag.prg, browse-ajax-pag2.prg
+
+30/01/2021
+==========
+Enchanced: MsgServer() if don't exist fCallback function, then would'n ajax request, redirect to url
+	  and send parameters. See msgserver4.prg
+29/01/2021
+==========
+Enchanced: Browse method EDIT... PREEDIT <cFunc>. Evaluate before save. See browse-edit-preedit.prg
+
+28/01/2021
+==========
+Enchanced: Col Browse has new type -> 'V'. When edit, show el field but you can't edit it. See browse-edit-v
+
+18/01/2021
+==========
+Enchanced: TWebIcon add span clause: See example get-span.prg 
+
 19/12/2020
 ==========
 Enchanced: TWebBrwSelect() has enchanced. See example brwselect2.prg

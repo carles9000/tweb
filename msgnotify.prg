@@ -17,22 +17,22 @@ function main()
 		ROWGROUP o
 			SAY VALUE "MsgNotify()" GRID 6 ALIGN 'right' OF o
 			BUTTON LABEL 'Test' GRID 4 ACTION "MsgNotify( 'Hello! I\'m a notify' )"  OF o        			
-		END o
+		ENDROW o
 		
 		ROWGROUP o
 			SAY VALUE "Test all types" GRID 6 ALIGN 'right' OF o
 			BUTTON LABEL 'Test' GRID 4 ACTION "TestTypes()"  OF o        			
-		END o		
+		ENDROW o		
 		
 		ROWGROUP o
 			SAY VALUE "Example native function $.notify()" GRID 6 ALIGN 'right' OF o
 			BUTTON LABEL 'Test' GRID 4 ACTION "TestNative()"  OF o        			
-		END o	
+		ENDROW o	
 		
 		ROWGROUP o
 			SAY VALUE "Page from author" GRID 6 ALIGN 'right' OF o
 			BUTTON LABEL 'Test' GRID 4 ACTION "TestUrl()"  OF o        			
-		END o			
+		ENDROW o			
 		
 		
 		HTML o

@@ -9,7 +9,7 @@
 static __TWebGlobal 	
 
 
-#define TWEB_VERSION 			'TWeb 1.2'
+#define TWEB_VERSION 			'TWeb 1.3'
 #define TWEB_PATH 				'lib/tweb/'
 #define CRLF 					Chr(13)+Chr(10)
 
@@ -17,10 +17,15 @@ static __TWebGlobal
 #xcommand ?? <cText> => AP_RPuts( <cText> )
 #xcommand BLOCKS ADDITIVE <v>[ PARAMS [<v1>] [,<vn>] ] => ;
 	#pragma __cstream |<v>+= InlinePrg( ReplaceBlocks( %s, "{{", "}}" [,<(v1)>][+","+<(vn)>] [, @<v1>][, @<vn>] ) )
+	
+#xcommand TRY  => BEGIN SEQUENCE WITH {| oErr | Break( oErr ) }
+#xcommand CATCH [<!oErr!>] => RECOVER [USING <oErr>] <-oErr->
+#xcommand FINALLY => ALWAYS	
 
 
 #include '..\..\include\hbclass.ch'		//	Special thread static 
 #include 'common.ch'
+#include 'tweb.ch'
 
 #include 'TWebControl.prg'
 #include 'TWebForm.prg'
@@ -39,11 +44,17 @@ static __TWebGlobal
 #include 'TWebFont.prg'
 #include 'TWebBox.prg'
 #include 'TWebImage.prg'
+#include 'TWebIcon.prg'
 #include 'TWebSession.prg'
 #include 'TWebApache.prg'
 
 
 function TWebVersion() ; RETU TWEB_VERSION
+
+function IsMercury() 
+
+retu HB_GetEnv( 'IS_MERCURY' )
+
 
 function LoadTWeb( cUrl )
 
@@ -70,7 +81,7 @@ function LoadTWebTables( cUrl )
 	
 retu cHtml
 
-function TWebLibs( cUrl ) 	
+function TWebLibs( cUrl ) 
 	
 return '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>' + CRLF + ;
 		'<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>' + CRLF + ;
@@ -83,9 +94,11 @@ return '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.m
 		'<script src="' + cUrl + 'lightbox/lightbox.js"></script>' + CRLF + ;
 		'<link href="'  + cUrl + 'lightbox/css/lightbox.css" rel="stylesheet" >' + CRLF + ;		
 		'<script src="' + cUrl + 'notify/bootstrap-notify.js' + '"></script>' + CRLF + ;
-		'<script src="' + cUrl + 'bootbox/bootbox.all.min.js"></script>' + CRLF + ;
+		'<script src="' + cUrl + 'bootbox/bootbox.all.min.js"></script>' + CRLF + ;		
 		'<link href="'  + cUrl + 'tweb.css' + '" rel="stylesheet">' + CRLF + ;		
-		'<script src="' + cUrl + 'tweb.js' + '"></script>' + CRLF  
+		'<script src="' + cUrl + 'tweb.js' + '"></script>' + CRLF 
+		
+		//'<script>var Is_Mercury = ' + if( HB_GetEnv( 'IS_MERCURY' ), 'true', 'false' ) + '</script>' + CRLF
 		
 function TWebLibsTables( cUrl ) 	
 
@@ -114,25 +127,45 @@ retu cHtml
 
 function TWebInclude( cPathPluggin )
 
-	local cPath, cFile, oError	
+	local cPath, cFile, oError
+	local cUrl
+	
+	//	Set Url 
+	
+		cUrl := AP_GETENV( 'SCRIPT_NAME' )	
+		cUrl := cFilePath( cUrl )
+		cUrl := Substr( cUrl, 1, len(cUrl)-1 ) 		//	Remove last '/'
+		cUrl := lower( cUrl )
+		
+	//	Set Path 
+	
+		cPath := AP_GETENV( 'DOCUMENT_ROOT' )
 
-	DEFAULT cPathPluggin TO TWEB_PATH
+
+	IF valtype(cPathPluggin) == 'C'
+		cUrl := cUrl + '/' + cPathPluggin 				
+	else 			
+		cUrl := cUrl + '/' + TWEB_PATH	
+	ENDIF
 	
-	cPath := HB_GetEnv( "PRGPATH" ) + '/' + cPathPluggin
+	IF Right( cUrl, 1 ) != '/'
+		cUrl += '/'
+	ENDIF
+
+	cFile :=  cUrl + 'tweb.ch'		
 	
-	__TWebGlobal[ 'url_tweb' ] := cPathPluggin 
+	__TWebGlobal[ 'url_tweb' ] := cUrl
 	
-	cFile :=  cPath + 'tweb.ch'
 	
-	if ! File( cFile )
+	if ! File( cPath + cFile )
 		oError := ErrorNew()
 		oError:Subsystem   := "System"
 		oError:Severity    := 2	//	ES_ERROR
-		oError:Description := "TWebInclude() File not found: " + cFile 
+		oError:Description := "TWebInclude() File not found: " + cPath + cFile 
 		Eval( ErrorBlock(), oError)
    endif
 
-RETU '"' + cFile + '"'
+RETU '"' + cPath + cFile + '"'
 
 function TWebHtmlInline( cFile, aParam )
 
@@ -205,9 +238,9 @@ function Parameter( uValue )
 retu ''
 
 function TWebHtmlPrg( cFile, cFunc, ... )
-
-	local oError
 	local cTxt := ''
+/*
+	local oError
 	local bFunc	
 	local cHBheaders := "c:\harbour\include"
 	local oHrb
@@ -252,7 +285,7 @@ function TWebHtmlPrg( cFile, cFunc, ... )
 	ELSE	
 		cTxt 	:= Execute( cTxt )			
 	ENDIF
-
+*/
 	
 RETU cTxt
 
@@ -338,7 +371,9 @@ METHOD Activate() CLASS TWeb
 			cHtml += ::aControls[nI]
 		ENDIF
 	
-	NEXT	
+	NEXT
+
+
 	
 	
 	?? cHtml	
@@ -407,7 +442,8 @@ INIT PROCEDURE __TWebInit()
 			
 		else 
 		
-			cPath := HB_DirTemp() 
+			//cPath := HB_DirTemp() 
+			cPath := hb_GetEnv( 'PRGPATH' ) 
 			
 			if right( cPath, 1 ) == '\' .or. right( cPath, 1 ) == '/'
 				cPath := Substr( cPath, 1 , len(cPath)-1 )
@@ -448,11 +484,7 @@ INIT PROCEDURE __TWebInit()
 		
 		endif 
 		
-		__TWebGlobal[ 'path_log' ] 	:= if( IsDirectory( cPath ), cPath, '' )	
-		
-	
-	
-		
+		__TWebGlobal[ 'path_log' ] 	:= if( IsDirectory( cPath ), cPath, '' )
 		
 	//	------------------------------------------------------------------------					
 	

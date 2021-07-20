@@ -15,7 +15,7 @@ function main()
 		
 		ROWGROUP o 			
 			GET VALUE '123' BUTTON 'Search' ACTION "alert('Search')" OF o
-		END o		
+		ENDROW o		
 		
     END FORM o	
 	

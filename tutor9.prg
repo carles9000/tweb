@@ -17,7 +17,7 @@ function main()
 		ROWGROUP o VALIGN 'bottom'
 			GET VALUE '123' LABEL 'Id' OF o
 			SELECT LABEL 'Cars' PROMPT 'Volvo', 'Renault' VALUES 'V', 'R' GRID 6  OF o
-		END o		
+		ENDROW o		
 		
     END FORM o	
 	

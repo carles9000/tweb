@@ -7,6 +7,7 @@ function main()
     local o, oCol, oBrw
 
 	DEFINE WEB oWeb TITLE 'CRUD Browse - Edit Dbf' TABLES INIT
+
 	
 	DEFINE FORM o
 
@@ -53,14 +54,15 @@ function main()
 		
 			BUTTON LABEL ' Load Data' ICON '<i class="far fa-save"></i>' ACTION 'Load()' CLASS 'btn-secondary mybtnbar' GRID 12 OF o
 		
-		END o
-
+		ENDROW o
+		
+		
 		DIV o ID 'bar' CLASS 'btn-group'
 			BUTTON LABEL ' New' 	ICON '<i class="far fa-plus-square"></i>' 		ACTION 'Add()' 			CLASS 'btn-secondary mybtnbar' GRID 0 OF o
 			BUTTON LABEL ' Edit' 	ICON '<i class="far fa-edit"></i>' 				ACTION 'Edit()' 		CLASS 'btn-secondary mybtnbar' GRID 0 OF o
 			BUTTON LABEL ' Delete' 	ICON '<i class="far fa-trash-alt"></i>' 		ACTION 'Delete()' 		CLASS 'btn-secondary mybtnbar' GRID 0 OF o
 			BUTTON LABEL ' Save' 	ICON '<i class="far fa-save"></i>' 				ACTION 'Save()' 		CLASS 'btn-secondary mybtnbar' GRID 0 OF o
-		END o 
+		ENDDIV o 
 
 		DEFINE BROWSE oBrw ID 'ringo' MULTISELECT CLICKSELECT HEIGHT 400 ;
 			EDIT UNIQUEID '_recno' TITLE '<i class="fas fa-recycle"></i> My ABM...' POSTEDIT 'TestPostEdit' ;
@@ -75,13 +77,13 @@ function main()
 			oBrw:cLocale := 'es-ES'
 
 			ADD oCol TO oBrw ID '_recno'	HEADER 'Recno' 		ALIGN 'center' SORT WIDTH 80 FORMATTER 'MyId' CLASS 'MyCssId'   			
-			ADD oCol TO oBrw ID 'first'	    HEADER 'First' 		EDIT SORT
+			ADD oCol TO oBrw ID 'first'		HEADER 'First' 		EDIT SORT
 			ADD oCol TO oBrw ID 'last'		HEADER 'Last' 		EDIT SORT
 			ADD oCol TO oBrw ID 'street'	HEADER 'Street'		EDIT 
 			ADD oCol TO oBrw ID 'married'	HEADER 'Married'	EDIT TYPE "L"
 			ADD oCol TO oBrw ID 'hiredate'	HEADER 'Hiredate'	EDIT TYPE 'D'
 			ADD oCol TO oBrw ID 'age'		HEADER 'Age'		EDIT 
-			ADD oCol TO oBrw ID 'notes'		HEADER 'Notes'		EDIT ESCAPE 				
+			ADD oCol TO oBrw ID 'notes'	HEADER 'Notes'		EDIT ESCAPE 				
 
 		INIT BROWSE oBrw // DATA aRows	
 		
@@ -91,7 +93,7 @@ function main()
 			BUTTON LABEL 'GetRow' 			ACTION 'GetRow()'  		GRID 0 CLASS "btn btn-secondary mybtnbar" OF o			
 			BUTTON LABEL 'Insert My Row' 	ACTION 'InsMyRow()'  	GRID 0 CLASS "btn btn-secondary mybtnbar" OF o			
 			BUTTON LABEL 'Reset' 			ACTION 'Reset()'  		GRID 0 CLASS "btn btn-secondary mybtnbar" OF o			
-		END o			
+		ENDROW o			
 		
 		HTML o 
 		

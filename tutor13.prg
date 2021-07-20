@@ -19,7 +19,7 @@ function main()
 					
 				GET ID 'myphone'	VALUE '' 	GRID 4 READONLY OF o
 			
-			END o		
+			ENDROW o		
 			
 			HTML o
 				<script>

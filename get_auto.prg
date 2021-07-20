@@ -42,7 +42,7 @@ function main()
         
             GET ID 'myid'  VALUE '' GRID 6 LABEL 'Source: Array' AUTOCOMPLETE aLang OF o
             
-        END o
+        ENDROW o
 		
     END FORM o	
 	

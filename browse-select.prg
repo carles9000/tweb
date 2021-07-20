@@ -18,8 +18,13 @@ function main()
 		ROW o
 		
 			COL o GRID 12
+			
+				//	3 Options
+				//	SELECT 				= Select only one
+				//	MULTISELECT 			= MultiSelect Ctrl+Click or Shift+Click
+				//	SELECT MULTISELECT 	= Multiselect toglee
 
-				DEFINE BROWSE oBrw ID 'ringo' HEIGHT 400 MULTISELECT CLICKSELECT OF o	//	SELECT
+				DEFINE BROWSE oBrw ID 'ringo' SELECT MULTISELECT HEIGHT 400   CLICKSELECT OF o	//	SELECT
 
 					ADD oCol TO oBrw ID 'first' 	HEADER 'First' 	ALIGN 'right'
 					ADD oCol TO oBrw ID 'last'		HEADER 'Last'  	SORT			
@@ -27,11 +32,11 @@ function main()
 
 				INIT BROWSE oBrw DATA aRows
 		
-			END o	
+			ENDCOL o	
 			
 			BUTTON LABEL 'Test' ACTION 'Test()' OF o
 			
-		END o
+		ENDROW o
 		
 		
 
