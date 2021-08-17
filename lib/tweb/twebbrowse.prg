@@ -1,4 +1,12 @@
-//	-------------------------------------------------------------
+//	----------------------------------------------------------------------------
+//	Pendent: Print Format	-> https://live.bootstrap-table.com/code/wenzhixin/510 
+//							-> https://www.programmersought.com/article/15697243852/
+//	----------------------------------------------------------------------------
+#DEFINE UNICODE_TYPE_ANSI          1  // ANSI
+#DEFINE UNICODE_TYPE_UTF8          2  // UTF-8
+#DEFINE UNICODE_TYPE_UTF16LE       3  // UTF-16 little endian (Windows default)
+#DEFINE UNICODE_TYPE_UTF16BE       4  // UTF-16 big endian (*nix default)
+
 	
 CLASS TWebBrowse FROM TWebControl
 
@@ -19,7 +27,7 @@ CLASS TWebBrowse FROM TWebControl
 	DATA lSingleSelect				INIT .F.
 	DATA lRadio						INIT .F.
 	DATA lClickSelect				INIT .F.
-	DATA lVirtualScroll				INIT .F.	//	if .T. can flickering with vertical scrollbar
+	DATA lVirtualScroll			INIT .F.	//	if .T. can flickering with vertical scrollbar
 	DATA lTools						INIT .F.
 	DATA lSmall						INIT .T.
 	DATA lStripped					INIT .F.
@@ -33,6 +41,7 @@ CLASS TWebBrowse FROM TWebControl
 	DATA cPostEdit					INIT ''
 	DATA cRowStyle					INIT ''
 	DATA cToolbar					INIT ''
+
 	
 	DATA cPag_Url					INIT ''	
 	DATA lPag_UseIntermediate		INIT .F.
@@ -110,7 +119,7 @@ METHOD New( oParent, cId, nHeight, lSingleSelect, lRadio, lMultiSelect, lClickSe
 
 RETU SELF
 
-METHOD AddCol( cId, hCfg, cHead, nWidth, lSortable, cAlign, cFormatter, cClass, lEdit, cEdit_Type, cEdit_With, lEdit_Escape, cClass_Event ) CLASS TWebBrowse
+METHOD AddCol( cId, hCfg, cHead, nWidth, lSortable, cAlign, cFormatter, cClass, lEdit, cEdit_Type, cEdit_With, lEdit_Escape, cClass_Event, lHidden ) CLASS TWebBrowse
 
 	LOCAL hDefCol	:= {=>}
 	
@@ -130,6 +139,7 @@ METHOD AddCol( cId, hCfg, cHead, nWidth, lSortable, cAlign, cFormatter, cClass, 
 		hDefCol[ 'edit_with' ]		:= HB_HGetDef( hCfg, 'edit_with', '' ) 
 		hDefCol[ 'edit_escape' ]	:= HB_HGetDef( hCfg, 'edit_escape', .f. ) 
 		hDefCol[ 'class_event' ]	:= HB_HGetDef( hCfg, 'class_event', '' ) 
+		hDefCol[ 'hidden' ]		:= HB_HGetDef( hCfg, 'hidden', .f. ) 
 		
 	
 	ELSE
@@ -145,6 +155,7 @@ METHOD AddCol( cId, hCfg, cHead, nWidth, lSortable, cAlign, cFormatter, cClass, 
 		DEFAULT cEdit_With		TO ''
 		DEFAULT lEdit_Escape	TO .f.
 		DEFAULT cClass_Event	TO ''
+		DEFAULT lHidden			TO .f.
 		
 	
 		hDefCol[ 'id' ] 		:= cId
@@ -159,6 +170,7 @@ METHOD AddCol( cId, hCfg, cHead, nWidth, lSortable, cAlign, cFormatter, cClass, 
 		hDefCol[ 'edit_with' ]	:= cEdit_With
 		hDefCol[ 'edit_escape' ]:= lEdit_Escape
 		hDefCol[ 'class_event' ]:= cClass_Event 
+		hDefCol[ 'hidden' ]:= lHidden
 		
 	
 	ENDIF
@@ -312,93 +324,96 @@ METHOD Activate() CLASS TWebBrowse
 								
 									aField 		:= HB_HPairAt( ::hCols, n )
 									cField		:= aField[1]
-									hDef 		:= aField[2]	
-									
+									hDef 		:= aField[2]
+
+									if ! hDef[ 'hidden'] 									
 							
-									cHtml += '<th data-field="' + cField + '" '
-									cHtml += 'data-width="' + valtochar(hDef[ 'width' ]) + '" '
-									cHtml += 'data-sortable="' + IF( hDef[ 'sortable' ], 'true', 'false' ) + '" '
-									//cHtml += 'data-escape="false" '
-									
-									if !empty( hDef[ 'class' ] )										
-										cHtml += 'data-cell-style="' + hDef[ 'class' ] + '" '
-									endif
-									
-								
-									
-									if !empty( hDef[ 'formatter' ] )	
-									
-										cHtml += 'data-formatter="' + hDef[ 'formatter' ] + '" '
+										cHtml += '<th data-field="' + cField + '" '
+										cHtml += 'data-width="' + valtochar(hDef[ 'width' ]) + '" '
+										cHtml += 'data-sortable="' + IF( hDef[ 'sortable' ], 'true', 'false' ) + '" '
+										//cHtml += 'data-escape="false" '
 										
-									else
+										if !empty( hDef[ 'class' ] )										
+											cHtml += 'data-cell-style="' + hDef[ 'class' ] + '" '
+										endif
+										
 									
-										do case
-											case  hDef[ 'edit_type' ] == 'COMBOBOX' 
+										
+										if !empty( hDef[ 'formatter' ] )	
+										
+											cHtml += 'data-formatter="' + hDef[ 'formatter' ] + '" '
 											
-												if empty( hDef[ 'formatter' ] )
-													cHtml += 'data-formatter="TWebBrwFormatterCombo_' + ::cId + '" '
-
-													if !lCombo 											
-														lCombo := .T.
-														?? '<script>' 
-														??	"var __oBrw_" + ::cId + " = new Object();"																				
-														?? '</script>' 																																																
-													endif 
-													
-													u := hb_jsonencode( hDef[ 'edit_with' ] )
-													
-													?? '<script>' 											
-													??	"__oBrw_" + ::cId + "[ '" + hDef[ 'id' ]  + "' ] = JSON.parse( '" + u + "' );"										
-													?? '</script>' 											
-													
-												endif																																	
-											
-											case  hDef[ 'edit_type' ] == 'CHECKBOX' .OR. hDef[ 'edit_type' ] == 'L'
-											
-												if empty( hDef[ 'formatter' ] )
+										else
+										
+											do case
+												case  hDef[ 'edit_type' ] == 'COMBOBOX' 
 												
-													if !lLogic
-														lLogic := .T.
+													if empty( hDef[ 'formatter' ] )
+														cHtml += 'data-formatter="TWebBrwFormatterCombo_' + ::cId + '" '
+
+														if !lCombo 											
+															lCombo := .T.
+															?? '<script>' 
+															??	"var __oBrw_" + ::cId + " = new Object();"																				
+															?? '</script>' 																																																
+														endif 
+														
+														u := hb_jsonencode( hDef[ 'edit_with' ] )
+														
+														?? '<script>' 											
+														??	"__oBrw_" + ::cId + "[ '" + hDef[ 'id' ]  + "' ] = JSON.parse( '" + u + "' );"										
+														?? '</script>' 											
+														
+													endif																																	
+												
+												case  hDef[ 'edit_type' ] == 'CHECKBOX' .OR. hDef[ 'edit_type' ] == 'L'
+												
+													if empty( hDef[ 'formatter' ] )
+													
+														if !lLogic
+															lLogic := .T.
+														endif
+													
+														cHtml += 'data-formatter="TWebBrwFormatterLogic_' + ::cId + '" '
+														
+														hDef[ 'align' ] = 'center'
+														
 													endif
-												
-													cHtml += 'data-formatter="TWebBrwFormatterLogic_' + ::cId + '" '
 													
-													hDef[ 'align' ] = 'center'
+												case  hDef[ 'edit_type' ] == 'D'
+												
+													if empty( hDef[ 'formatter' ] )
 													
-												endif
-												
-											case  hDef[ 'edit_type' ] == 'D'
-											
-												if empty( hDef[ 'formatter' ] )
-												
-													if !lDate
-														lDate := .T.
-													endif
-												
-													cHtml += 'data-formatter="TWebBrwFormatterDate_' + ::cId + '" '
+														if !lDate
+															lDate := .T.
+														endif
 													
-							
-												endif		
+														cHtml += 'data-formatter="TWebBrwFormatterDate_' + ::cId + '" '
+														
+								
+													endif													
 
-											case  hDef[ 'edit_type' ] == 'B'
+												case  hDef[ 'edit_type' ] == 'B'
 
-												//if ! empty( hDef[ 'edit_action' ] ) .and. 
-													//cHtml += 'data-events="TWebOperateEvents" '
-												//endif
-											
-										endcase
+													//if ! empty( hDef[ 'edit_action' ] ) .and. 
+														//cHtml += 'data-events="TWebOperateEvents" '
+													//endif
+												
+											endcase
+										
+										endif
+										
+										if !empty( hDef[ 'class_event' ] )
+											cHtml += 'data-events="TWebOperateEvents" '
+										endif
+										
+										
+										cHtml += 'data-align="' + hDef[ 'align' ] + '" '
+												
+										
+										cHtml += '>' + hDef[ 'head' ] + '</th>'							
 									
-									endif
-									
-									if !empty( hDef[ 'class_event' ] )
-										cHtml += 'data-events="TWebOperateEvents" '
-									endif
-									
-									
-									cHtml += 'data-align="' + hDef[ 'align' ] + '" '
-											
-									
-									cHtml += '>' + hDef[ 'head' ] + '</th>'							
+									endif 
 
 								NEXT
 								
@@ -566,6 +581,10 @@ CLASS TBrwDataset
 	DATA aError							INIT {}
 	DATA aFields						INIT {}
 	DATA bBeforeSave					INIT NIL 
+
+	DATA lLoadAnsiToUtf8				INIT .t.
+	DATA lSaveUtf8ToAnsi				INIT .t.
+	
 	
 	METHOD New( cAlias ) 				CONSTRUCTOR
 	METHOD Alias()						INLINE ::cAlias
@@ -575,6 +594,7 @@ CLASS TBrwDataset
 	METHOD SaveRow( aRows )		
 	METHOD ValidRow( hRow )		
 	METHOD ReadRow( hRow )	
+				
 	METHOD SetError( cError )		
 	METHOD GetError()					INLINE ::aError 
 	METHOD GetErrorString()	
@@ -605,6 +625,7 @@ METHOD Field( cField, lUpdate, bValidate, lEscape ) CLASS TBrwDataset
 	oItem[ 'escape' ] 		:= lEscape
 	
 	
+	
 	Aadd( ::aFields, oItem )
 
 RETU nil
@@ -625,13 +646,19 @@ METHOD Row() CLASS TBrwDataset
 		cField_Type 	:= ::aFields[nI][ 'field_type' ]		
 		
 		do case
-			//case cField_Type == 'C'  ; uValue := alltrim((::cAlias)->( FieldGet( ::aFields[nI][ 'field_pos' ] ) ))
-			case cField_Type == 'C'  
+
+			case cField_Type == 'C' .or. cField_Type == 'M'
+			
 				uValue := alltrim((::cAlias)->( FieldGet( ::aFields[nI][ 'field_pos' ] ) )) 
 				
 				if ::aFields[nI][ 'escape' ]
 					uValue := UHtmlEncode( uValue )
 				endif
+				
+				if ::lLoadAnsiToUtf8					
+					uValue := UNITOU8( uValue, UNICODE_TYPE_ANSI )
+				endif
+				
 				
 			case cField_Type == 'D'  ; uValue := DToC( (::cAlias)->( FieldGet( ::aFields[nI][ 'field_pos' ] ) ) )
 			otherwise
@@ -646,22 +673,39 @@ METHOD Row() CLASS TBrwDataset
 
 RETU hRow 
 
+/*
+	Method Save() of dataset return array with rows that processed.
+	Every element have newxt structure
+	
+	{ 
+		success	-> .t./.f.
+		id 		-> uniqueid 
+		action 	-> A/U/D	(Add/Update/Delete)
+		item	-> hash of row after processed 
+		msg 	-> message 		
+	}
+
+*/
+
 METHOD Save( aRows ) CLASS TBrwDataset 
 
 	local nRows 		:= len( aRows )
 	local nUpdated 		:= 0
 	local aRowsUpdated 	:= {}
-	local cFormat 		:= Set( _SET_DATEFORMAT, 'YYYY-MM-DD' )
-	local nI, cAction, hRow, lValid, lUpdated, cId, nRecno  
+	local aProcess	 		:= {}
+	local cFormat 			:= Set( _SET_DATEFORMAT, 'YYYY-MM-DD' )
+	local nI, cAction, hRow, lValid, lUpdated, cId, nRecno, cMsg   
+
 
 	for nI := 1 to nRows 
 
 		cAction := aRows[ nI ][ 'action' ]
-		cId 	 := aRows[ nI ][ 'id' ]
-		hRow 	 := aRows[ nI ][ 'row' ]
+		cId 	:= aRows[ nI ][ 'id' ]
+		hRow 	:= aRows[ nI ][ 'row' ]
 		nRecno  := 0
 		
 		lValid		:= .T.
+		
 
 		if valtype( ::bBeforeSave ) == 'B' 	
 			lValid := eval( ::bBeforeSave, Self, hRow, cAction )
@@ -683,26 +727,22 @@ METHOD Save( aRows ) CLASS TBrwDataset
 					
 						lUpdated := ::SaveRow( hRow )
 						
-						if lUpdated 
-							nRecno := (::cAlias)->( Recno() )
-						endif
-						
 					endif
 					
 				case cAction == 'U'
-				
+			
 					::ReadRow( hRow )
+			
 				
 					if ::ValidRow( hRow ) 				
 				
+				
 						(::cAlias)->( DbGoTo( hRow[ '_recno' ] ) )
+			
 						
 						if (::cAlias)->( DbRlock() )
+					
 							lUpdated := ::SaveRow( hRow )
-							
-							if lUpdated 
-								nRecno := (::cAlias)->( Recno() )
-							endif
 							
 						endif
 						
@@ -717,20 +757,31 @@ METHOD Save( aRows ) CLASS TBrwDataset
 						lUpdated := .T.				
 					endif															
 			
-			endcase 
-			
-			if lUpdated
-				nUpdated++
-				Aadd( aRowsUpdated, { 'id' => cId, 'action' => cAction, 'value' => nRecno } )
-			endif
+			endcase 	
 
+			
+			
+			Aadd( aProcess, { 'success' 	=> lUpdated,;
+								'id' 		=> hRow[ '_recno' ],;
+								'action' 	=> cAction, ;
+								'item' 		=> if( lUpdated,::Row(), nil) ,;
+								'msg' 		=> ::GetErrorString()	 } )
+
+		else 
+		
+			Aadd( aProcess, { 'success' 	=> .F. ,;
+								'id' 		=> hRow[ '_recno' ],;
+								'action' 	=> cAction, ;
+								'item' 		=> nil ,;
+								'msg' 		=> ::GetErrorString()	 } )		
 		endif 
+		
 	
 	next
 	
 	Set( _SET_DATEFORMAT, cFormat )
 
-RETU aRowsUpdated
+RETU aProcess 
 
 METHOD SaveRow( hRow ) CLASS TBrwDataset 
 
@@ -752,8 +803,14 @@ METHOD SaveRow( hRow ) CLASS TBrwDataset
 		if lUpdate .and. HB_HHasKey( hRow, cField )
 			
 			do case 
-				case cField_Type == 'C'
-					::aFields[nI][ 'value' ] := hRow[ cField ] 
+				case cField_Type == 'C' .or. cField_Type == 'M'
+				
+					if ::lSaveUtf8ToAnsi
+						::aFields[nI][ 'value' ] := U8TOUNI( hRow[ cField ], UNICODE_TYPE_ANSI )
+					else
+						::aFields[nI][ 'value' ] := hRow[ cField ] 
+					endif												
+						
 				case cField_Type == 'D'
 					if valtype( hRow[ cField ] ) == 'C'															
 						::aFields[nI][ 'value' ] := CToD( hRow[ cField ] )
@@ -776,12 +833,12 @@ METHOD SaveRow( hRow ) CLASS TBrwDataset
 	
 	// 	Validate Data 
 	
-		lValid	:= ::ValidRow( hRow )
+
 			
 	
 	// Save data
 	
-	if lValid 
+
 	
 		bErrorHandler 	:= {|oError| DoBreak(oError) }  
 		bLastHandler 	:= ErrorBlock(bErrorHandler)
@@ -802,7 +859,7 @@ METHOD SaveRow( hRow ) CLASS TBrwDataset
 
 		ErrorBlock(bLastHandler)		
 	
-	endif	
+
 
 RETU lValid
 
@@ -817,7 +874,7 @@ METHOD ReadRow( hRow ) CLASS TBrwDataset
 	
 		cField 			:= ::aFields[nI][ 'field' ]
 		cField_Type 	:= ::aFields[nI][ 'field_type' ]
-		nField_Pos 	:= ::aFields[nI][ 'field_pos' ]
+		nField_Pos 		:= ::aFields[nI][ 'field_pos' ]
 		lUpdate 		:= ::aFields[nI][ 'update' ]						
 
 		if lUpdate .and. HB_HHasKey( hRow, cField )
@@ -853,6 +910,8 @@ METHOD ValidRow( hRow ) CLASS TBrwDataset
 	local lValid 	:= .t.
 	local nI, cField, nField_Pos, lUpdate, bValid
 	
+	::aError 	:= {}
+	
 	// Validate Data 
 	
 	for nI := 1 to nLen  
@@ -862,7 +921,7 @@ METHOD ValidRow( hRow ) CLASS TBrwDataset
 		lUpdate 		:= ::aFields[nI][ 'update' ]				
 		bValid 			:= ::aFields[nI][ 'validate' ]
 
-		if lUpdate .and. valtype( bValid ) == 'B'  .and. HB_HHasKey( hRow, cField ) 
+		if lUpdate .and. valtype( bValid ) == 'B'  .and. HB_HHasKey( hRow, cField ) 		
 		
 			if ! eval( bValid, Self, ::aFields[nI][ 'value' ], hRow )
 				lValid := .f.
@@ -873,6 +932,8 @@ METHOD ValidRow( hRow ) CLASS TBrwDataset
 	next				
 
 RETU lValid
+
+
 
 METHOD SetError( cError ) CLASS TBrwDataset 
 

@@ -1,3 +1,20 @@
+17/08/2021
+==========
+Enchanced  Dialog bootstrap draggable. See MsgInfo.prg
+
+15/08/2021
+==========
+Enhanced   Browse Add col HIDDEN clause. See browse-edit-dbf 
+		   Virtual col (TYPE 'V'), now show with format if it's defined
+
+11/08/2021
+==========
+New 	   Browse Dataset. New methods lLoadAnsiToUtf8, lSaveUtf8ToAnsi	
+
+02/08/2021
+==========
+New 	   Browse method JS -> BrowseUpdate()
+
 20/06/2021
 ==========
 New:       New xBrowse. One line of code for create a browse. See xBrowse.prg

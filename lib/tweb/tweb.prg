@@ -24,7 +24,9 @@ static __TWebGlobal
 
 
 #include '..\..\include\hbclass.ch'		//	Special thread static 
-#include 'common.ch'
+#include '..\..\include\common.ch'
+#include '..\..\include\error.ch'
+
 #include 'tweb.ch'
 
 #include 'TWebControl.prg'
@@ -47,6 +49,7 @@ static __TWebGlobal
 #include 'TWebIcon.prg'
 #include 'TWebSession.prg'
 #include 'TWebApache.prg'
+#include 'TWebUnicode.prg'
 
 
 function TWebVersion() ; RETU TWEB_VERSION
@@ -58,7 +61,16 @@ retu HB_GetEnv( 'IS_MERCURY' )
 
 function LoadTWeb( cUrl )
 
+	LOCAL cHtml, lUNC, cSep
+	
 	DEFAULT cUrl TO __TWebGlobal[ 'url_tweb' ]
+	
+	lUNC 		:= "/" $ cUrl
+	cSep 		:= If( lUNC, "/", "\" )
+	
+	if right( cUrl, 1 ) != cSep 
+		cUrl += cSep
+	endif	
 
 retu  TWebLibs( cUrl )	
 
@@ -81,6 +93,9 @@ function LoadTWebTables( cUrl )
 	
 retu cHtml
 
+		//'<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">' + CRLF + ;
+		//'<link href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.0/animate.min.css" rel="stylesheet">' + CRLF 
+		
 function TWebLibs( cUrl ) 
 	
 return '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>' + CRLF + ;
@@ -89,14 +104,14 @@ return '<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.m
 		'<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>' + CRLF + ;
 		'<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">' + CRLF + ;
 		'<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>' + CRLF + ;
-		'<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">' + CRLF + ;
-		'<link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css" rel="stylesheet">' + CRLF + ;
+		'<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"' + CRLF + ;
 		'<script src="' + cUrl + 'lightbox/lightbox.js"></script>' + CRLF + ;
 		'<link href="'  + cUrl + 'lightbox/css/lightbox.css" rel="stylesheet" >' + CRLF + ;		
 		'<script src="' + cUrl + 'notify/bootstrap-notify.js' + '"></script>' + CRLF + ;
 		'<script src="' + cUrl + 'bootbox/bootbox.all.min.js"></script>' + CRLF + ;		
 		'<link href="'  + cUrl + 'tweb.css' + '" rel="stylesheet">' + CRLF + ;		
-		'<script src="' + cUrl + 'tweb.js' + '"></script>' + CRLF 
+		'<script src="' + cUrl + 'tweb.js' + '"></script>' + CRLF +;
+		'<link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css" rel="stylesheet">' + CRLF 
 		
 		//'<script>var Is_Mercury = ' + if( HB_GetEnv( 'IS_MERCURY' ), 'true', 'false' ) + '</script>' + CRLF
 		
