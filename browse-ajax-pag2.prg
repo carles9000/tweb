@@ -36,8 +36,8 @@ function main()
 				ADD oCol TO oBrw ID 'keyno' 	HEADER 'Keyno'  	ALIGN 'center'
 				ADD oCol TO oBrw ID '_recno' 	HEADER 'Recno'  	ALIGN 'center'
 				ADD oCol TO oBrw ID 'first' 	HEADER 'First'   	ALIGN 'right'
-				ADD oCol TO oBrw ID 'last'		HEADER 'Last'  		SORT
-				ADD oCol TO oBrw ID 'street' 	HEADER 'Street' 	SORT					
+				ADD oCol TO oBrw ID 'last'		HEADER 'Last'  		
+				ADD oCol TO oBrw ID 'street' 	HEADER 'Street' 					
 					
             INIT BROWSE oBrw
 			

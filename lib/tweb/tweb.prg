@@ -9,7 +9,7 @@
 static __TWebGlobal 	
 
 
-#define TWEB_VERSION 			'TWeb 1.3'
+#define TWEB_VERSION 			'TWeb 1.4'
 #define TWEB_PATH 				'lib/tweb/'
 #define CRLF 					Chr(13)+Chr(10)
 
@@ -398,11 +398,24 @@ METHOD Activate() CLASS TWeb
 RETU NIL
 
 
-function JSReady( cFunction, cLog ) 
+function JS( cCode ) 
+
+	local cHtml := ''
+
+	DEFAULT cCode TO ''
+
+	cHtml 	+= "<script type='text/javascript'>"
+	cHtml 	+= 		cCode	
+	cHtml 	+= "</script>"
+	
+retu cHtml
+
+
+function JSReady( cCode, cLog ) 
 
 	local cEcho := ''
 
-	DEFAULT cFunction TO ''
+	DEFAULT cCode TO ''
 	DEFAULT cLog TO ''
 
 	cEcho  = "<script type='text/javascript'>"
@@ -412,7 +425,7 @@ function JSReady( cFunction, cLog )
 		cEcho += "console.info( 'info', '" + cLog + "' );"
 	endif
 	
-	cEcho += 		cFunction  + ';'
+	cEcho += 		cCode  + ';'
 	cEcho += "  })"
 	cEcho += "</script>"
 	

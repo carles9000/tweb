@@ -21,8 +21,8 @@
 
 #xcommand DEFINE FORM <oForm> [ID <cId> ] [ACTION <cAction>] [METHOD <cMethod>] => <oForm> := TWebForm():New([<cId>], [<cAction>], [<cMethod>] )
 #xcommand INIT FORM <oForm> [ CLASS <cClass>] => <oForm>:InitForm( [<cClass> ] )
-#xcommand END FORM <oForm> [ START <fOnInit> ]=> ?? <oForm>:Activate( <fOnInit> )
-#xcommand END FORM <oForm> RETURN =>  return <oForm>:Activate()
+#xcommand END FORM <oForm> [ START <fOnInit> ] => ?? <oForm>:Activate( <fOnInit> )
+#xcommand END FORM <oForm> [ START <fOnInit> ] RETURN =>  return <oForm>:Activate( <fOnInit> )
 
 //	Prepro crash...
 //#xcommand CSS <oForm> => #pragma __cstream| <oForm>:Html( '<style>' + %s + '</style>' )

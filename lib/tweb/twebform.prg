@@ -246,7 +246,7 @@ METHOD Activate( fOnInit ) CLASS TWebForm
 
 	if !empty( fOnInit ) 
 
-		::Html( JSReady( fOnInit, 'ON INIT...' ) )	
+		::Html( JSReady( fOnInit ) )	
 	
 	endif
 	

@@ -19,6 +19,9 @@ function main()
 			BUTTON LABEL 'Test TWebBrwSelect()' GRID 6 ACTION 'Test()' OF o      			
 		ENDROW o
 		
+		DIV o ID 'log' 
+		ENDDIV o
+		
 		HTML o
 		
 			<script>			
@@ -28,30 +31,34 @@ function main()
 					
 					var headers = { 'id' : 'Id.' , 'name': 'Item Name', 'price': 'Precio' } 										
 					
-					var rows = [ { 'id' :1 , 'name' : 'Pepi', 'price' : 123  , 'dummy' : 1 } ,
-								 { 'id' :2 , 'name' : 'Mari', 'price' : 345  , 'dummy' : 2 } ,
-								 { 'id' :3 , 'name' : 'Runa', 'price' : 757  , 'dummy' : 3 } ,
-								 { 'id' :4 , 'name' : 'Site', 'price' : 111  , 'dummy' : 4 } , 
-								 { 'id' :5 , 'name' : 'Boyi', 'price' : 222  , 'dummy' : 5 } ,
-								 { 'id' :6 , 'name' : 'John', 'price' : 757  , 'dummy' : 6 } ,
-								 { 'id' :7 , 'name' : 'John', 'price' : 888  , 'dummy' : 7 }, 
-								 { 'id' :8 , 'name' : 'John', 'price' : 777  , 'dummy' : 8 }, 
-								 { 'id' :9 , 'name' : 'John', 'price' : 666  , 'dummy' : 9 }, 
-								 { 'id' :10, 'name' : 'John', 'price' : 555  , 'dummy' : 6 } 
+					var rows = [{ 'id' :1, 'name' : 'Pepi', 'price' : 123  , 'dummy' : 1 } ,
+								{ 'id' :2 , 'name' : 'Mari', 'price' : 345  , 'dummy' : 2 } ,
+								{ 'id' :3 , 'name' : 'Runa', 'price' : 757  , 'dummy' : 3 } ,
+								{ 'id' :4 , 'name' : 'Site', 'price' : 111  , 'dummy' : 4 } , 
+								{ 'id' :5 , 'name' : 'Boyi', 'price' : 222  , 'dummy' : 5 } ,
+								{ 'id' :6 , 'name' : 'John', 'price' : 757  , 'dummy' : 6 } ,
+								{ 'id' :7 , 'name' : 'John', 'price' : 888  , 'dummy' : 7 }, 
+								{ 'id' :8 , 'name' : 'John', 'price' : 777  , 'dummy' : 8 }, 
+								{ 'id' :9 , 'name' : 'John', 'price' : 666  , 'dummy' : 9 }, 
+								{ 'id' :10, 'name' : 'John', 'price' : 555  , 'dummy' : 6 } 
 								]	
 
 					var oOptions = new Object()
-						oOptions[ 'search' ] = false 
-						oOptions[ 'height' ] = 200 
+						oOptions[ 'search' ] = true
+						oOptions[ 'height' ] = 400 
 						//oOptions[ 'select' ] = false
+						
+					$('#log').html('')
 					
 					TWebBrwSelect( headers, rows, myfunc, '<i class="fas fa-user-friends"></i> My Customers', oOptions )
 				}
 		
 				function myfunc( row ) {
 
-					if ( row ) {					
-						MsgInfo( row.name + '<br>' + row.price )					
+					if ( row ) {													
+						$('#log').html( '<b>Name: </b>' + row.name + '<br>' + 
+										'<b>Price: </b>' + row.price + '<br>' +
+										'<b>Dummy: </b>' + row.dummy )
 					}						
 				}
 			

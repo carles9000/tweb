@@ -49,7 +49,7 @@ function main()
 		ENDTEXT 
 		
 	INIT FORM o 
-
+	
 		ROWGROUP o
 		
 			BUTTON LABEL ' Load Data' ICON '<i class="far fa-save"></i>' ACTION 'Load()' CLASS 'btn-secondary mybtnbar' GRID 12 OF o
@@ -76,14 +76,16 @@ function main()
 			oBrw:lVirtualScroll := .t.
 			oBrw:cLocale := 'es-ES'
 
-			ADD oCol TO oBrw ID '_recno'	HEADER 'Recno' 		ALIGN 'center' SORT WIDTH 80 FORMATTER 'MyId' CLASS 'MyCssId'   			
-			ADD oCol TO oBrw ID 'first'		HEADER 'First' 		EDIT SORT
+			ADD oCol TO oBrw ID '_recno'		HEADER 'Recno' 	ALIGN 'center' SORT WIDTH 80 FORMATTER 'MyId' CLASS 'MyCssId'   			
+			ADD oCol TO oBrw ID 'first'		HEADER 'First' 	EDIT SORT
 			ADD oCol TO oBrw ID 'last'		HEADER 'Last' 		EDIT SORT
-			ADD oCol TO oBrw ID 'street'	HEADER 'Street'		EDIT 
-			ADD oCol TO oBrw ID 'married'	HEADER 'Married'	EDIT TYPE "L"
+			ADD oCol TO oBrw ID 'street'		HEADER 'Street'	EDIT HIDDEN 
+			ADD oCol TO oBrw ID 'married'		HEADER 'Married'	EDIT TYPE "S"
 			ADD oCol TO oBrw ID 'hiredate'	HEADER 'Hiredate'	EDIT TYPE 'D'
-			ADD oCol TO oBrw ID 'age'		HEADER 'Age'		EDIT 
-			ADD oCol TO oBrw ID 'notes'	HEADER 'Notes'		EDIT ESCAPE 				
+			ADD oCol TO oBrw ID 'age'			HEADER 'Age'		EDIT 
+			ADD oCol TO oBrw ID 'initials'	HEADER 'Initials'	ALIGN 'center' EDIT TYPE 'V' FORMATTER 'MyKeys' 
+			ADD oCol TO oBrw ID 'notes'		HEADER 'Notes'		EDIT TYPE 'M' ESCAPE 				
+		
 
 		INIT BROWSE oBrw // DATA aRows	
 		
@@ -211,6 +213,13 @@ function main()
 					} else
 						return value 
 				}
+				
+				function MyKeys( value, row ) {	
+					
+					var cValue =  row.first.charAt() + row.last.charAt() 
+					
+					return cValue.toUpperCase()
+				}				
 
 				function MyRowStyle(row, index) {
 					

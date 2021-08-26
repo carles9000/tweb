@@ -58,6 +58,19 @@ function main()
 					alert( 'Execute function MyFunc()' )
 				}
 
+				/*
+	 //$('#myModal').modal({
+	 $('.modal-content').modal({
+		backdrop: false,
+		show: true
+	});
+	*/
+				
+				/*
+				  $('.modal-dialog').draggable({
+					handle: ".modal-header"
+					});
+					*/
 				
 				
 			</script>		
