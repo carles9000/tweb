@@ -32,6 +32,7 @@ CLASS TWebBrowse FROM TWebControl
 	DATA lSmall						INIT .T.
 	DATA lStripped					INIT .F.
 	DATA lDark						INIT .F.
+	DATA lFooter					INIT .F.
 	DATA nHeight					INIT 400
 	DATA cLocale					INIT "en-EN"
 	DATA cData						INIT ''
@@ -83,6 +84,7 @@ METHOD New( oParent, cId, nHeight, lSingleSelect, lRadio, lMultiSelect, lClickSe
 	DEFAULT cToolbar				TO ''
 	DEFAULT cPag_Url				TO ''	
 	DEFAULT lPag_UseIntermediate	TO .F.
+	
 
 
 
@@ -113,13 +115,11 @@ METHOD New( oParent, cId, nHeight, lSingleSelect, lRadio, lMultiSelect, lClickSe
 
 	IF Valtype( oParent ) == 'O'	
 		oParent:AddControl( SELF )	
-	ENDIF
+	ENDIF	
 	
-
-
 RETU SELF
 
-METHOD AddCol( cId, hCfg, cHead, nWidth, lSortable, cAlign, cFormatter, cClass, lEdit, cEdit_Type, cEdit_With, lEdit_Escape, cClass_Event, lHidden ) CLASS TWebBrowse
+METHOD AddCol( cId, hCfg, cHead, nWidth, lSortable, cAlign, cFormatter, cClass, lEdit, cEdit_Type, cEdit_With, lEdit_Escape, cClass_Event, lHidden, cFooter ) CLASS TWebBrowse
 
 	LOCAL hDefCol	:= {=>}
 	
@@ -140,6 +140,7 @@ METHOD AddCol( cId, hCfg, cHead, nWidth, lSortable, cAlign, cFormatter, cClass, 
 		hDefCol[ 'edit_escape' ]	:= HB_HGetDef( hCfg, 'edit_escape', .f. ) 
 		hDefCol[ 'class_event' ]	:= HB_HGetDef( hCfg, 'class_event', '' ) 
 		hDefCol[ 'hidden' ]		:= HB_HGetDef( hCfg, 'hidden', .f. ) 
+		hDefCol[ 'footer' ]		:= HB_HGetDef( hCfg, 'footer', '' ) 
 		
 	
 	ELSE
@@ -156,24 +157,31 @@ METHOD AddCol( cId, hCfg, cHead, nWidth, lSortable, cAlign, cFormatter, cClass, 
 		DEFAULT lEdit_Escape	TO .f.
 		DEFAULT cClass_Event	TO ''
 		DEFAULT lHidden			TO .f.
+		DEFAULT cFooter			TO ''
 		
 	
-		hDefCol[ 'id' ] 		:= cId
-		hDefCol[ 'head' ] 		:= cHead
+		hDefCol[ 'id' ] 			:= cId
+		hDefCol[ 'head' ] 			:= cHead
 		hDefCol[ 'width' ] 		:= nWidth
-		hDefCol[ 'sortable' ] 	:= lSortable 	
-		hDefCol[ 'align' ]		:= cAlign
-		hDefCol[ 'formatter' ]	:= cFormatter
-		hDefCol[ 'class' ]		:= cClass 
-		hDefCol[ 'edit' ]		:= lEdit
-		hDefCol[ 'edit_type' ]	:= upper( cEdit_Type )
-		hDefCol[ 'edit_with' ]	:= cEdit_With
-		hDefCol[ 'edit_escape' ]:= lEdit_Escape
-		hDefCol[ 'class_event' ]:= cClass_Event 
-		hDefCol[ 'hidden' ]:= lHidden
+		hDefCol[ 'sortable' ] 		:= lSortable 	
+		hDefCol[ 'align' ]			:= cAlign
+		hDefCol[ 'formatter' ]		:= cFormatter
+		hDefCol[ 'class' ]			:= cClass 
+		hDefCol[ 'edit' ]			:= lEdit
+		hDefCol[ 'edit_type' ]		:= upper( cEdit_Type )
+		hDefCol[ 'edit_with' ]		:= cEdit_With
+		hDefCol[ 'edit_escape' ]	:= lEdit_Escape
+		hDefCol[ 'class_event' ]	:= cClass_Event 
+		hDefCol[ 'hidden' ]		:= lHidden
+		hDefCol[ 'footer' ]		:= cFooter
 		
 	
 	ENDIF
+	
+	if !empty( hDefCol[ 'footer' ] )
+		::lFooter := .t.
+	endif
+	
 	
 	::hCols[ cId ] := hDefCol		
 
@@ -263,6 +271,10 @@ METHOD Activate() CLASS TWebBrowse
 					if !empty( ::cUniqueId ) 					
 						cHtml += 'data-unique-id="' + ::cUniqueId + '" '
 					endif
+					
+					if ::lFooter 
+						cHtml += 'data-show-footer="true" '
+					endif					
 
 					
 	//	Pagination 
@@ -337,7 +349,9 @@ METHOD Activate() CLASS TWebBrowse
 											cHtml += 'data-cell-style="' + hDef[ 'class' ] + '" '
 										endif
 										
-									
+										if !empty( hDef[ 'footer' ] )												
+											cHtml += 'data-footer-formatter="' + hDef[ 'footer' ] + '" '
+										endif																			
 										
 										if !empty( hDef[ 'formatter' ] )	
 										

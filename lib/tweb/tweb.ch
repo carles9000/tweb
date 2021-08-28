@@ -202,6 +202,7 @@
 	
 #xcommand ADD <oCol> TO <oBrw> ID <cId> ;
 		[ HEADER <cHeader> ] ;		
+		[ FOOTER <cFooter> ] ;		
 		[ WIDTH <nWidth> ] ;
 		[ ALIGN <cAlign> ] ;
 		[ FORMATTER <cFormatter> ] ;
@@ -211,7 +212,7 @@
 		[ <lEdit: EDIT> ] [ [ TYPE <cEdit_Type> ] [ WITH <cEdit_With> ] [ <lEscape: ESCAPE> ] ] ;
 		[ <lHidden: HIDDEN> ];
 	=> ;						
-		<oCol> := <oBrw>:AddCol( <cId>, nil, [<cHeader>], [<nWidth>], [<.lSort.>], [<cAlign>], [<cFormatter>], [<cClass>], [<.lEdit.>], [<cEdit_Type>], [<cEdit_With>], [<.lEscape.>], [<cClassEvent>], [<.lHidden.>] )
+		<oCol> := <oBrw>:AddCol( <cId>, nil, [<cHeader>], [<nWidth>], [<.lSort.>], [<cAlign>], [<cFormatter>], [<cClass>], [<.lEdit.>], [<cEdit_Type>], [<cEdit_With>], [<.lEscape.>], [<cClassEvent>], [<.lHidden.>], [<cFooter>] )
 
 #xcommand INIT BROWSE <oBrw> [ JAVASCRIPT <cVar> ] [ DATA <aRows> ] ;
 	=> ;
