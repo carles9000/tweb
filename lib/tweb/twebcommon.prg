@@ -282,7 +282,9 @@ return AllTrim( If( n > 0 .and. Len( cExt ) > n,;
 
 function cTempFile( cPath, cExtension )        // returns a temporary filename
 
-   local cFileName
+   local cChars 		:= "0123456789abcdef"   
+   local cFileName		:= ''   
+   local n
 
    static cOldName
 
@@ -292,10 +294,23 @@ function cTempFile( cPath, cExtension )        // returns a temporary filename
    if ! Empty( cExtension ) .and. ! "." $ cExtension
       cExtension = "." + cExtension
    endif
+   
+   for n = 1 to 8
+      cFileName += SubStr( cChars, hb_Random( 1, 16 ), 1 )
+   next   
+   
 
    //while File( cFileName := ( cPath + LTrim( Str( GetTickCount() ) ) + cExtension ) ) .or. ;
-   while File( cFileName := ( cPath + LTrim( Str( hb_milliseconds() ) ) + cExtension ) ) .or. ;
+   //while File( cFileName := ( cPath + LTrim( Str( hb_milliseconds() ) ) + cExtension ) ) .or. ;
+   while File( cFileName := ( cPath + cFileName + cExtension ) ) .or. ;
       cFileName == cOldName
+
+		cFileName := ''
+		
+	   for n = 1 to 8
+		  cFileName += SubStr( cChars, hb_Random( 1, 16 ), 1 )
+	   next 	  
+	  
    end
 
    cOldName = cFileName

@@ -505,10 +505,12 @@ METHOD Activate() CLASS TWebBrowse
 RETU cHtml
 
 
-METHOD Init( cVarJS, aRows ) CLASS TWebBrowse
+METHOD Init( cVarJS, aRows, aChecked ) CLASS TWebBrowse
 
 	local cVar		:= '_' + ::cId
-	local cRows
+	local cRows, cChecked
+	
+	DEFAULT aChecked	TO {}
 
 	IF cVarJS == NIL
 		cVarJS	:= '_' + ::cId
@@ -567,7 +569,9 @@ METHOD Init( cVarJS, aRows ) CLASS TWebBrowse
 				::cInit += cVarJS + ".Set( 'dblclick', '" + ::cDblClick + "'); "
 			endif		
 		
-		endif		
+		endif
+
+
 		
 		//	----------------------------------------
 
@@ -579,6 +583,12 @@ METHOD Init( cVarJS, aRows ) CLASS TWebBrowse
 		::cInit += "	var aRows = JSON.parse( '" + cRows + "' );	"		+ CRLF
 		::cInit += "	" + cVarJS + '.SetData( aRows ); 	'				+ CRLF
 	ENDIF
+	
+	if len( aChecked ) > 0 
+		cChecked := SetDataJS( aChecked )			
+		::cInit += ' var _aChecked = ' + cChecked + '; '
+		::cInit += cVarJS + ".SetChecked( _aChecked  ); "	+ CRLF 
+	endif	
 	
 	::cInit += '})'															+ CRLF
 	::cInit += '</script>'													+ CRLF

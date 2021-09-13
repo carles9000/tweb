@@ -214,9 +214,9 @@
 	=> ;						
 		<oCol> := <oBrw>:AddCol( <cId>, nil, [<cHeader>], [<nWidth>], [<.lSort.>], [<cAlign>], [<cFormatter>], [<cClass>], [<.lEdit.>], [<cEdit_Type>], [<cEdit_With>], [<.lEscape.>], [<cClassEvent>], [<.lHidden.>], [<cFooter>] )
 
-#xcommand INIT BROWSE <oBrw> [ JAVASCRIPT <cVar> ] [ DATA <aRows> ] ;
+#xcommand INIT BROWSE <oBrw> [ JAVASCRIPT <cVar> ] [ DATA <aRows> ] [ CHECKED <aChecked> ];
 	=> ;
-		<oBrw>:Init( [<cVar>], [<aRows>] )
+		<oBrw>:Init( [<cVar>], [<aRows>], [<aChecked>] )
 		
 #xcommand DEFINE BROWSE [ ID <cId> ] [ DATA <aRows> ] [ UNIQUEID <cUniqueId> ] [ CONFIG <hCfgBrw> ] [ COLS <hCols> ] OF <oForm> ;
 	=> ;

@@ -63,7 +63,7 @@ function main()
 					var nAverage = nTotal/data.length
 										
 					return 'Average: ' + parseFloat(nAverage).toLocaleString(window.document.documentElement.lang)
-				}
+				} 
 				
 			</script>
 			
